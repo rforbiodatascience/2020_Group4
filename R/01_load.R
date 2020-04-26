@@ -11,6 +11,11 @@ tf
 df_relative <- read_excel(path = tf, sheet = 1L)
 df_absolute <- read_excel(path = tf, sheet = 2L)
 
+df_relative %>% 
+  write_csv('data/_raw/relative.csv')
+df_absolute %>% 
+  write_csv('data/_raw/absolute.csv')
+
 #relative_abundance <- read.xlsx(url(), sheetName = "Relative Abundance (%)")
 #absolute_abundance <- read.xlsx(, sheetName = "Absolut Abundance (mg)")
 
