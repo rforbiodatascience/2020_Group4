@@ -4,47 +4,30 @@ library(tidyverse)
 relative <- read_csv("data/_raw/relative.csv")
 
 # Clean data
-SVMP <- relative %>% 
-  select(contains('SVMP (')) %>% 
-  rowSums()
 
-disintegrins <- relative %>% 
-  select(contains('disintegrin,')) %>% 
-  rowSums()
-
-lectins <- relative %>% 
-  select(contains('lectin')) %>% 
-  rowSums()
-
-neurotoxins <- relative %>% 
-  select(contains('NeuroToxin')) %>% 
-  rowSums()
-
-PLA2 <- relative %>% 
-  select(contains('PLA2')) %>% 
-  rowSums()
-
+## Clean toxin names
+rm_percent <- function(string){
+  string <- string %>% 
+    str_sub(start = 1, end = str_length(string)-3)
+  return(string)
+}
 
 relative <- relative %>% 
-  select(-contains('SVMP ('), 
-         -contains('disintegrin,'),
-         -contains('lectin'),
-         -contains('NeuroToxin'),
-         -contains('PLA2')
-         ) %>% 
-  mutate(
-    SVMP = SVMP,
-    disintegrin = disintegrins,
-    lectins = lectins,
-    neurotoxins = neurotoxins,
-    PLA2 = PLA2
-    )
+  rename_if(is_double, rm_percent)
 
-relative %>% 
+## Clean note column and rename to country
+
+
+## Remove toxins with low sums
+summed_toxins <- relative %>% 
   select(-c("Snake", "Reference", "Note", "Sum, %")) %>% 
-  colSums() %>% 
-  View()
+  # colSums() 
+  summarise_all(list(sum)) %>% 
+  pivot_longer(everything()) %>%
+  filter(value > 10)
 
+relative <- relative %>% 
+  select(c("Snake", "Reference", "Note", summed_toxins$name))
 
 # Write cleaned data
 relative %>% 
