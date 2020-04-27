@@ -1,7 +1,7 @@
 library(tidyverse)
 
 # Load raw data
-relative <- read_csv("data/_raw/relative.csv")
+relative <- read_csv("data/_raw/01_relative.csv")
 
 # Clean data
 
@@ -20,7 +20,7 @@ relative <- relative %>%
 
 ## Remove toxins with low sums
 summed_toxins <- relative %>% 
-  select(-c("Snake", "Reference", "Note", "Sum, %")) %>% 
+  select(-c("Snake", "Reference", "Note", "Sum")) %>% 
   # colSums() 
   summarise_all(list(sum)) %>% 
   pivot_longer(everything()) %>%
@@ -31,4 +31,4 @@ relative <- relative %>%
 
 # Write cleaned data
 relative %>% 
-  write_csv('data/relative_clean.csv')
+  write_csv('data/02_relative_clean.csv')
