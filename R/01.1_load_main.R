@@ -18,4 +18,3 @@ df_absolute %>%
 
 #relative_abundance <- read.xlsx(url(), sheetName = "Relative Abundance (%)")
 #absolute_abundance <- read.xlsx(, sheetName = "Absolut Abundance (mg)")
-

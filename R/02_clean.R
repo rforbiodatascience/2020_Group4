@@ -29,6 +29,21 @@ summed_toxins <- relative %>%
 relative <- relative %>% 
   select(c("Snake", "Reference", "Note", summed_toxins$name))
 
+
 # Write cleaned data
 relative %>% 
   write_csv('data/02_relative_clean.csv')
+
+## Add new data
+relative <- relative %>% 
+  rename(`SP (Serine Proteinase)` = "SP (Serine roteinase)",
+         `α-NTx (α-NeuroToxin)` = "?-NTx (?-NeuroToxin)")
+
+new_data <- read_csv("data/01.2_new_data.csv")
+
+relative_new <- relative %>% 
+  full_join(new_data) %>%
+  mutate_each(list(~replace(., which(is.na(.)), 0)))
+
+relative_new %>% 
+  write_csv('data/02_relative_new_clean.csv')
