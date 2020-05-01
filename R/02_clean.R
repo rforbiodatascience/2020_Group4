@@ -2,10 +2,63 @@ library(tidyverse)
 library(dplyr)
 library(stringr)
 
-## Load raw data
+###### Load raw data
 data_raw <- read_csv("data/_raw/01_data_load_relative.csv")
 
-## Clean toxin names (Kan overvejes at undlades, da det er rart at kende enheden)
+###### Clean note column and rename to country
+clean_col <- function(data, str_){
+  data <- data %>% 
+    filter_all(all_vars(!grepl(str_,.)))
+  return (data)
+}
+
+#Condition in data set is that rownames ending with * indicates transcriptomic data
+data_clean <- clean_col(data_raw,"unknown")
+data_clean <- clean_col(data_clean,"\\*")     
+
+#Change name of column to country
+colnames(data_clean)[3] <- "Country" 
+
+
+data <- data %>% 
+  mutate(case_when(Country == "Kentucky" ~ "USA",
+                   Country == "Florida" ~ "USA"))
+
+
+
+data_test <- data_clean
+data_test$Country <- as.character(data_test$Country) %>% 
+  revalue(c("Kentucky"="USA", "Texas"="USA", "Missouri"="USA", "Florida"="USA", "Arizona*"="USA", "New Mexico"="USA"))
+
+unik <- unique(data_clean[3])
+
+"[:punct:]"
+
+# Find unikke navne for note og gruppér (stater --> land)
+
+#brazil: 
+#Juazeiro
+#Ceara
+#Paraiba
+#Pernambuco
+#ilha de Itaparica
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###### Clean toxin names (Kan overvejes at undlades, da det er rart at kende enheden)
 #rm_percent <- function(string){
 #  string <- string %>% 
 #    str_sub(start = 1, end = str_length(string)-3)
@@ -14,30 +67,7 @@ data_raw <- read_csv("data/_raw/01_data_load_relative.csv")
 #relative <- relative %>% 
 #  rename_if(is_double, rm_percent)
 
-## Clean note column and rename to country
-# Søg efter stjerner i snake column og fjern dem (transcriptomics)
-# Find unikke navne for note og gruppér (stater --> land)
-
-clean_col <- function(data, str_){
-  data <- data %>% 
-    filter_all(all_vars(!grepl(str_,.)))
-  return (data)
-}
-
-data_clean <- clean_col(data_raw,"unknown")
-#Condition in data set is that rownames ending with * indicates transcriptomic data
-data_clean <- clean_col(data_clean,"\\*")
-
-#Change name of column to country
-colnames(data_clean)[3] <- "Country" 
-
-clean_country <- function(){
-  
-  
-}
-
-
-## Remove toxins with low sums
+###### Remove toxins with low sums
 summed_toxins <- relative %>% 
   select(-c("Snake", "Reference", "Note", "Sum")) %>% 
   # colSums() 
