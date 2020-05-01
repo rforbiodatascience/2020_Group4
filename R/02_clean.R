@@ -3,7 +3,7 @@ library(dplyr)
 library(stringr)
 
 ## Load raw data
-relative <- read_csv("data/_raw/01_data_load_relative.csv")
+data_raw <- read_csv("data/_raw/01_data_load_relative.csv")
 
 ## Clean toxin names (Kan overvejes at undlades, da det er rart at kende enheden)
 #rm_percent <- function(string){
@@ -18,23 +18,23 @@ relative <- read_csv("data/_raw/01_data_load_relative.csv")
 # Søg efter stjerner i snake column og fjern dem (transcriptomics)
 # Find unikke navne for note og gruppér (stater --> land)
 
-#Condition in data set is that rownames ending with * indicates transcriptomic data
-clean_country_col <- function(col_, str_){
-  col_ <- col_ %>% 
-    filter(col_ == (str_))
-  return (col_)
+clean_col <- function(data, str_){
+  data <- data %>% 
+    filter_all(all_vars(!grepl(str_,.)))
+  return (data)
 }
 
-snake <- relative[1]
-note <- relative[3]
-clean_country_col(snake, "*")
-clean_country_col(note, "unknown")
+data_clean <- clean_col(data_raw,"unknown")
+#Condition in data set is that rownames ending with * indicates transcriptomic data
+data_clean <- clean_col(data_clean,"\\*")
 
-note <- relative[3]
-note <- note %>% 
-  select(contains("Mexico"))
+#Change name of column to country
+colnames(data_clean)[3] <- "Country" 
 
-filter(countries, grepl("aldiv", name, fixed = TRUE))
+clean_country <- function(){
+  
+  
+}
 
 
 ## Remove toxins with low sums
