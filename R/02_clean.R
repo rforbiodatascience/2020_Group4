@@ -148,24 +148,16 @@ is_not_zero <- function(data){
   not_zero <- sum(data != 0)
   return(not_zero)
 }
-
-# d %>% summarise(not_zero = sum(my_var != 0)) 
+relative <- data_raw
 ###### Remove toxins with few occurances
 summed_toxins <- relative %>% 
   select_if(is.numeric) %>% 
-  
-  # summarise_if(if_else(. > 0, 1, 0), n) %>%
-  # pivot_longer(everything()) %>%
-  # mutate(positive = 
-  #          case_when(value > 0 ~ TRUE,
-  #                    value == 0 ~ FALSE)) %>% 
-  # group_by(name) %>% 
-  # summarise(sum(positive)) %>% 
-  filter(`sum(positive)` > 5) %>% 
-  View()
+  summarise_all(is_not_zero) %>% 
+  pivot_longer(everything(), values_to = 'toxin_occurance', names_to = 'toxin') %>%
+  filter(toxin_occurance > 5)
 
 relative <- relative %>% 
-  select(c("Snake", "Reference", "Note", summed_toxins$name))
+  select(c("Snake", "Reference", "Note", summed_toxins$toxin))
 
 
 # Write cleaned data
