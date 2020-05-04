@@ -67,13 +67,26 @@ unik <- unique(data_clean[3])
 #relative <- relative %>% 
 #  rename_if(is_double, rm_percent)
 
+is_positive <- function(val){
+  if(val > 0){
+    return(TRUE)
+  }else(
+    return(FALSE)
+  )
+}
+
 ###### Remove toxins with low sums
 summed_toxins <- relative %>% 
-  select(-c("Snake", "Reference", "Note", "Sum")) %>% 
+  select(-c("Snake", "Reference", "Note", "Sum, %")) %>% 
   # colSums() 
-  summarise_all(list(sum)) %>% 
+  # summarise_if(if_else(. > 0, 1, 0), n) %>%
   pivot_longer(everything()) %>%
-  filter(value > 10)
+  mutate(positive = 
+           case_when(value > 0 ~ TRUE,
+                     value == 0 ~ FALSE)) %>% 
+  group_by(name) %>% 
+  summarise(sum(positive)) %>% 
+  filter(`sum(positive)` > 5)
 
 relative <- relative %>% 
   select(c("Snake", "Reference", "Note", summed_toxins$name))
