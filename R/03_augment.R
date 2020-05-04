@@ -1,7 +1,7 @@
 library(tidyverse)
 
 # Load raw data
-relative <- read_csv("data/02_data_clean.csv")
+data_aug <- read_csv("data/02_data_clean.csv")
 
 # Augment data
 
@@ -32,7 +32,7 @@ unknown <- relative %>%
   rowSums()
 
 
-relative <- relative %>% 
+data_aug <- data_aug %>% 
   select(-contains('SVMP ('), 
          -contains('disintegrin,'),
          -contains('lectin'),
@@ -50,13 +50,30 @@ relative <- relative %>%
   )
 
 ## Create new columns
-relative <- relative %>% 
+data_aug <- data_aug %>% 
   mutate(genus = str_split(Snake, " ", simplify = TRUE)[, 1],
          species = str_split(Snake, " ", simplify = TRUE)[, 2]) %>% 
   select(Snake, genus, species, everything())
   # Do more stuff
   
-  
+
+# 
+Snakedata <- read_csv('data/_raw/Snakedata.csv')
+families <- Snakedata %>% 
+  select('Family', 'Snake genus') %>% 
+  rename(genus = 'Snake genus',
+         family = Family) %>% 
+  unique()
+
+data_aug %>% 
+  left_join(families, by = 'genus') %>% 
+  count(family) %>%
+  View()
+
+
+
+
+
 # Write augmented data
-relative %>% 
+data_aug %>% 
   write_csv('data/03_data_aug.csv')

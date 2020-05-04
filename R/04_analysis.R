@@ -8,7 +8,7 @@ source('R/99_proj_func.R')
 # Most common toxin families (within region, snake family, overall)
 
 # Load augmented data
-data_aug <- read_csv("data/03_relative_aug.csv")
+data_aug <- read_csv("data/03_data_aug.csv")
 
 # Distribution of genera
 data_aug %>% 
