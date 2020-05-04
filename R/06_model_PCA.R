@@ -21,7 +21,7 @@ data_pca %>%
 data_pca_aug <- data_pca %>% augment(data)
 
 data_pca_aug %>% 
-  ggplot(aes(x = .fittedPC1, y = .fittedPC2, colour = genus)) +
+  ggplot(aes(x = .fittedPC1, y = .fittedPC2, colour = family)) +
   geom_point()
 
 ###### K-means

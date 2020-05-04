@@ -65,7 +65,7 @@ families <- Snakedata %>%
          family = Family) %>% 
   unique()
 
-data_aug %>% 
+data_aug <- data_aug %>% 
   left_join(families, by = 'genus')
 
 
