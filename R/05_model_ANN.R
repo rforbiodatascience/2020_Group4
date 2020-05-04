@@ -1,21 +1,19 @@
+#install.packages("keras")
 library('tidyverse')
 library('keras')
 
 
 ###### Load augmented data
-data_1 <- read_csv("data/02_data_clean_relative.csv")
-data_2 <- read_csv("data/02_relative_clean.csv")    
+data <- read_csv("data/03_relative_aug.csv")    
 
 
-nn_dat = iris %>% as_tibble %>%
-  rename(sepal_l_feat = Sepal.Length,
-         sepal_w_feat = Sepal.Width,
-         petal_l_feat = Petal.Length,
-         petal_w_feat = Petal.Width) %>%
-  mutate(class_num = as.numeric(Species) - 1, # factor, so = 0, 1, 2
-         class_label = Species)
+nn_dat = data %>% as_tibble %>%
+  #Add genus labels and factors
+  mutate(class_num = as.numeric(as.factor(genus)) - 1, # factor, so = 0, 1, 2
+         class_label = as.factor(genus)) %>%
+  #Reorganise order of columns
+  select(1:Note, class_label, class_num, everything())
 nn_dat %>% head(3)
-
 
 
 test_f = 0.20
@@ -29,21 +27,21 @@ nn_dat %>% count(partition)
 
 x_train = nn_dat %>%
   filter(partition == 'train') %>%
-  select(contains("feat")) %>%
+  select(8:ncol(nn_dat)) %>%
   as.matrix
 y_train = nn_dat %>%
   filter(partition == 'train') %>%
   pull(class_num) %>%
-  to_categorical(3)
+  to_categorical(max(nn_dat$class_num) + 1)
 
 x_test = nn_dat %>%
   filter(partition == 'test') %>%
-  select(contains("feat")) %>%
+  select(8:ncol(nn_dat)) %>%
   as.matrix
 y_test = nn_dat %>%
   filter(partition == 'test') %>%
   pull(class_num) %>%
-  to_categorical(3)
+  to_categorical(max(nn_dat$class_num) + 1)
 
 
 model = keras_model_sequential() %>% 
