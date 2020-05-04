@@ -1,0 +1,32 @@
+library(broom)
+library(ggplot2)
+
+###### Load augmented data
+data <- read_csv("data/03_relative_aug.csv")  
+
+###### PCA
+data_new <- data %>%
+  as_tibble %>%
+  select(c(-Snake, -genus, -species, -Reference, -Note))
+
+data_pca <- data_new %>%
+  prcomp(center = TRUE, scale. = TRUE)
+
+data_pca %>% 
+  tidy("pcs") %>% 
+  ggplot(aes(x = PC, y = percent)) +
+  geom_col() +
+  theme_bw()
+
+data_pca_aug <- data_pca %>% augment(data)
+
+data_pca_aug %>% 
+  ggplot(aes(x = .fittedPC1, y = .fittedPC2, colour = genus)) +
+  geom_point()
+
+###### K-means
+data_k_org <- data_pca_aug %>%
+  select(contains("SVMP"), contains("PLB")) %>%
+  #select(as.character(.[7:80])) %>%
+  kmeans(centers = 2)
+data_k_org
