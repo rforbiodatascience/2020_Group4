@@ -122,7 +122,7 @@ is_not_zero <- function(data){
   not_zero <- sum(data != 0)
   return(not_zero)
 }
-relative <- data_raw
+relative <- data_clean
 ###### Remove toxins with few occurances
 summed_toxins <- relative %>% 
   select_if(is.numeric) %>% 
