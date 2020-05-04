@@ -7,27 +7,27 @@ data_aug <- read_csv("data/02_data_clean.csv")
 
 
 ## Group toxins
-SVMP <- relative %>% 
+SVMP <- data_aug %>% 
   select(contains('SVMP (')) %>% 
   rowSums()
 
-disintegrins <- relative %>% 
+disintegrins <- data_aug %>% 
   select(contains('disintegrin'), -contains('DC')) %>% 
   rowSums()
 
-lectins <- relative %>% 
+lectins <- data_aug %>% 
   select(contains('lectin')) %>% 
   rowSums()
 
-neurotoxins <- relative %>% 
+neurotoxins <- data_aug %>% 
   select(contains('NeuroToxin')) %>% 
   rowSums()
 
-PLA2 <- relative %>% 
+PLA2 <- data_aug %>% 
   select(contains('PLA2')) %>% 
   rowSums()
 
-unknown <- relative %>% 
+unknown <- data_aug %>% 
   select(contains('Unknown')) %>% 
   rowSums()
 

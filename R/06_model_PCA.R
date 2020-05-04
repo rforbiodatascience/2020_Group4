@@ -2,12 +2,12 @@ library(broom)
 library(ggplot2)
 
 ###### Load augmented data
-data <- read_csv("data/03_relative_aug.csv")  
+data <- read_csv("data/03_data_aug.csv")  
 
 ###### PCA
 data_new <- data %>%
   as_tibble %>%
-  select(c(-Snake, -genus, -species, -Reference, -Note))
+  select_if(is.numeric)
 
 data_pca <- data_new %>%
   prcomp(center = TRUE, scale. = TRUE)
