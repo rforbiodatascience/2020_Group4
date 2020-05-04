@@ -1,7 +1,7 @@
 library(tidyverse)
 
 # Load raw data
-relative <- read_csv("data/02_relative_clean.csv")
+relative <- read_csv("data/02_data_clean.csv")
 
 # Augment data
 
@@ -59,4 +59,4 @@ relative <- relative %>%
   
 # Write augmented data
 relative %>% 
-  write_csv('data/03_relative_aug.csv')
+  write_csv('data/03_data_aug.csv')

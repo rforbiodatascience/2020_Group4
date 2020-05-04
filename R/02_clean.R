@@ -122,32 +122,32 @@ is_not_zero <- function(data){
   not_zero <- sum(data != 0)
   return(not_zero)
 }
-relative <- data_clean
+
 ###### Remove toxins with few occurances
-summed_toxins <- relative %>% 
+summed_toxins <- data_clean %>% 
   select_if(is.numeric) %>% 
   summarise_all(is_not_zero) %>% 
   pivot_longer(everything(), values_to = 'toxin_occurance', names_to = 'toxin') %>%
   filter(toxin_occurance > 5)
 
-relative <- relative %>% 
-  select(c("Snake", "Reference", "Note", summed_toxins$toxin))
+data_clean <- data_clean %>% 
+  select(c("Snake", "Reference", "Region", summed_toxins$toxin))
 
 
 # Write cleaned data
-relative %>% 
-  write_csv('data/02_relative_clean.csv')
+data_clean %>% 
+  write_csv('data/02_data_clean.csv')
 
 ## Add new data
-relative <- relative %>% 
-  rename(`SP (Serine Proteinase)` = "SP (Serine roteinase)",
-         `α-NTx (α-NeuroToxin)` = "?-NTx (?-NeuroToxin)")
+data_clean <- data_clean %>% 
+  rename(`SP (Serine Proteinase)` = "SP (Serine roteinase), %")
+         # `α-NTx (α-NeuroToxin)` = "?-NTx (?-NeuroToxin), %")
 
 new_data <- read_csv("data/01.2_new_data.csv")
 
-relative_new <- relative %>% 
-  full_join(new_data) %>%
+data_clean_new <- data_clean %>% 
+  full_join(new_data, by = c("Snake", "Reference")) %>%
   mutate_each(list(~replace(., which(is.na(.)), 0)))
 
-relative_new %>% 
-  write_csv('data/02_relative_new_clean.csv')
+data_clean_new %>% 
+  write_csv('data/02_data_new_clean.csv')
