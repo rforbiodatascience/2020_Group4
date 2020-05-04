@@ -1,8 +1,4 @@
-#install.packages("devtools", dependencies = TRUE)
-devtools::install_github("rstudio/keras")
-library('keras')
-install_keras()
-library('tidyverse')
+source('R/05_ANN_setup.R')
 
 ###### Load augmented data
 data <- read_csv("data/03_relative_aug.csv")    
@@ -26,21 +22,25 @@ nn_dat %>% count(partition)
 
 x_train <- nn_dat %>%
   filter(partition == 'train') %>%
-  select(8:20) %>%
+  select_if(is.numeric) %>%
+  select(-c(class_num)) %>%
   as.matrix
+
+#This is where it crashes:
 y_train <- nn_dat %>%
   filter(partition == 'train') %>%
   pull(class_num) %>%
-  to_categorical(max(nn_dat$class_num) + 1)
+  as.matrix
 
 x_test <- nn_dat %>%
   filter(partition == 'test') %>%
-  select(8:ncol(nn_dat)) %>%
+  select_if(is.numeric) %>%
+  select(-c(class_num)) %>%
   as.matrix
 y_test <- nn_dat %>%
   filter(partition == 'test') %>%
   pull(class_num) %>%
-  to_categorical(max(nn_dat$class_num) + 1)
+  as.matrix
 
 
 model <- keras_model_sequential() %>% 
