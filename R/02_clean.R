@@ -16,25 +16,102 @@ clean_col <- function(data, str_){
 data_clean <- clean_col(data_raw,"unknown")
 data_clean <- clean_col(data_clean,"\\*")     
 
-#Change name of column to country
-colnames(data_clean)[3] <- "Country" 
-
-
-data <- data %>% 
-  mutate(case_when(Country == "Kentucky" ~ "USA",
-                   Country == "Florida" ~ "USA"))
-
-
 
 data_test <- data_clean
-data_test$Country <- as.character(data_test$Country) %>% 
-  revalue(c("Kentucky"="USA", "Texas"="USA", "Missouri"="USA", "Florida"="USA", "Arizona*"="USA", "New Mexico"="USA"))
-
 unik <- unique(data_clean[3])
+
+data_test <- data_test %>% 
+  mutate(Region = case_when(Note == "Texas" ~ "USA", 
+                            Note == "Kentucky" ~ "USA",
+                            Note == "Missouri" ~ "USA",
+                            Note == "Florida" ~ "USA",
+                            Note == "Caribbean neonate" ~ "Caribbean",
+                            Note == "Caribbean adult" ~ "Caribbean",
+                            Note == "Pacific adult" ~ "Pacific",
+                            Note == "Pacific neonate" ~ "Pacific",
+                            Note == "Costa Rica (Pacific)" ~ "Costa Rica",
+                            Note == "Costa Rica (Carribean)" ~ "Costa Rica",
+                            Note == "Columbia" ~ "Colombia",
+                            Note == "Venezuelan juvenile" ~ "Venezuela",
+                            Note == "Venezuelan adult" ~ "Venezuela",
+                            Note == "Carribean" ~ "Caribbean",
+                            Note == "Juazeiro" ~ "Brazil",
+                            Note == "Ceara" ~ "Brazil",
+                            Note == "Paraiba" ~ "Brazil",
+                            Note == "Pernambuco" ~ "Brazil",
+                            Note == "ilha de Itaparica" ~ "Brazil",
+                            Note == "Adult and young in Brazil" ~ "Brazil",
+                            Note == "Catalina Island 1" ~ "USA",
+                            Note == "Phelan 1" ~ "USA",
+                            Note == "Idyllwild 1" ~ "USA",
+                            Note == "Phelan 2" ~ "USA",
+                            Note == "Loma Linda 1" ~ "USA",
+                            Note == "Idyllwild 3" ~ "USA",
+                            Note == "Idyllwild 2" ~ "USA",
+                            Note == "Phelan 3" ~ "USA",
+                            Note == "Loma Linda 2" ~ "USA",
+                            Note == "Catalina Island 2" ~ "USA",
+                            Note == "Catalina Island 3" ~ "USA",
+                            Note == "Arizona (A-101)" ~ "USA",
+                            Note == "Arizona (F-303)" ~ "USA",
+                            Note == "Arizona (F-307)" ~ "USA",
+                            Note == "Arizona (E-105)" ~ "USA",
+                            Note == "Arizona (E-104)" ~ "USA",
+                            Note == "Arizona (E-106)" ~ "USA",
+                            Note == "Arizona (E-203)" ~ "USA",
+                            Note == "New Mexico (F-301)" ~ "USA",
+                            Note == "Arizona (A-103)" ~ "USA",
+                            Note == "Arizona (E-202)" ~ "USA",
+                            Note == "Arizona (E-204)" ~ "USA",
+                            Note == "Arizona (A-108)" ~ "USA",
+                            Note == "Arizona (B-110)" ~ "USA",
+                            Note == "Arizona (C-107)" ~ "USA",
+                            Note == "Arizona (D-201)" ~ "USA",
+                            Note == "New Mexico (F-302)" ~ "USA",
+                            Note == "New Mexico (F-304)" ~ "USA",
+                            Note == "Arizona (F-306)" ~ "USA",
+                            Note == "Arizona (D-109)" ~ "USA",
+                            Note == "New Mexico (F-305)" ~ "USA",
+                            Note == "Arizona (A-102)" ~ "USA",
+                            Note == "Costa Rican adult" ~ "Costa Rica",
+                            Note == "Costa Rican neonate (6-week-old)" ~ "Costa Rica",
+                            Note == "Mexican adult" ~ "Mexico",
+                            Note == "Mexican neonate" ~ "Mexico",
+                            Note == "Colorado (adult female)" ~ "USA",
+                            Note == "Colorado (adult male)" ~ "USA",
+                            Note == "Colorado (neonate female)" ~ "USA",
+                            Note == "Colorado (neonate male)" ~ "USA",
+                            Note == "Woodlark island" ~ "Papua New Guinea",
+                            Note == "Kansas" ~ "USA",
+                            Note == "Colorado" ~ "USA",
+                            Note == "Ohio" ~ "USA",
+                            Note == "Forida" ~ "USA",
+                            Note == "Saibai Island" ~ "Australia",
+                            Note == "Costa Rican Golfo de Papagayo" ~ "Costa Rica",
+                            Note == "Java Island" ~ "Indonesia",
+                            Note == "East India" ~ "India",
+                            Note == "North-west India" ~ "India",
+                            Note == "Costa Rican neonate" ~ "Costa Rica",
+                            Note == "Chinese adult" ~ "China",
+                            Note == "West India" ~ "India"))
+
+data_test %>% 
+  coalesce(Region, Note)
+
+#To do: 
+# Ryk kolonnen med countries, som en af de f??rste
+# Slet Note kolonnen
+# 
+
+#data_test <- data_clean
+#data_test$Country <- as.character(data_test$Country) %>% 
+#  revalue(c("Kentucky"="USA", "Texas"="USA", "Missouri"="USA", "Florida"="USA", "Arizona*"="USA", "New Mexico"="USA"))
+
+
 
 "[:punct:]"
 
-# Find unikke navne for note og gruppér (stater --> land)
+# Find unikke navne for note og grupp??r (stater --> land)
 
 #brazil: 
 #Juazeiro
@@ -67,26 +144,25 @@ unik <- unique(data_clean[3])
 #relative <- relative %>% 
 #  rename_if(is_double, rm_percent)
 
-is_positive <- function(val){
-  if(val > 0){
-    return(TRUE)
-  }else(
-    return(FALSE)
-  )
+is_not_zero <- function(data){
+  not_zero <- sum(data != 0)
+  return(not_zero)
 }
 
-###### Remove toxins with low sums
+# d %>% summarise(not_zero = sum(my_var != 0)) 
+###### Remove toxins with few occurances
 summed_toxins <- relative %>% 
-  select(-c("Snake", "Reference", "Note", "Sum, %")) %>% 
-  # colSums() 
+  select_if(is.numeric) %>% 
+  
   # summarise_if(if_else(. > 0, 1, 0), n) %>%
-  pivot_longer(everything()) %>%
-  mutate(positive = 
-           case_when(value > 0 ~ TRUE,
-                     value == 0 ~ FALSE)) %>% 
-  group_by(name) %>% 
-  summarise(sum(positive)) %>% 
-  filter(`sum(positive)` > 5)
+  # pivot_longer(everything()) %>%
+  # mutate(positive = 
+  #          case_when(value > 0 ~ TRUE,
+  #                    value == 0 ~ FALSE)) %>% 
+  # group_by(name) %>% 
+  # summarise(sum(positive)) %>% 
+  filter(`sum(positive)` > 5) %>% 
+  View()
 
 relative <- relative %>% 
   select(c("Snake", "Reference", "Note", summed_toxins$name))
