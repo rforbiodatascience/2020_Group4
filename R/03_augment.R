@@ -66,9 +66,7 @@ families <- Snakedata %>%
   unique()
 
 data_aug %>% 
-  left_join(families, by = 'genus') %>% 
-  count(family) %>%
-  View()
+  left_join(families, by = 'genus')
 
 
 
