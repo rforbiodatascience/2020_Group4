@@ -5,23 +5,12 @@ library(stringr)
 ###### Load raw data
 data_raw <- read_csv("data/_raw/01_data_load_relative.csv")
 
-###### Clean note column and rename to country
-clean_col <- function(data, str_){
-  data <- data %>% 
-    filter_all(all_vars(!grepl(str_,.)))
-  return (data)
-}
-
+###### Clean note column and add new column containing grouped regions
 #Condition in data set is that rownames ending with * indicates transcriptomic data
-data_clean <- clean_col(data_raw,"unknown")
-data_clean <- clean_col(data_clean,"\\*")     
-
-
-data_test <- data_clean
-unik <- unique(data_clean[3])
-
-data_test <- data_test %>% 
-  mutate(Region = case_when(Note == "Texas" ~ "USA", 
+data_clean <- data_raw %>% 
+  filter(!(Note %in% c("Origin unknown", "pooled", "neonate", "Adult"))) %>% 
+  filter_all(all_vars(!grepl("\\*",.))) %>% 
+  mutate(new_col = case_when(Note == "Texas" ~ "USA", 
                             Note == "Kentucky" ~ "USA",
                             Note == "Missouri" ~ "USA",
                             Note == "Florida" ~ "USA",
@@ -75,6 +64,7 @@ data_test <- data_test %>%
                             Note == "Arizona (A-102)" ~ "USA",
                             Note == "Costa Rican adult" ~ "Costa Rica",
                             Note == "Costa Rican neonate (6-week-old)" ~ "Costa Rica",
+                            Note == "Costa rica" ~ "Costa Rica",
                             Note == "Mexican adult" ~ "Mexico",
                             Note == "Mexican neonate" ~ "Mexico",
                             Note == "Colorado (adult female)" ~ "USA",
@@ -93,32 +83,16 @@ data_test <- data_test %>%
                             Note == "North-west India" ~ "India",
                             Note == "Costa Rican neonate" ~ "Costa Rica",
                             Note == "Chinese adult" ~ "China",
-                            Note == "West India" ~ "India"))
+                            Note == "West India" ~ "India")) %>% 
+  mutate(Region = coalesce(new_col,Note)) %>% 
+  select(c(-Note, -new_col)) 
 
-data_test %>% 
-  coalesce(Region, Note)
+#%>% 
+ # subset(data_clean, select=c(1,"Region",3:-1))
+   
 
 #To do: 
 # Ryk kolonnen med countries, som en af de f??rste
-# Slet Note kolonnen
-# 
-
-#data_test <- data_clean
-#data_test$Country <- as.character(data_test$Country) %>% 
-#  revalue(c("Kentucky"="USA", "Texas"="USA", "Missouri"="USA", "Florida"="USA", "Arizona*"="USA", "New Mexico"="USA"))
-
-
-
-"[:punct:]"
-
-# Find unikke navne for note og grupp??r (stater --> land)
-
-#brazil: 
-#Juazeiro
-#Ceara
-#Paraiba
-#Pernambuco
-#ilha de Itaparica
 
 
 
