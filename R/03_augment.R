@@ -12,7 +12,7 @@ SVMP <- relative %>%
   rowSums()
 
 disintegrins <- relative %>% 
-  select(ends_with('disintegrin')) %>% 
+  select(contains('disintegrin'), -contains('DC')) %>% 
   rowSums()
 
 lectins <- relative %>% 
@@ -27,20 +27,26 @@ PLA2 <- relative %>%
   select(contains('PLA2')) %>% 
   rowSums()
 
+unknown <- relative %>% 
+  select(contains('Unknown')) %>% 
+  rowSums()
+
 
 relative <- relative %>% 
   select(-contains('SVMP ('), 
-         -ends_with('disintegrin'),
+         -contains('disintegrin,'),
          -contains('lectin'),
          -contains('NeuroToxin'),
-         -contains('PLA2')
+         -contains('PLA2'),
+         -contains('Unknown')
   ) %>% 
   mutate(
     SVMP = SVMP,
     disintegrin = disintegrins,
     lectins = lectins,
     neurotoxins = neurotoxins,
-    PLA2 = PLA2
+    PLA2 = PLA2,
+    Unknown = unknown
   )
 
 ## Create new columns
