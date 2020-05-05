@@ -12,6 +12,7 @@ data_aug <- read_csv("data/03_data_aug.csv")
 
 # Distribution of genera
 data_aug %>% 
+  distinct(Snake, genus) %>% 
   ggplot(aes(y = genus)) +
   geom_bar()
 
@@ -39,8 +40,9 @@ data_aug %>%
   filter(value == max(value)) %>%
   View()
 
-# Region with most snakes
+# Region with most different snakes
 data_aug %>% 
-  group_by(Region) %>% 
-  count(Snake) %>% 
+  distinct(Region, Snake) %>% 
+  count(Region) %>%
+  arrange(desc(n)) %>% 
   View()
