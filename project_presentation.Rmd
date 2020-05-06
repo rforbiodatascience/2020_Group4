@@ -1,7 +1,7 @@
 ---
 title: "Project presentation Group 4"
 subtitle: "Composition of snake venom"
-author: "Nikolas Thuesen, Gitte Aasbjerg, Søren Dam & Sofie O. Villumsen"
+author: "Nikolas Thuesen, Gitte Aasbjerg, Søren H. Dam & Sofie O. Villumsen"
 date: "May 14th 2020"
 output:
   ioslides_presentation:

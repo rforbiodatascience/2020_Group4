@@ -14,8 +14,8 @@ USA <- c("Colorado", "Arizona", "Idyllwild", "Loma Linda", "Phelan", "Catalina",
          "Florida", "Kansas", "Colorado", "Ohio", "New Mexico")
 
 data_clean <- data_raw %>% 
-  rename(`SP (Serine Proteinase), %` = "SP (Serine roteinase), %",
-         `α-NTx (α-NeuroToxin)` = "?-NTx (?-NeuroToxin), %") %>% 
+  rename(`SP (Serine Proteinase), %` = `SP (Serine roteinase), %`,
+         `α-NTx (α-NeuroToxin), %` = `?-NTx (?-NeuroToxin), %`) %>% 
   filter(!(str_to_lower(Note) %in% c("origin unknown", "pooled", "neonate", "adult")),
          # Condition in data set is that rownames ending with * indicates transcriptomic data
          str_detect(Snake, '\\*', negate = TRUE)) %>% 
