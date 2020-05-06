@@ -18,7 +18,7 @@ data_pca %>%
   tidy("pcs") %>% 
   ggplot(aes(x = PC, y = percent)) +
   geom_col() +
-  theme_bw()
+  theme_grey()
 
 #Augment
 data_pca_aug <- data_pca %>% 
@@ -43,20 +43,23 @@ data_pca_aug %>%
              y = .fittedPC2,
              colour = family)) +
   geom_point() + 
-  labs(x = x, y = y)
+  labs(x = x, y = y, title = "Plot of PCA", color = "Snake family")
+  theme_grey()
 
 
 ###### K-means
 data_k_org <- data_pca_aug %>%
   select(contains("PC")) %>% 
-         # contains("PLB")) %>%
-  #select(as.character(.[7:80])) %>%
   kmeans(centers = 2)
-data_k_org
 
-data_pca_aug %>% 
+data_pca_aug_k_org <- data_k_org %>%
+  augment(data_pca_aug) %>% 
+  rename(cluster_org = .cluster)
+
+data_pca_aug_k_org %>% 
   ggplot(aes(x = .fittedPC1,
              y = .fittedPC2,
-             colour = data_k_org$cluster)) +
-  geom_point()
-
+             color = cluster_org)) +
+  geom_point() +
+  theme_grey() +
+  labs(x = x, y = y, title = "Plot of k-means", color = "Snake family")
