@@ -60,7 +60,7 @@ data_aug <- data_aug %>%
 
 
 # Add families ------------------------------------------------------------
-Snakedata <- read_csv('data/_raw/Snakedata.csv')
+Snakedata <- read_csv('data/_raw/snake_families.csv')
 families <- Snakedata %>% 
   select('Family', 'Snake genus') %>% 
   rename(genus = 'Snake genus',
