@@ -46,3 +46,4 @@ data_aug %>%
   count(Region) %>%
   arrange(desc(n)) %>% 
   View()
+

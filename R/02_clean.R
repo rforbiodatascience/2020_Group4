@@ -1,37 +1,40 @@
 library(tidyverse)
 library(dplyr)
 library(stringr)
+source('R/99_proj_func.R')
 
-###### Load raw data
+
+# Load raw data -----------------------------------------------------------
 data_raw <- read_csv("data/_raw/01_data_load_relative.csv")
 
 # Virker ikke endnu..
 detect_in_list <- function(string, list){
-  string <- str_split_fixed(string, " ", 2)[1]
-  if(string %in% list){
-    return(TRUE)
-  }else(
-    return(FALSE)
-  )
-}
+  in_list <- list %>% 
+    sapply(str_detect, string = string)
+  return(in_list)
+  }
+
 ###### Clean note column and add new column containing grouped regions
 #Condition in data set is that rownames ending with * indicates transcriptomic data
 Brazilian_cities <- c("Juazeiro", "Ceara", "Paraiba", "Pernambuco", "ilha de Itaparica", "Adult and young in Brazil")
-USA <- c("Colorado", "Arizona", "Idyllwild", "Phelan", "Catalina", "Texas", "Kentucky", "Missouri",
-         "Florida", "Kansas", "Colorado", "Ohio")
+USA <- c("Colorado", "Arizona", "Idyllwild", "Loma Linda", "Phelan", "Catalina", "Texas", "Kentucky", "Missouri",
+         "Florida", "Kansas", "Colorado", "Ohio", "New Mexico")
 data_clean <- data_raw %>% 
+  rename(`SP (Serine Proteinase), %` = "SP (Serine roteinase), %",
+         `α-NTx (α-NeuroToxin)` = "?-NTx (?-NeuroToxin), %") %>% 
   filter(!(str_to_lower(Note) %in% c("origin unknown", "pooled", "neonate", "adult")),
          str_detect(Snake, '\\*', negate = TRUE)) %>% 
   # filter_all(all_vars(!grepl("\\*",.))) %>% 
-  mutate(new_col = case_when(
-                            Note %in% USA ~ "USA",
-                            # detect_in_list(Note, USA) ~ "USA",
-                            str_detect(Note, "New Mexico") ~ "USA",
+  mutate(new_col = case_when(#
+                            detect_in_list(Note, USA) ~ "USA",
+                            # Note %in% USA ~ "USA",
+                            # str_detect(Note, "New Mexico") ~ "USA",
                             # Note == "Texas" ~ "USA", 
                             # Note == "Kentucky" ~ "USA",
                             # Note == "Missouri" ~ "USA",
                             # Note == "Florida" ~ "USA",
                             str_detect(Note, "Caribbean") ~ "Caribbean",
+                            Note == "Carribean" ~ "Caribbean",
                             # Note == "Caribbean neonate" ~ "Caribbean",
                             # Note == "Caribbean adult" ~ "Caribbean",
                             str_detect(Note, "Pacific") ~ "Pacific",
@@ -45,7 +48,6 @@ data_clean <- data_raw %>%
                             # Note == "Venezuelan juvenile" ~ "Venezuela",
                             # Note == "Venezuelan adult" ~ "Venezuela",
                             Note %in% Brazilian_cities ~ "Brazil",
-                            Note == "Carribean" ~ "Caribbean",
                             Note == "Marocco" ~ "Morocco",
                             Note == "Tunesia" ~ "Tunisia",
                             # Note == "Juazeiro" ~ "Brazil",
@@ -58,11 +60,11 @@ data_clean <- data_raw %>%
                             # Note == "Phelan 1" ~ "USA",
                             # Note == "Idyllwild 1" ~ "USA",
                             # Note == "Phelan 2" ~ "USA",
-                            Note == "Loma Linda 1" ~ "USA",
+                            # Note == "Loma Linda 1" ~ "USA",
                             # Note == "Idyllwild 3" ~ "USA",
                             # Note == "Idyllwild 2" ~ "USA",
                             # Note == "Phelan 3" ~ "USA",
-                            Note == "Loma Linda 2" ~ "USA",
+                            # Note == "Loma Linda 2" ~ "USA",
                             # Note == "Catalina Island 2" ~ "USA",
                             # Note == "Catalina Island 3" ~ "USA",
                             # Note == "Arizona (A-101)" ~ "USA",
@@ -72,7 +74,7 @@ data_clean <- data_raw %>%
                             # Note == "Arizona (E-104)" ~ "USA",
                             # Note == "Arizona (E-106)" ~ "USA",
                             # Note == "Arizona (E-203)" ~ "USA",
-                            Note == "New Mexico (F-301)" ~ "USA",
+                            # Note == "New Mexico (F-301)" ~ "USA",
                             # Note == "Arizona (A-103)" ~ "USA",
                             # Note == "Arizona (E-202)" ~ "USA",
                             # Note == "Arizona (E-204)" ~ "USA",
@@ -80,11 +82,11 @@ data_clean <- data_raw %>%
                             # Note == "Arizona (B-110)" ~ "USA",
                             # Note == "Arizona (C-107)" ~ "USA",
                             # Note == "Arizona (D-201)" ~ "USA",
-                            Note == "New Mexico (F-302)" ~ "USA",
-                            Note == "New Mexico (F-304)" ~ "USA",
+                            # Note == "New Mexico (F-302)" ~ "USA",
+                            # Note == "New Mexico (F-304)" ~ "USA",
                             # Note == "Arizona (F-306)" ~ "USA",
                             # Note == "Arizona (D-109)" ~ "USA",
-                            Note == "New Mexico (F-305)" ~ "USA",
+                            # Note == "New Mexico (F-305)" ~ "USA",
                             # Note == "Arizona (A-102)" ~ "USA",
                             # Note == "Costa Rican adult" ~ "Costa Rica",
                             # Note == "Costa Rican neonate (6-week-old)" ~ "Costa Rica",
@@ -92,10 +94,10 @@ data_clean <- data_raw %>%
                             str_detect(Note, "Mexican") ~ "Mexico",
                             # Note == "Mexican adult" ~ "Mexico",
                             # Note == "Mexican neonate" ~ "Mexico",
-                            Note == "Colorado (adult female)" ~ "USA",
-                            Note == "Colorado (adult male)" ~ "USA",
-                            Note == "Colorado (neonate female)" ~ "USA",
-                            Note == "Colorado (neonate male)" ~ "USA",
+                            # Note == "Colorado (adult female)" ~ "USA",
+                            # Note == "Colorado (adult male)" ~ "USA",
+                            # Note == "Colorado (neonate female)" ~ "USA",
+                            # Note == "Colorado (neonate male)" ~ "USA",
                             Note == "Woodlark island" ~ "Papua New Guinea",
                             # Note == "Kansas" ~ "USA",
                             # Note == "Colorado" ~ "USA",
@@ -108,10 +110,12 @@ data_clean <- data_raw %>%
                             # Note == "East India" ~ "India",
                             # Note == "North-west India" ~ "India",
                             # Note == "Costa Rican neonate" ~ "Costa Rica",
-                            Note == "Chinese adult" ~ "China")) %>% 
+                            Note == "Chinese adult" ~ "China",
+                            TRUE ~ Note)) %>% 
                             # Note == "West India" ~ "India")) %>% 
-  mutate(Region = coalesce(new_col, Note)) %>%
-  select(c(-Note, -new_col, -`Sum, %`)) %>% 
+  rename(Region = new_col) %>%
+  # mutate(Region = coalesce(new_col, Note)) %>%
+  select(-c("Note", "Sum, %")) %>% 
   count(Region) %>% 
   View()
 
@@ -146,12 +150,9 @@ data_clean <- data_raw %>%
 #relative <- relative %>% 
 #  rename_if(is_double, rm_percent)
 
-is_not_zero <- function(data){
-  not_zero <- sum(data != 0)
-  return(not_zero)
-}
 
-###### Remove toxins with few occurances
+
+# Remove toxins with few occurances ---------------------------------------
 summed_toxins <- data_clean %>% 
   select_if(is.numeric) %>% 
   summarise_all(is_not_zero) %>% 
@@ -162,15 +163,13 @@ data_clean <- data_clean %>%
   select(c("Snake", "Reference", "Region", summed_toxins$toxin))
 
 
-# Write cleaned data
+
+# Write cleaned data to file ----------------------------------------------
 data_clean %>% 
   write_csv('data/02_data_clean.csv')
 
-## Add new data
-data_clean <- data_clean %>% 
-  rename(`SP (Serine Proteinase)` = "SP (Serine roteinase), %")
-         # `α-NTx (α-NeuroToxin)` = "?-NTx (?-NeuroToxin), %")
 
+# Add new data ------------------------------------------------------------
 new_data <- read_csv("data/01.2_new_data.csv")
 
 data_clean_new <- data_clean %>% 
