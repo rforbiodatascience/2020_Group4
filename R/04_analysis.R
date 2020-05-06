@@ -7,6 +7,10 @@ source('R/99_proj_func.R')
 # Comparative plots of these
 # Most common toxin families (within region, snake family, overall)
 
+# Compare venom composition within one snake species
+# Make plots prettier
+# Map country diversity on world map or the like (if possible)
+
 # Load augmented data
 data_aug <- read_csv("data/03_data_aug.csv")
 
