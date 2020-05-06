@@ -7,12 +7,6 @@ source('R/99_proj_func.R')
 # Load raw data -----------------------------------------------------------
 data_raw <- read_csv("data/_raw/01_data_load_relative.csv")
 
-# Virker ikke endnu..
-detect_in_list <- function(string, list){
-  in_list <- list %>% 
-    sapply(str_detect, string = string)
-  return(in_list)
-  }
 
 ###### Clean note column and add new column containing grouped regions
 #Condition in data set is that rownames ending with * indicates transcriptomic data
@@ -115,9 +109,7 @@ data_clean <- data_raw %>%
                             # Note == "West India" ~ "India")) %>% 
   rename(Region = new_col) %>%
   # mutate(Region = coalesce(new_col, Note)) %>%
-  select(-c("Note", "Sum, %")) %>% 
-  count(Region) %>% 
-  View()
+  select(-c("Note", "Sum, %"))
 
 #%>% 
  # subset(data_clean, select=c(1,"Region",3:-1))
