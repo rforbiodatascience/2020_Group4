@@ -3,7 +3,7 @@ library(tidyverse)
 library(httr)
 library(readxl)
 
-url = "http://tropicalpharmacology.com/wp-content/uploads/2018/05/Venomics_Display_data.xlsx"
+url = "http://tropicalpharmacology.com/wp-content/uploads/2020/05/Venomics_Display_data.xlsx"
 
 httr::GET(url = url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 tf
