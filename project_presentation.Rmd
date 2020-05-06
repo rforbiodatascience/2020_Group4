@@ -1,0 +1,73 @@
+---
+title: "Project presentation Group 4"
+subtitle: "Composition of snake venom"
+author: "Nikolas Thuesen, Gitte Aasbjerg, Søren Dam & Sofie O. Villumsen"
+date: "May 14th 2020"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library('tidyverse')
+```
+
+
+## Project requirements
+Follow the IMRAD standard scientific structure:
+- Introduction
+- Materials and Methods
+- Results (And)
+- Discussion
+With a technical focus, but minding to communicate which-ever biological insights you arrived at
+
+Should not include all your code (we will look into that at the individual examinations), but rather focus on the broader picture of what you did and include data summaries and visualisations
+
+Created using ioslides_presentation rmarkdown (i.e. the right-most doc column in the project organisation will be a rmarkdown based presentation)
+
+
+
+## Introduction
+- Intro to snake venom
+- Data set for the study: 
+  - Venom compositions from snakes all around the world
+- Goal of study:
+  - Group snakes by genus based on venom composition (PCA, K-means, ANN)
+  
+## Introduction to the dataset and cleaning of it
+- Main data
+- New data, adding four snakes
+
+## Materials and methods
+- Talk about how the data sets are merged 
+- Talk about which methods have been used to reach the goal for the study (PCA, K-means, ANN)
+
+## Results from cleaning and augmenting the data
+- Show dirty data vs. clean data
+- Show region, family, genus, species rows
+- Show grouping of the toxin families columns
+
+## Results from PCA and K-means
+- Plots
+
+## Results from ANN
+- Plots
+
+## Discussion
+- Discuss results, what can we say about the data based on the study
+
+
+## Slide with R Output
+
+```{r cars, echo = TRUE}
+summary(cars)
+```
+
+## Slide with Plot
+
+```{r pressure}
+plot(pressure)
+```
