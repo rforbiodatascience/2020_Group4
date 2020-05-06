@@ -1,7 +1,7 @@
 source('R/05_ANN_setup.R')
 
 ###### Load augmented data
-data <- read_csv("data/03_data_augcsv")    
+data <- read_csv("data/03_data_aug.csv")    
 
 nn_dat <- data %>% as_tibble %>%
   #Add genus labels and factors

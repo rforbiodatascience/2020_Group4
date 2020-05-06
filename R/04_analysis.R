@@ -18,6 +18,7 @@ data_aug %>%
 
 
 # Which toxin is most common for each genus
+#### Relative count (divide by genus count)
 toxins <- data_aug %>% 
   select_if(is.numeric)
 data_aug %>% 
@@ -31,6 +32,7 @@ data_aug %>%
   View()
 
 # Which toxin is most abundant for each genus
+#### Relative count (divide by genus count)
 data_aug %>% 
   select(genus, colnames(toxins)) %>% 
   group_by(genus) %>%

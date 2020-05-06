@@ -19,7 +19,7 @@ data_clean <- data_raw %>%
   filter(!(str_to_lower(Note) %in% c("origin unknown", "pooled", "neonate", "adult")),
          # Condition in data set is that rownames ending with * indicates transcriptomic data
          str_detect(Snake, '\\*', negate = TRUE)) %>% 
-  mutate(Region = case_when(#
+  mutate(Region = case_when(
                             detect_in_list(Note, USA) ~ "USA",
                             Note %in% Brazilian_cities ~ "Brazil",
                             str_detect(Note, "Caribbean") ~ "Caribbean",
@@ -43,32 +43,12 @@ data_clean <- data_raw %>%
 
 
 
-# Remove % from toxin names (Optional) ------------------------------------
-#rm_percent <- function(string){
-#  string <- string %>% 
-#    str_sub(start = 1, end = str_length(string)-3)
-#  return(string)
-#}
-#relative <- relative %>% 
-#  rename_if(is_double, rm_percent)
+# Remove % from toxin names ------------------------------------
+data_clean <- data_clean %>%
+ rename_if(is_double, rm_percent)
 
 
 
-# Remove toxins with few occurances ---------------------------------------
-summed_toxins <- data_clean %>% 
-  select_if(is.numeric) %>% 
-  summarise_all(is_not_zero) %>% 
-  pivot_longer(everything(), values_to = 'toxin_occurance', names_to = 'toxin') %>%
-  filter(toxin_occurance > 5)
-
-data_clean <- data_clean %>% 
-  select(c("Snake", "Reference", "Region", summed_toxins$toxin))
-
-
-
-# Write cleaned data to file ----------------------------------------------
-data_clean %>% 
-  write_csv('data/02_data_clean.csv')
 
 
 # Add new data ------------------------------------------------------------
@@ -79,4 +59,4 @@ data_clean_new <- data_clean %>%
   mutate_each(list(~replace(., which(is.na(.)), 0)))
 
 data_clean_new %>% 
-  write_csv('data/02_data_new_clean.csv')
+  write_csv('data/02_data_clean.csv')
