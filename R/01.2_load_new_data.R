@@ -8,7 +8,7 @@ library(tidyverse)
 # Load data ---------------------------------------------------------------
 new_data <- read_sheet('https://docs.google.com/spreadsheets/d/1vLrvvQmQdvCtr6n0hjDbIoLiOv3cHVGx7MK_2w_WH3E/edit#gid=0',
                        sheet = 1,
-                       col_types = 'cnnnn')
+                       col_types = 'cnnn')
 new_meta <- read_sheet('https://docs.google.com/spreadsheets/d/1vLrvvQmQdvCtr6n0hjDbIoLiOv3cHVGx7MK_2w_WH3E/edit#gid=0',
                        sheet = 2)
 # Tidy data ---------------------------------------------------------------
