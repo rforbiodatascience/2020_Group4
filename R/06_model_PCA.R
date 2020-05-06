@@ -43,7 +43,7 @@ data_pca_aug %>%
              y = .fittedPC2,
              colour = family)) +
   geom_point() + 
-  labs(x = x, y = y, title = "Plot of PCA", color = "Snake family")
+  labs(x = x, y = y, title = "Plot of PCA", color = "Snake family") +
   theme_grey()
 
 

@@ -19,7 +19,7 @@ data_clean <- data_raw %>%
   filter(!(str_to_lower(Note) %in% c("origin unknown", "pooled", "neonate", "adult")),
          # Condition in data set is that rownames ending with * indicates transcriptomic data
          str_detect(Snake, '\\*', negate = TRUE)) %>% 
-  mutate(new_col = case_when(#
+  mutate(Region = case_when(#
                             detect_in_list(Note, USA) ~ "USA",
                             Note %in% Brazilian_cities ~ "Brazil",
                             str_detect(Note, "Caribbean") ~ "Caribbean",
@@ -37,7 +37,6 @@ data_clean <- data_raw %>%
                             Note == "Java Island" ~ "Indonesia",
                             Note == "Chinese adult" ~ "China",
                             TRUE ~ Note)) %>% 
-  rename(Region = new_col) %>%
   select(-c("Note", "Sum, %"))
 
 
