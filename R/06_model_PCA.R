@@ -5,6 +5,8 @@ library(tidyverse)
 ###### Load augmented data
 data <- read_csv("data/03_data_aug.csv")  
 
+set.seed(1997)
+
 
 # PCA ---------------------------------------------------------------------
 
@@ -38,7 +40,7 @@ y <- data_pca %>%
   pull(percent)
 y <- str_c("PC2 (", round(y*100, 2), "%)")
 
-#Plot PCA
+#Plot PCA with snake family as labels
 data_pca_aug %>% 
   ggplot(aes(x = .fittedPC1,
              y = .fittedPC2,
@@ -47,7 +49,16 @@ data_pca_aug %>%
   labs(x = x, y = y, title = "Plot of PCA", color = "Snake family") +
   theme_grey()
 
+#Plot PCA with continent of origin as labels
+continent_plot <- data_pca_aug %>% 
+  ggplot(aes(x = (.fittedPC1),
+             y = (.fittedPC2),
+             colour = Continent)) +
+  geom_point(shape = 1, size = 3) + 
+  labs(x = x, y = y, title = "Plot of PCA", color = "Continent of Snake") +
+  theme_grey()
 
+ggsave('results/continent_pca_plot.png', continent_plot, scale = 2)
 
 # K-means -----------------------------------------------------------------
 
