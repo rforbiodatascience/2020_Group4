@@ -5,13 +5,13 @@ library(tidyverse)
 ###### Load augmented data
 data <- read_csv("data/03_data_aug.csv")  
 
-###### PCA
-data_new <- data %>%
-  select_if(is.numeric) %>% 
-  select(-Unknown)
+
+# PCA ---------------------------------------------------------------------
 
 #Create PCA object
-data_pca <- data_new %>%
+data_pca <- data %>%
+  select_if(is.numeric) %>% 
+  select(-Unknown) %>%
   prcomp(center = TRUE, scale. = TRUE)
 
 #Scree plot using broom to tidy
@@ -48,9 +48,8 @@ data_pca_aug %>%
   theme_grey()
 
 
-###### K-means
 
-
+# K-means -----------------------------------------------------------------
 
 data_k_org <- data_pca_aug %>%
   select(contains("PC")) %>% 
