@@ -7,7 +7,8 @@ data <- read_csv("data/03_data_aug.csv")
 
 ###### PCA
 data_new <- data %>%
-  select_if(is.numeric)
+  select_if(is.numeric) %>% 
+  select(-Unknown)
 
 #Create PCA object
 data_pca <- data_new %>%

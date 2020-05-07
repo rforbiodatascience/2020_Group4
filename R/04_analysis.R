@@ -32,8 +32,7 @@ data_aug %>%
   pivot_longer(-genus) %>%
   group_by(genus) %>%
   # count(name) %>% 
-  filter(value == max(value)) %>%
-  View()
+  filter(value == max(value))
 
 # Which toxin is most abundant for each genus
 #### Relative count (divide by genus count)
@@ -43,15 +42,13 @@ data_aug %>%
   summarise_all(sum) %>%
   pivot_longer(-genus) %>%
   group_by(genus) %>%
-  filter(value == max(value)) %>%
-  View()
+  filter(value == max(value))
 
 # Region with most different snakes
 data_aug %>% 
   distinct(Region, Snake) %>% 
   count(Region) %>%
-  arrange(desc(n)) %>% 
-  View()
+  arrange(desc(n))
 
 # Bar chart comparing within snake species
 data_aug %>% 
@@ -67,8 +64,9 @@ data_aug %>%
   theme(legend.position = "none") +
   ylab('Venom composition (%)')
 
+library(plotly)
 
-data_aug %>% 
+p <- data_aug %>% 
   filter(Snake %in% c("Naja kaouthia", "Bothrops atrox")) %>%
   pivot_longer(colnames(toxins), names_to = "Toxin") %>% 
   # group_by(Snake) %>%
@@ -77,7 +75,22 @@ data_aug %>%
   rename(Value = value) %>%
   arrange(desc(Snake)) %>% 
   ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
-  geom_col() +
+  geom_col(position = "fill") +
   coord_flip() +
   theme(legend.position = "none") +
+  ylab('Venom composition')
+
+ggplotly(p)
+
+
+#Compare venom compostion of the two snake families
+family_toxings <- data_aug %>% 
+  pivot_longer(colnames(toxins), names_to = "Toxin") %>% 
+  mutate(value = round(value, 2)) %>%
+  rename(Value = value) %>%
+  arrange(desc(family)) %>% 
+  ggplot(aes(x = family, y = Value, fill = Toxin)) +
+  geom_col(position = "fill") +
+  coord_flip() +
+  #theme(legend.position = "none") +
   ylab('Venom composition (%)')
