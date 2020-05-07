@@ -7,9 +7,6 @@ set.seed(1997)
 ###### Load augmented data
 data <- read_csv("data/03_data_aug.csv")  
 
-set.seed(1997)
-
-
 # PCA ---------------------------------------------------------------------
 
 #Create PCA object
@@ -50,9 +47,8 @@ data_pca_aug %>%
   geom_point() + 
   labs(x = x, y = y, title = "Plot of PCA", color = "Snake family") +
   theme_grey()
-<<<<<<< HEAD
-ggsave("results/06_pca.png", device = "png")
-=======
+
+ggsave("results/06_family_pca.png", device = "png")
 
 #Plot PCA with continent of origin as labels
 continent_plot <- data_pca_aug %>% 
@@ -62,9 +58,8 @@ continent_plot <- data_pca_aug %>%
   geom_point(shape = 1, size = 3) + 
   labs(x = x, y = y, title = "Plot of PCA", color = "Continent of Snake") +
   theme_grey()
->>>>>>> a5f017baefc3fcd69de4e507b9a0f6bc007649bc
 
-ggsave('results/continent_pca_plot.png', continent_plot, scale = 2)
+ggsave('results/06_continent_pca.png', continent_plot, scale = 2)
 
 # K-means -----------------------------------------------------------------
 
