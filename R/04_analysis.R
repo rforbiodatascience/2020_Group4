@@ -16,8 +16,8 @@ data_aug <- read_csv("data/03_data_aug.csv")
 
 # Distribution of genera
 data_aug %>% 
-  distinct(Snake, genus) %>% 
-  ggplot(aes(y = genus)) +
+  distinct(Snake, Genus) %>% 
+  ggplot(aes(y = Genus)) +
   geom_bar()
 
 
@@ -26,22 +26,22 @@ data_aug %>%
 toxins <- data_aug %>% 
   select_if(is.numeric)
 data_aug %>% 
-  select(genus, colnames(toxins)) %>% 
-  group_by(genus) %>%
+  select(Genus, colnames(toxins)) %>% 
+  group_by(Genus) %>%
   summarise_all(is_not_zero) %>%
-  pivot_longer(-genus) %>%
-  group_by(genus) %>%
+  pivot_longer(-Genus) %>%
+  group_by(Genus) %>%
   # count(name) %>% 
   filter(value == max(value))
 
 # Which toxin is most abundant for each genus
 #### Relative count (divide by genus count)
 data_aug %>% 
-  select(genus, colnames(toxins)) %>% 
-  group_by(genus) %>%
+  select(Genus, colnames(toxins)) %>% 
+  group_by(Genus) %>%
   summarise_all(sum) %>%
-  pivot_longer(-genus) %>%
-  group_by(genus) %>%
+  pivot_longer(-Genus) %>%
+  group_by(Genus) %>%
   filter(value == max(value))
 
 # Region with most different snakes
@@ -84,13 +84,16 @@ ggplotly(p)
 
 
 #Compare venom compostion of the two snake families
-family_toxings <- data_aug %>% 
+family_toxins <- data_aug %>% 
   pivot_longer(colnames(toxins), names_to = "Toxin") %>% 
   mutate(value = round(value, 2)) %>%
   rename(Value = value) %>%
-  arrange(desc(family)) %>% 
-  ggplot(aes(x = family, y = Value, fill = Toxin)) +
+  arrange(desc(Family)) %>% 
+  ggplot(aes(x = Family, y = Value, fill = Toxin)) +
   geom_col(position = "fill") +
   coord_flip() +
   #theme(legend.position = "none") +
   ylab('Venom composition (%)')
+
+ggsave(filename = 'results/04_family_toxins.png', family_toxins, 
+       scale = 1.8)

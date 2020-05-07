@@ -5,8 +5,8 @@ data <- read_csv("data/03_data_aug.csv")
 
 nn_dat <- data %>% as_tibble %>%
   #Add genus labels and factors
-  mutate(class_num = as.numeric(as.factor(genus)) - 1, # factor, so = 0, 1, 2
-         class_label = as.factor(genus)) %>%
+  mutate(class_num = as.numeric(as.factor(Genus)) - 1, # factor, so = 0, 1, 2
+         class_label = as.factor(Genus)) %>%
   #Reorganise order of columns
   select(1:Note, class_label, class_num, everything())
 nn_dat %>% head(3)
@@ -23,7 +23,7 @@ nn_dat %>% count(partition)
 x_train <- nn_dat %>%
   filter(partition == 'train') %>%
   select_if(is.numeric) %>%
-  select(-c(class_num)) %>%
+  select(class_num) %>%
   as.matrix
 
 #This is where it crashes:
@@ -35,7 +35,7 @@ y_train <- nn_dat %>%
 x_test <- nn_dat %>%
   filter(partition == 'test') %>%
   select_if(is.numeric) %>%
-  select(-c(class_num)) %>%
+  select(class_num) %>%
   as.matrix
 y_test <- nn_dat %>%
   filter(partition == 'test') %>%

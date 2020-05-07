@@ -40,9 +40,9 @@ data_aug <- data_aug %>%
   ) %>% 
   mutate(
     SVMP = SVMP,
-    disintegrin = disintegrins,
-    lectins = lectins,
-    neurotoxins = neurotoxins,
+    Disintegrin = disintegrins,
+    Lectins = lectins,
+    Neurotoxins = neurotoxins,
     PLA2 = PLA2,
     Unknown = unknown
   )
@@ -63,26 +63,25 @@ data_aug <- data_aug %>%
 
 # Separate snake names ----------------------------------------------------
 data_aug <- data_aug %>% 
-  mutate(genus = str_split(Snake, " ", simplify = TRUE)[, 1],
-         species = str_split(Snake, " ", simplify = TRUE)[, 2]) %>% 
-  select(Snake, genus, species, everything())
+  mutate(Genus = str_split(Snake, " ", simplify = TRUE)[, 1],
+         Species = str_split(Snake, " ", simplify = TRUE)[, 2]) %>% 
+  select(Snake, Genus, Species, everything())
   
 
 
 # Add families ------------------------------------------------------------
 Snakedata <- read_csv('data/_raw/snake_families.csv')
 families <- Snakedata %>% 
-  rename(genus = 'Snake genus',
-         family = Family) %>% 
+  rename(Genus = 'Snake genus') %>% 
   unique()
 
 # Join families to data
 data_aug <- data_aug %>% 
-  left_join(families, by = 'genus')
+  left_join(families, by = "Genus")
 
 # Sanity check
 data_aug %>% 
-  count(family)
+  count(Family)
 
 
 

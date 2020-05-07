@@ -42,7 +42,7 @@ y <- str_c("PC2 (", round(y*100, 2), "%)")
 data_pca_aug %>% 
   ggplot(aes(x = .fittedPC1,
              y = .fittedPC2,
-             colour = family)) +
+             colour = Family)) +
   geom_point() + 
   labs(x = x, y = y, title = "Plot of PCA", color = "Snake family") +
   theme_grey()
