@@ -54,9 +54,8 @@ data_aug %>%
 data_aug %>% 
   filter(Snake == "Naja kaouthia") %>%
   mutate(id = paste(Snake, " (", row_number(), ")", sep = "")) %>%
-  pivot_longer(colnames(toxins), names_to = "Toxin") %>% 
-  mutate(value = round(value, 2)) %>% 
-  rename(Value = value) %>% 
+  pivot_longer(colnames(toxins), names_to = "Toxin", values_to = "Value") %>% 
+  # mutate(Value = round(Value, 2)) %>% 
   arrange(desc(Snake)) %>% 
   ggplot(aes(x = id, y = Value, fill = Toxin)) +
   geom_col() +

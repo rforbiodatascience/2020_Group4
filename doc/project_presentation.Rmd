@@ -12,7 +12,9 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-library('tidyverse')
+library(tidyverse)
+library(png)
+library(knitr)
 ```
 
 
@@ -37,9 +39,9 @@ Created using ioslides_presentation rmarkdown (i.e. the right-most doc column in
 - Goal of study:
   - Group snakes by genus based on venom composition (PCA, K-means, ANN)
   
-## Introduction to the dataset and cleaning of it
+## The dataset
 - Main data
-- New data, adding four snakes
+- New data, adding three snakes from litterature
 
 ## Materials and methods
 - Talk about how the data sets are merged 
@@ -51,10 +53,18 @@ Created using ioslides_presentation rmarkdown (i.e. the right-most doc column in
 - Show grouping of the toxin families columns
 
 ## Results from PCA and K-means
-- Plots
+<!-- - Plots -->
+<!-- ![image](../results/06_pca.png) -->
+```{r out.width = "90%"}
+pca_path = "../results/06_pca.png"
+include_graphics(pca_path)
+
+```
+
 
 ## Results from ANN
 - Plots
+
 
 ## Discussion
 - Discuss results, what can we say about the data based on the study

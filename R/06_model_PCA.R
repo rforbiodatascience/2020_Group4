@@ -2,6 +2,8 @@ library(broom)
 library(ggplot2)
 library(tidyverse)
 
+set.seed(1997)
+
 ###### Load augmented data
 data <- read_csv("data/03_data_aug.csv")  
 
@@ -46,7 +48,7 @@ data_pca_aug %>%
   geom_point() + 
   labs(x = x, y = y, title = "Plot of PCA", color = "Snake family") +
   theme_grey()
-
+ggsave("results/06_pca.png", device = "png")
 
 
 # K-means -----------------------------------------------------------------
@@ -65,4 +67,4 @@ data_pca_aug_k_org %>%
              color = cluster_org)) +
   geom_point() +
   labs(x = x, y = y, title = "Plot of k-means", color = "Snake family")
-
+ggsave("results/06_kmeans.png", device = "png")
