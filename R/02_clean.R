@@ -1,6 +1,4 @@
 library(tidyverse)
-library(dplyr)
-library(stringr)
 source('R/99_proj_func.R')
 
 
@@ -55,7 +53,7 @@ data_clean <- data_clean %>%
 new_data <- read_csv("data/01.2_new_data.csv")
 
 data_clean_new <- data_clean %>% 
-  full_join(new_data, by = c("Snake", "Reference")) %>%
+  full_join(new_data) %>%
   mutate_each(list(~replace(., which(is.na(.)), 0)))
 
 data_clean_new %>% 

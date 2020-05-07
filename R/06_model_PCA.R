@@ -48,6 +48,9 @@ data_pca_aug %>%
 
 
 ###### K-means
+
+
+
 data_k_org <- data_pca_aug %>%
   select(contains("PC")) %>% 
   kmeans(centers = 2)
@@ -61,5 +64,5 @@ data_pca_aug_k_org %>%
              y = .fittedPC2,
              color = cluster_org)) +
   geom_point() +
-  theme_grey() +
   labs(x = x, y = y, title = "Plot of k-means", color = "Snake family")
+
