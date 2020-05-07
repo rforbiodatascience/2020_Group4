@@ -5,8 +5,6 @@ source('R/99_proj_func.R')
 # Load raw data -----------------------------------------------------------
 data_raw <- read_csv("data/_raw/01_data_load_relative.csv")
 
-
-
 # Add new data ------------------------------------------------------------
 new_data <- read_csv("data/01.2_new_data.csv")
 
@@ -51,8 +49,6 @@ data_clean <- data_clean %>%
  rename_if(is_double, rm_percent)
 
 
-
-
 # Add Continent column ----------------------------------------------------
 
 #Add column noting the continents:
@@ -71,8 +67,6 @@ data_clean_new <- data_clean_new %>%
     Region %in% Oceania ~ "Oceania",
     Region %in%  Africa ~ "Africa",
     TRUE ~ Region))
-
-
 
 # Write output clean file -------------------------------------------------
 
