@@ -49,16 +49,15 @@ data_joined <- data_clean %>%
 America <- c("Argentina", "Bolivia", "Brazil", "Colombia", "Ecuador", 
              "Guyana", "Peru", "Venezuela", "USA", "Burkina faso", 
              "Caribbean", "Costa Rica", "Guatemala", "Honduras", "Mexico", "Pacific")
-Europe <- c("France", "Russia", "Croatia")
-Asia <- c("China", "Malaysia", "Vietnam", "Taiwan", "Thailand", "Armenia", "India", "Iran", "Pakistan", "Sri Lanka", "Turkey")
+Eurasia <- c("France", "Russia", "Croatia", "China", "Malaysia", "Vietnam", "Taiwan",
+             "Thailand", "Armenia", "India", "Iran", "Pakistan", "Sri Lanka", "Turkey")
 Oceania <- c("Australia", "Indonesia", "New Guinea", "Papua New Guinea")
 Africa <- c("Ghana", "Kenya", "Morocco", "Nigeria", "North Africa", "Tanzania", "Tunisia", "Uganda")
 
 data_joined <- data_joined %>% 
   mutate(Continent = case_when(
     Country %in% America ~ "America",
-    Country %in%  Europe ~ "Europe",
-    Country %in% Asia ~ "Asia",
+    Country %in%  Euroasia ~ "Eurasia",
     Country %in% Oceania ~ "Oceania",
     Country %in%  Africa ~ "Africa",
     TRUE ~ Country))
