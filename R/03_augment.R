@@ -55,7 +55,7 @@ summed_toxins <- data_aug %>%
   filter(toxin_occurance > 5)
 
 data_aug <- data_aug %>% 
-  select(c("Snake", "Reference", "Region", "Continent", summed_toxins$toxin))
+  select(c("Snake", "Reference", "Country", "Continent", summed_toxins$toxin))
 
 
 

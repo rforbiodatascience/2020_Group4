@@ -17,8 +17,7 @@ new_data <- new_data %>%
   pivot_longer(-Toxin, names_to = "Snake", values_to = "value") %>%
   pivot_wider(names_from = Toxin, values_from = value) %>%
   left_join(new_meta, by = "Snake") %>% 
-  mutate(`Unknown/Undetermined` = 100 - Reduce(`+`, select_if(., is.numeric))) %>% 
-  rename(Region = Country)
+  mutate(`Unknown/Undetermined` = 100 - Reduce(`+`, select_if(., is.numeric)))
 
 
 

@@ -46,8 +46,8 @@ data_aug %>%
 
 # Region with most different snakes
 data_aug %>% 
-  distinct(Region, Snake) %>% 
-  count(Region) %>%
+  distinct(Country, Snake) %>% 
+  count(Country) %>%
   arrange(desc(n))
 
 # Bar chart comparing within snake species

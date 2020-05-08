@@ -1,4 +1,4 @@
-#source('R/05_ANN_setup.R')
+# source('R/05_ANN_setup.R')
 
 rm(list=ls())
 
@@ -13,8 +13,8 @@ data <- read_csv("data/03_data_aug.csv")
 
 nn_dat <- data %>%
   #Add family labels and factors
-  mutate(class_num = as.numeric(as.factor(family)) - 1, # factor, so = 0, 1
-         class_label = as.factor(family)) %>%
+  mutate(class_num = as.numeric(as.factor(Family)) - 1, # factor, so = 0, 1
+         class_label = as.factor(Family)) %>%
   #Reorganise order of columns
   select(1:Region, class_label, class_num, everything())
 nn_dat %>% head(3)
