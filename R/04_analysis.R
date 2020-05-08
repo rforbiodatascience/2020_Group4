@@ -80,12 +80,20 @@ p <- data_aug %>%
   mutate(Value = round(`mean(Value)`, 2)) %>%
   filter(Value > 0) %>%
   ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
-  geom_col(position = "fill") +
+  geom_col() +
+  labs(y = 'Venom composition (%)', 
+       title = "Comparing venom composition",  
+       subtitle = "Viperidae: 'Bothrops atrox', Elapidae: 'Naja kaouthia'" ) +
   coord_flip() +
-  theme(legend.position = "none") +
-  ylab('Venom composition')
+  theme(legend.position = "none") #+
+  #ylab('Venom composition')
 
-ggplotly(p)
+ggplotly(p) %>%
+  layout(title = list(text = paste0('Comparing venom composition',
+                                    '<br>',
+                                    '<sup>',
+                                    'Viperidae: "Bothrops atrox", Elapidae: "Naja kaouthia"',
+                                    '</sup>')))
 
 
 #Compare venom compostion of the two snake families
