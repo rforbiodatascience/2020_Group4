@@ -1,5 +1,6 @@
 # Runall
 
+source('R/00_dependencies.R')
 source('R/01.1_load_main.R')
 source('R/01.2_load_new_data.R')
 source('R/02_clean.R')

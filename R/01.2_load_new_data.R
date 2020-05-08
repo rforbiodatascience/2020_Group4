@@ -1,7 +1,5 @@
-# Add new data
 library(googlesheets4)
 library(tidyverse)
-
 
 # Load data ---------------------------------------------------------------
 new_data <- read_sheet('https://docs.google.com/spreadsheets/d/1vLrvvQmQdvCtr6n0hjDbIoLiOv3cHVGx7MK_2w_WH3E/edit#gid=0',
@@ -9,6 +7,7 @@ new_data <- read_sheet('https://docs.google.com/spreadsheets/d/1vLrvvQmQdvCtr6n0
                        col_types = 'cnnn')
 new_meta <- read_sheet('https://docs.google.com/spreadsheets/d/1vLrvvQmQdvCtr6n0hjDbIoLiOv3cHVGx7MK_2w_WH3E/edit#gid=0',
                        sheet = 2)
+
 # Tidy data ---------------------------------------------------------------
 new_data <- new_data %>% 
   replace(is.na(.), 0) %>% 
@@ -16,8 +15,6 @@ new_data <- new_data %>%
   pivot_wider(names_from = Toxin, values_from = value) %>%
   left_join(new_meta, by = "Snake") %>% 
   mutate(`Unknown/Undetermined` = 100 - Reduce(`+`, select_if(., is.numeric)))
-
-
 
 # Write data --------------------------------------------------------------
 new_data %>% 
