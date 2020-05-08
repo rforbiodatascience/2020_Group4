@@ -92,6 +92,24 @@ p <- data_aug %>%
 ggplotly(p)
 ```
 
+## Test 2
+```{r out.width = "90%"}
+family_toxins <- data_aug %>% 
+  pivot_longer(colnames(toxins),
+               names_to = "Toxin",
+               values_to = "Value") %>% 
+  group_by(Family, Toxin) %>%
+  summarise(mean(Value)) %>%
+  mutate(Value = round(`mean(Value)`, 2)) %>%
+  ggplot(aes(x = Family, y = Value, fill = Toxin)) +
+  geom_col() +
+  coord_flip() +
+  labs(title = "Mean Venom Composition of Viperidae and Elapidae",
+       y = "Mean venom composition (%)") +
+  theme(legend.position = "none")
+ggplotly(family_toxins) 
+```
+
 
 ## Results from ANN
 - Plots

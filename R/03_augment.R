@@ -50,14 +50,14 @@ data_aug <- data_aug %>%
 # Remove toxins with few occurances ---------------------------------------
 summed_toxins <- data_aug %>% 
   select_if(is.numeric) %>% 
+  select(-Unknown) %>% 
   summarise_all(is_not_zero) %>% 
   pivot_longer(everything(), values_to = 'toxin_occurance', names_to = 'toxin') %>%
   filter(toxin_occurance > 5)
 
 data_aug <- data_aug %>% 
-  select(c("Snake", "Reference", "Country", "Continent", summed_toxins$toxin))
-
-
+  select(c("Snake", "Reference", "Country", "Continent", summed_toxins$toxin)) %>% 
+  mutate(Unknown = 100 - Reduce(`+`, select_if(., is.numeric)))
 
 
 

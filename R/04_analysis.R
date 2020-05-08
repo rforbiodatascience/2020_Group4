@@ -3,6 +3,8 @@
 library(tidyverse)
 library(plotly)
 source('R/99_proj_func.R')
+# Store plotly files in results folder
+results_dir = paste0(getwd(),"/results")
 # 
 # Make aggregations, summarizing and comparing toxins between genera or countries
 # Comparative plots of these
@@ -108,15 +110,14 @@ family_toxins <- data_aug %>%
   ggplot(aes(x = Family, y = Value, fill = Toxin)) +
   geom_col() +
   coord_flip() +
-  labs(title = "Venom composition of vipers and elapids",
-       subtitle = "Mean venom composition of the two snake families") +
+  labs(title = "Mean Venom Composition of Viperidae and Elapidae",
+       y = "Mean venom composition (%)") +
   theme(legend.position = "none")
 
-ggplotly(family_toxins) %>%
-  layout(title = list(text = paste0('Venom composition of vipers and elapids',
-                                    '<br>',
-                                    '<sup>',
-                                    'Mean venom composition of the two snake families',
-                                    '</sup>')))
+# ggsave(filename = 'results/04_family_toxins.png', family_toxins, 
+       # scale = 1.8)
+family_plotly <- ggplotly(family_toxins)
+htmlwidgets::saveWidget(family_plotly, file = paste0(results_dir, "/04_family_plotly.html"))
+
 # ggsave(filename = 'results/04_family_toxins.png', family_toxins, 
        # scale = 1.8)
