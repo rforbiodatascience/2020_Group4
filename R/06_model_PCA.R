@@ -1,11 +1,9 @@
 library(broom)
 library(ggplot2)
 library(tidyverse)
-<<<<<<< HEAD
-=======
 
 set.seed(1997)
->>>>>>> 24aae71b8a0813f80f398dbb5b82269327f2030c
+
 
 ###### Load augmented data
 data <- read_csv("data/03_data_aug.csv")  
@@ -13,13 +11,12 @@ data <- read_csv("data/03_data_aug.csv")
 # PCA ---------------------------------------------------------------------
 
 #Create PCA object
-<<<<<<< HEAD
+
 data_pca <- data_new %>%
-=======
+
 data_pca <- data %>%
   select_if(is.numeric) %>% 
   select(-Unknown) %>%
->>>>>>> 24aae71b8a0813f80f398dbb5b82269327f2030c
   prcomp(center = TRUE, scale. = TRUE)
 
 #Scree plot using broom to tidy
@@ -40,7 +37,7 @@ x <- data_pca %>%
   pull(percent)
 x <- str_c("PC1 (", round(x*100, 2), "%)")
 
-<<<<<<< HEAD
+
 #Augment
 data_pca_aug <- data_pca %>% 
   augment(data)
@@ -64,7 +61,6 @@ data_pca_aug %>%
   geom_point() + 
   labs(x = x, y = y)
 
-=======
 y <- data_pca %>% 
   tidy("pcs") %>% 
   filter(PC==2) %>% 
@@ -94,7 +90,6 @@ continent_plot <- data_pca_aug %>%
 ggsave('results/06_continent_pca.png', continent_plot, scale = 2)
 
 # K-means -----------------------------------------------------------------
->>>>>>> 24aae71b8a0813f80f398dbb5b82269327f2030c
 
 data_k_org <- data_pca_aug %>%
   select(contains("PC")) %>% 

@@ -1,6 +1,4 @@
 # Add new data
-# install.packages("googlesheets4")
-
 library(googlesheets4)
 library(tidyverse)
 

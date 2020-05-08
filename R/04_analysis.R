@@ -1,6 +1,7 @@
 # Analysis of the snake data
 
 library(tidyverse)
+library(plotly)
 source('R/99_proj_func.R')
 # 
 # Make aggregations, summarizing and comparing toxins between genera or countries
@@ -44,14 +45,14 @@ data_aug %>%
   group_by(Genus) %>%
   filter(value == max(value))
 
-# Region with most different snakes
+# Country with most different snakes
 data_aug %>% 
   distinct(Country, Snake) %>% 
   count(Country) %>%
   arrange(desc(n))
 
 # Bar chart comparing within snake species
-data_aug %>% 
+p <- data_aug %>% 
   filter(Snake == "Naja kaouthia") %>%
   mutate(id = paste(Snake, " (", row_number(), ")", sep = "")) %>%
   pivot_longer(colnames(toxins), names_to = "Toxin", values_to = "Value") %>% 
@@ -62,8 +63,7 @@ data_aug %>%
   coord_flip() +
   theme(legend.position = "none") +
   ylab('Venom composition (%)')
-
-library(plotly)
+ggplotly(p)
 
 p <- data_aug %>% 
   filter(Snake %in% c("Naja kaouthia", "Bothrops atrox")) %>%
