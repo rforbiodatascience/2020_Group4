@@ -3,6 +3,7 @@ title: "Project presentation Group 4"
 subtitle: "Composition of snake venom"
 author: "Nikolas Thuesen (s152993), Gitte Aasbjerg, Søren H. Dam & Sofie O. Villumsen"
 date: "May 14th 2020"
+runtime: shiny
 output:
   ioslides_presentation:
     widescreen: true
@@ -15,6 +16,8 @@ knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(knitr)
 library(plotly)
+library(shiny)
+source("../R/99_proj_func.R")
 ```
 
 
@@ -124,8 +127,9 @@ ui <- fluidPage(
   fluidRow(
     column(4,
            wellPanel(
-             textInput("Snake", "Snake:", value = ""),
-             textInput("Snake", "Snake:", value = "")
+             selectInput("genus", label = "Genus:", choices = data_aug$Genus, multiple = TRUE),
+             selectInput("species", label = "Species:", choices = data_aug$Species, multiple = TRUE)
+             # textInput("snake2", "Another snake:", value = "")
            )
     ),
     column(8,
@@ -135,8 +139,14 @@ ui <- fluidPage(
 
 apply_filter <- function(data, input){
   data <- data %>% 
-    filter(str_detect(str_to_lower(Snake), str_to_lower(input$snake)),
-           str_detect(str_to_lower(Note), str_to_lower(input$country)),
+    filter(if( !is.null(input$genus) ){
+        data <- data %>% 
+          filter(str_to_lower(Genus) %in% str_to_lower(input$genus))
+  },
+      if( !is.null(input$species) ){
+        data <- data %>% 
+          filter(str_to_lower(Species) %in% str_to_lower(input$species))
+  }else{data}
            )
 }
 
@@ -144,29 +154,26 @@ server <- function(input, output) {
   dataset <- reactive({
       data_aug %>%
         apply_filter(input) %>% 
-        mutate(value = round(value, 2)) %>% 
-        rename(Value = value) %>% 
-        mutate(Snake = reorder(Snake, desc(Snake)))
+        pivot_longer(colnames(toxins),
+               names_to = "Toxin",
+               values_to = "Value") %>% 
+        group_by(Snake, Toxin) %>%
+        summarise(mean(Value)) %>%
+        mutate(Value = round(`mean(Value)`, 2)) %>%
+        filter(Value > 0)
     })
     
   output$plot <- renderPlotly({
     plot <- dataset() %>% 
-      ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
+      ggplot(aes(y = Snake, x = Value, fill = Toxin)) +
       geom_col() +
-      coord_flip() +
+      labs(y = 'Venom composition (%)', 
+       title = "Comparing venom composition",  
+       subtitle = "Viperidae: 'Bothrops atrox', Elapidae: 'Naja kaouthia'" ) +
       theme(legend.position = "none")
-    if( input$dataset == "Relative Abundance"){
-      plot +
-        ylab('Venom composition (%)')
-    }else{
-      plot +
-        ylab('Venom composition (mg)')
-    }
   })
 }
 shinyApp(ui = ui, server = server)
-
-## Slide with R Output
 
 ```
 
