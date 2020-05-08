@@ -1,12 +1,11 @@
 library(tidyverse)
 source('R/99_proj_func.R')
 
-
 # Load raw data -----------------------------------------------------------
 data_raw <- read_csv("data/_raw/01_data_load_relative.csv")
 
 
-###### Clean note column and add new column containing grouped regions
+# Clean column containing regions -----------------------------------------
 Brazilian_cities <- c("Juazeiro", "Ceara", "Paraiba", "Pernambuco", "ilha de Itaparica", "Adult and young in Brazil")
 USA <- c("Colorado", "Arizona", "Idyllwild", "Loma Linda", "Phelan", "Catalina", "Texas", "Kentucky", "Missouri",
          "Florida", "Kansas", "Colorado", "Ohio", "New Mexico", "Forida")
@@ -65,6 +64,5 @@ data_joined <- data_joined %>%
     TRUE ~ Country))
 
 # Write output clean file -------------------------------------------------
-
 data_joined %>% 
   write_csv('data/02_data_clean.csv')

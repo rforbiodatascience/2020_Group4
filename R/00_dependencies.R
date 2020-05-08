@@ -1,5 +1,4 @@
 # Setup script with all packages
-
-packages <- c("httr", "tidyverse", "readxl", 
-              "googlesheets4", "knitr", "plotly")
+packages <- c(require("httr"), require("tidyverse"), require("readxl"), 
+              require("googlesheets4"), require("knitr"), require("plotly"))
 install.packages(packages)
