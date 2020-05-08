@@ -80,7 +80,7 @@ p <- data_aug %>%
   mutate(Value = round(`mean(Value)`, 2)) %>%
   filter(Value > 0) %>%
   ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
-  geom_col(position = "fill") +
+  geom_col() +
   coord_flip() +
   theme(legend.position = "none") +
   ylab('Venom composition')
@@ -90,15 +90,19 @@ ggplotly(p)
 
 #Compare venom compostion of the two snake families
 family_toxins <- data_aug %>% 
-  pivot_longer(colnames(toxins), names_to = "Toxin") %>% 
-  mutate(value = round(value, 2)) %>%
-  rename(Value = value) %>%
-  arrange(desc(Family)) %>% 
+  pivot_longer(colnames(toxins),
+               names_to = "Toxin",
+               values_to = "Value") %>% 
+  group_by(Family, Toxin) %>%
+  summarise(mean(Value)) %>%
+  mutate(Value = round(`mean(Value)`, 2)) %>%
   ggplot(aes(x = Family, y = Value, fill = Toxin)) +
-  geom_col(position = "fill") +
+  geom_col() +
   coord_flip() +
-  #theme(legend.position = "none") +
-  ylab('Venom composition (%)')
+  labs(title = "Venom composition of vipers and elapids",
+       subtitle = "Mean venom composition of the two snake families") +
+  theme(legend.position = "none")
 
-ggsave(filename = 'results/04_family_toxins.png', family_toxins, 
-       scale = 1.8)
+ggplotly(family_toxins)
+# ggsave(filename = 'results/04_family_toxins.png', family_toxins, 
+       # scale = 1.8)
