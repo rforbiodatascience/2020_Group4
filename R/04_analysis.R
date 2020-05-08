@@ -54,25 +54,31 @@ data_aug %>%
 # Bar chart comparing within snake species
 p <- data_aug %>% 
   filter(Snake == "Naja kaouthia") %>%
-  mutate(id = paste(Snake, " (", row_number(), ")", sep = "")) %>%
-  pivot_longer(colnames(toxins), names_to = "Toxin", values_to = "Value") %>% 
+  mutate(Snake = paste(Snake, " (",
+                       row_number(), ")",
+                       sep = "")) %>%
+  pivot_longer(colnames(toxins),
+               names_to = "Toxin",
+               values_to = "Value") %>% 
   # mutate(Value = round(Value, 2)) %>% 
   arrange(desc(Snake)) %>% 
-  ggplot(aes(x = id, y = Value, fill = Toxin)) +
+  ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
   geom_col() +
   coord_flip() +
   theme(legend.position = "none") +
   ylab('Venom composition (%)')
 ggplotly(p)
 
+# Compare snake genera
 p <- data_aug %>% 
   filter(Snake %in% c("Naja kaouthia", "Bothrops atrox")) %>%
-  pivot_longer(colnames(toxins), names_to = "Toxin") %>% 
-  # group_by(Snake) %>%
-  # summarise(value/sum(value)) %>% View()
-  mutate(value = round(value, 2)) %>%
-  rename(Value = value) %>%
-  arrange(desc(Snake)) %>% 
+  pivot_longer(colnames(toxins),
+               names_to = "Toxin",
+               values_to = "Value") %>% 
+  group_by(Snake, Toxin) %>%
+  summarise(mean(Value)) %>%
+  mutate(Value = round(`mean(Value)`, 2)) %>%
+  filter(Value > 0) %>%
   ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
   geom_col(position = "fill") +
   coord_flip() +
