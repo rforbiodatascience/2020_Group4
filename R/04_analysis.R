@@ -41,7 +41,7 @@ data_aug %>%
   arrange(desc(value)) %>% 
   ggplot(aes(x = value, y = name, fill = value)) +
   geom_col() + 
-  labs(y = "Toxins", title = "Abundancy of toxins in 'Bothrops'")
+  labs(y = "Toxins", title = "Abundance of toxins in 'Bothrops'")
 
 
 # Which toxin is most abundant for each genus -----------------------------
@@ -129,4 +129,3 @@ family_toxins <- data_aug %>%
 # Save plot in html file
 family_plotly <- ggplotly(family_toxins)
 htmlwidgets::saveWidget(family_plotly, file = paste0(results_dir, "/04_family_plotly.html"))
-
