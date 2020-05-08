@@ -52,6 +52,13 @@ Created using ioslides_presentation rmarkdown (i.e. the right-most doc column in
 - Show region, family, genus, species rows
 - Show grouping of the toxin families columns
 
+## Augmented data
+```{r}
+# Load augmented data
+data_aug <- read_csv("../data/03_data_aug.csv")
+```
+
+
 ## Results from PCA and K-means
 <!-- - Plots -->
 <!-- ![image](../results/06_pca.png) -->
@@ -64,14 +71,12 @@ include_graphics(pca_path)
 
 ## Test
 ```{r out.width = "90%"}
-# Load augmented data
-data_aug <- read_csv("../data/03_data_aug.csv", )
 toxins <- data_aug %>% 
   select_if(is.numeric)
 # Bar chart comparing within snake species
 p <- data_aug %>% 
   filter(Snake == "Naja kaouthia") %>%
-  mutate(id = paste(Snake, " (",
+  mutate(Snake = paste(Snake, " (",
                     row_number(), ")",
                     sep = "")) %>%
   pivot_longer(colnames(toxins),
@@ -79,7 +84,7 @@ p <- data_aug %>%
                values_to = "Value") %>% 
   # mutate(Value = round(Value, 2)) %>% 
   arrange(desc(Snake)) %>% 
-  ggplot(aes(x = id, y = Value, fill = Toxin)) +
+  ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
   geom_col() +
   coord_flip() +
   theme(legend.position = "none") +
