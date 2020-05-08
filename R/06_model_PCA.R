@@ -65,11 +65,11 @@ y <- data_pca %>%
 y <- str_c("PC2 (", round(y*100, 2), "%)")
 
 #Plot PCA with snake family as labels
-data_pca_aug %>% 
+family_pca <- data_pca_aug %>% 
   ggplot(aes(x = .fittedPC1,
              y = .fittedPC2,
              colour = Family)) +
-  geom_point() + 
+  geom_point(shape = 1, size = 3, alpha = 0.5) + 
   labs(x = x, y = y, title = "Plot of PCA", color = "Snake family") +
   theme_grey()
 

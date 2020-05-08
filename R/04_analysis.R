@@ -114,10 +114,7 @@ family_toxins <- data_aug %>%
        y = "Mean venom composition (%)") +
   theme(legend.position = "none")
 
-# ggsave(filename = 'results/04_family_toxins.png', family_toxins, 
-       # scale = 1.8)
+# Save plot in html file
 family_plotly <- ggplotly(family_toxins)
 htmlwidgets::saveWidget(family_plotly, file = paste0(results_dir, "/04_family_plotly.html"))
 
-# ggsave(filename = 'results/04_family_toxins.png', family_toxins, 
-       # scale = 1.8)

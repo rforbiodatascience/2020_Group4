@@ -118,11 +118,56 @@ ggplotly(family_toxins)
 ## Discussion
 - Discuss results, what can we say about the data based on the study
 
+## Shiny app
+```{r, echo=FALSE}
+ui <- fluidPage(
+  fluidRow(
+    column(4,
+           wellPanel(
+             textInput("Snake", "Snake:", value = ""),
+             textInput("Snake", "Snake:", value = "")
+           )
+    ),
+    column(8,
+           plotlyOutput("plot", height = "400px"))
+  )
+)
+
+apply_filter <- function(data, input){
+  data <- data %>% 
+    filter(str_detect(str_to_lower(Snake), str_to_lower(input$snake)),
+           str_detect(str_to_lower(Note), str_to_lower(input$country)),
+           )
+}
+
+server <- function(input, output) {
+  dataset <- reactive({
+      data_aug %>%
+        apply_filter(input) %>% 
+        mutate(value = round(value, 2)) %>% 
+        rename(Value = value) %>% 
+        mutate(Snake = reorder(Snake, desc(Snake)))
+    })
+    
+  output$plot <- renderPlotly({
+    plot <- dataset() %>% 
+      ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
+      geom_col() +
+      coord_flip() +
+      theme(legend.position = "none")
+    if( input$dataset == "Relative Abundance"){
+      plot +
+        ylab('Venom composition (%)')
+    }else{
+      plot +
+        ylab('Venom composition (mg)')
+    }
+  })
+}
+shinyApp(ui = ui, server = server)
 
 ## Slide with R Output
 
-```{r cars, echo = TRUE}
-summary(cars)
 ```
 
 ## Slide with Plot
