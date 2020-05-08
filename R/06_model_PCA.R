@@ -11,9 +11,6 @@ data <- read_csv("data/03_data_aug.csv")
 # PCA ---------------------------------------------------------------------
 
 #Create PCA object
-
-data_pca <- data_new %>%
-
 data_pca <- data %>%
   select_if(is.numeric) %>% 
   select(-Unknown) %>%
@@ -57,7 +54,7 @@ y <- str_c("PC2 (", round(y*100, 2), "%)")
 
 #Plot PCA
 data_pca_aug %>% 
-  ggplot(aes(x = .fittedPC1, y = .fittedPC2, colour = family)) +
+  ggplot(aes(x = .fittedPC1, y = .fittedPC2, colour = Family)) +
   geom_point() + 
   labs(x = x, y = y)
 
