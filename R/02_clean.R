@@ -57,7 +57,7 @@ Africa <- c("Ghana", "Kenya", "Morocco", "Nigeria", "North Africa", "Tanzania", 
 data_joined <- data_joined %>% 
   mutate(Continent = case_when(
     Country %in% America ~ "America",
-    Country %in%  Euroasia ~ "Eurasia",
+    Country %in%  Eurasia ~ "Eurasia",
     Country %in% Oceania ~ "Oceania",
     Country %in%  Africa ~ "Africa",
     TRUE ~ Country))
