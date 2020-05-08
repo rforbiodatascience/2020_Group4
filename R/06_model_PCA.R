@@ -1,17 +1,25 @@
 library(broom)
 library(ggplot2)
 library(tidyverse)
+<<<<<<< HEAD
+=======
+
+set.seed(1997)
+>>>>>>> 24aae71b8a0813f80f398dbb5b82269327f2030c
 
 ###### Load augmented data
 data <- read_csv("data/03_data_aug.csv")  
 
-###### PCA
-data_new <- data %>%
-  as_tibble %>%
-  select_if(is.numeric)
+# PCA ---------------------------------------------------------------------
 
 #Create PCA object
+<<<<<<< HEAD
 data_pca <- data_new %>%
+=======
+data_pca <- data %>%
+  select_if(is.numeric) %>% 
+  select(-Unknown) %>%
+>>>>>>> 24aae71b8a0813f80f398dbb5b82269327f2030c
   prcomp(center = TRUE, scale. = TRUE)
 
 #Scree plot using broom to tidy
@@ -19,8 +27,20 @@ data_pca %>%
   tidy("pcs") %>% 
   ggplot(aes(x = PC, y = percent)) +
   geom_col() +
-  theme_bw()
+  theme_grey()
 
+#Augment
+data_pca_aug <- data_pca %>% 
+  augment(data)
+
+#Adding percentage to the PCA plot
+x <- data_pca %>% 
+  tidy("pcs") %>% 
+  filter(PC==1) %>% 
+  pull(percent)
+x <- str_c("PC1 (", round(x*100, 2), "%)")
+
+<<<<<<< HEAD
 #Augment
 data_pca_aug <- data_pca %>% 
   augment(data)
@@ -44,10 +64,50 @@ data_pca_aug %>%
   geom_point() + 
   labs(x = x, y = y)
 
+=======
+y <- data_pca %>% 
+  tidy("pcs") %>% 
+  filter(PC==2) %>% 
+  pull(percent)
+y <- str_c("PC2 (", round(y*100, 2), "%)")
 
-###### K-means
+#Plot PCA with snake family as labels
+data_pca_aug %>% 
+  ggplot(aes(x = .fittedPC1,
+             y = .fittedPC2,
+             colour = Family)) +
+  geom_point() + 
+  labs(x = x, y = y, title = "Plot of PCA", color = "Snake family") +
+  theme_grey()
+
+ggsave("results/06_family_pca.png", device = "png")
+
+#Plot PCA with continent of origin as labels
+continent_plot <- data_pca_aug %>% 
+  ggplot(aes(x = (.fittedPC1),
+             y = (.fittedPC2),
+             colour = Continent)) +
+  geom_point(shape = 1, size = 3) + 
+  labs(x = x, y = y, title = "Plot of PCA", color = "Continent of Snake") +
+  theme_grey()
+
+ggsave('results/06_continent_pca.png', continent_plot, scale = 2)
+
+# K-means -----------------------------------------------------------------
+>>>>>>> 24aae71b8a0813f80f398dbb5b82269327f2030c
+
 data_k_org <- data_pca_aug %>%
-  select(contains("SVMP"), contains("PLB")) %>%
-  #select(as.character(.[7:80])) %>%
+  select(contains("PC")) %>% 
   kmeans(centers = 2)
-data_k_org
+
+data_pca_aug_k_org <- data_k_org %>%
+  augment(data_pca_aug) %>% 
+  rename(cluster_org = .cluster)
+
+data_pca_aug_k_org %>% 
+  ggplot(aes(x = .fittedPC1,
+             y = .fittedPC2,
+             color = cluster_org)) +
+  geom_point() +
+  labs(x = x, y = y, title = "Plot of k-means", color = "Snake family")
+ggsave("results/06_kmeans.png", device = "png")

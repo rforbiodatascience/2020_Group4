@@ -3,16 +3,14 @@ library(tidyverse)
 # Load raw data
 data_aug <- read_csv("data/02_data_clean.csv")
 
-# Augment data
 
-
-## Group toxins
+# Group toxins ------------------------------------------------------------
 SVMP <- data_aug %>% 
   select(contains('SVMP (')) %>% 
   rowSums()
 
 disintegrins <- data_aug %>% 
-  select(contains('disintegrin'), -contains('DC')) %>% 
+  select(ends_with('isintegrin')) %>% 
   rowSums()
 
 lectins <- data_aug %>% 
@@ -34,7 +32,7 @@ unknown <- data_aug %>%
 
 data_aug <- data_aug %>% 
   select(-contains('SVMP ('), 
-         -contains('disintegrin,'),
+         -ends_with('isintegrin'),
          -contains('lectin'),
          -contains('NeuroToxin'),
          -contains('PLA2'),
@@ -42,33 +40,48 @@ data_aug <- data_aug %>%
   ) %>% 
   mutate(
     SVMP = SVMP,
-    disintegrin = disintegrins,
-    lectins = lectins,
-    neurotoxins = neurotoxins,
+    Disintegrin = disintegrins,
+    Lectins = lectins,
+    Neurotoxins = neurotoxins,
     PLA2 = PLA2,
     Unknown = unknown
   )
 
-## Create new columns
+# Remove toxins with few occurances ---------------------------------------
+summed_toxins <- data_aug %>% 
+  select_if(is.numeric) %>% 
+  summarise_all(is_not_zero) %>% 
+  pivot_longer(everything(), values_to = 'toxin_occurance', names_to = 'toxin') %>%
+  filter(toxin_occurance > 5)
+
 data_aug <- data_aug %>% 
-  mutate(genus = str_split(Snake, " ", simplify = TRUE)[, 1],
-         species = str_split(Snake, " ", simplify = TRUE)[, 2]) %>% 
-  select(Snake, genus, species, everything())
-  # Do more stuff
+  select(c("Snake", "Reference", "Country", "Continent", summed_toxins$toxin))
+
+
+
+
+
+# Separate snake names ----------------------------------------------------
+data_aug <- data_aug %>% 
+  mutate(Genus = str_split(Snake, " ", simplify = TRUE)[, 1],
+         Species = str_split(Snake, " ", simplify = TRUE)[, 2]) %>% 
+  select(Snake, Genus, Species, everything())
   
 
-# 
-Snakedata <- read_csv('data/_raw/Snakedata.csv')
+
+# Add families ------------------------------------------------------------
+Snakedata <- read_csv('data/_raw/snake_families.csv')
 families <- Snakedata %>% 
-  select('Family', 'Snake genus') %>% 
-  rename(genus = 'Snake genus',
-         family = Family) %>% 
+  rename(Genus = 'Snake genus') %>% 
   unique()
 
+# Join families to data
 data_aug <- data_aug %>% 
-  left_join(families, by = 'genus')
+  left_join(families, by = "Genus")
 
-
+# Sanity check
+data_aug %>% 
+  count(Family)
 
 
 
