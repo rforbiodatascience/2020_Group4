@@ -18,17 +18,20 @@ data_aug %>%
 
 # Most common toxins for each genus ---------------------------------------
 #### Relative count (divide by genus count)
-#toxins <- data_aug %>% 
-#  select_if(is.numeric)
-#data_aug %>% 
-#  select(Genus, colnames(toxins)) %>% 
-#  group_by(Genus) %>%
-#  summarise_all(is_not_zero) %>% 
-#  pivot_longer(-Genus) %>%
-#  group_by(Genus) %>%
-  #count(name) %>% 
-#  filter(value == max(value)) %>% 
-#  View()
+# toxins <- data_aug %>%
+#   select_if(is.numeric)
+# genus_num <- data_aug %>% 
+#   count(Genus)
+# data_aug %>%
+#   select(Genus, colnames(toxins)) %>%
+#   group_by(Genus) %>%
+#   summarise_all(is_not_zero) %>% 
+#   pivot_longer(-Genus, names_to = "toxin", values_to = "count") %>%
+#   group_by(Genus, toxin) %>%
+#   # count(Genus) %>% View()
+#   summarise("count" = max(count)) %>%
+#   filter(count == max(count)) %>%
+#   View()
 
 toxins <- data_aug %>% 
   select_if(is.numeric)
@@ -46,14 +49,23 @@ data_aug %>%
 
 # Which toxin is most abundant for each genus -----------------------------
 #### Relative count (divide by genus count)
+genus_num <- data_aug %>% 
+  count(Genus)
 data_aug %>% 
-  select(Genus, colnames(toxins)) %>% 
-  group_by(Genus) %>%
-  summarise_all(sum) %>%
-  pivot_longer(-Genus) %>%
-  group_by(Genus) %>%
-  filter(value == max(value))
-
+  select(Genus, Family, colnames(toxins)) %>% 
+  group_by(Genus, Family) %>% 
+  summarise_all(sum) %>% 
+  pivot_longer(-c(Genus, Family), names_to = "Toxin") %>% 
+  group_by(Family, Genus) %>% 
+  filter(value == max(value)) %>% 
+  inner_join(genus_num, by = "Genus") %>% 
+  mutate(avg_abundance = round(value / n, 2)) %>% 
+  ggplot(aes(x = avg_abundance, y = Genus, fill = Toxin, color = Family)) +
+  geom_col(width = 0.7) +
+  labs(title = "Average abundance",
+       subtitle = "Comparing each genus",
+       x = "Average abundance (%)")
+ggsave("results/04_avg_toxin_genus.png", device = "png")
 
 # Country with most different snakes --------------------------------------
 data_aug %>% 

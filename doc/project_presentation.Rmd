@@ -138,14 +138,15 @@ ui <- fluidPage(
 )
 
 apply_filter <- function(data, input){
+  snakes <- str_c(c(input$snake1, input$snake2), collapse = "|")
   
-  if( input$snake1 != "" & input$snake2 != "" ){
-    snakes <- str_c(c(input$snake1, input$snake2), collapse = "|")
-  }else if( input$snake1 == "" ){
-    snakes <- input$snake2
-  }else if( input$snake2 == "" ){
+  if( snakes == "|" ){
+    snakes <- NULL
+  }else if( endsWith(snakes, "|") ){
     snakes <- input$snake1
-  }else{ snakes <- NULL }
+  }else if( startsWith(snakes, "|") ){
+    snakes <- input$snake2
+  }
 
   if( !is.null(snakes) ){
     data <- data %>% 
