@@ -1,5 +1,6 @@
 library(tidyverse)
 library(plotly)
+library(maps)
 source('R/99_proj_func.R')
 
 # Store plotly files in results folder
@@ -17,22 +18,6 @@ data_aug %>%
 
 
 # Most common toxins for each genus ---------------------------------------
-#### Relative count (divide by genus count)
-# toxins <- data_aug %>%
-#   select_if(is.numeric)
-# genus_num <- data_aug %>% 
-#   count(Genus)
-# data_aug %>%
-#   select(Genus, colnames(toxins)) %>%
-#   group_by(Genus) %>%
-#   summarise_all(is_not_zero) %>% 
-#   pivot_longer(-Genus, names_to = "toxin", values_to = "count") %>%
-#   group_by(Genus, toxin) %>%
-#   # count(Genus) %>% View()
-#   summarise("count" = max(count)) %>%
-#   filter(count == max(count)) %>%
-#   View()
-
 toxins <- data_aug %>% 
   select_if(is.numeric)
 data_aug %>% 
@@ -48,7 +33,7 @@ data_aug %>%
 
 
 # Which toxin is most abundant for each genus -----------------------------
-#### Relative count (divide by genus count)
+
 genus_num <- data_aug %>% 
   count(Genus)
 data_aug %>% 
@@ -63,17 +48,36 @@ data_aug %>%
   ggplot(aes(x = avg_abundance, y = Genus, fill = Toxin, color = Family)) +
   geom_col(width = 0.7) +
   labs(title = "Average abundance",
-       subtitle = "Comparing each genus",
+       subtitle = "Comparing all genera",
        x = "Average abundance (%)")
 ggsave("results/04_avg_toxin_genus.png", device = "png")
 
 # Country with most different snakes --------------------------------------
-data_aug %>% 
+data_world <- data_aug %>% 
   distinct(Country, Snake) %>% 
   count(Country) %>%
   arrange(desc(n))
 
 
+# World map ---------------------------------------------------------------
+map.world <- map_data("world")
+
+map.world_joined <- map.world %>% 
+  left_join(data_world, by = c('region' = 'Country')) %>% 
+  rename(count = n)
+
+world <- map.world_joined %>% 
+  ggplot(aes(x = long, y = lat, group = group, fill = count, label = region)) +
+    geom_polygon() +
+    scale_fill_gradient(
+      low = "white",
+      high = "red"
+    ) +
+    labs(title = "World map of snake counts",
+         x = "Longitude",
+         y = "Latitude",
+         fill = "Snake count")
+ggsave(filename = paste0(results_dir, "/04_world_of_snakes.png"), device = "png")
 
 # Bar chart comparing within snake species --------------------------------
 p <- data_aug %>% 

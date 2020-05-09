@@ -3,7 +3,7 @@ title: "Project presentation Group 4"
 subtitle: "Composition of snake venom"
 author: "Nikolas Thuesen (s152993), Gitte Aasbjerg, Søren H. Dam & Sofie O. Villumsen"
 date: "May 14th 2020"
-runtime: shiny
+# runtime: shiny
 output:
   ioslides_presentation:
     widescreen: true
@@ -17,6 +17,7 @@ library(tidyverse)
 library(knitr)
 library(plotly)
 library(shiny)
+library(maps)
 source("../R/99_proj_func.R")
 ```
 
@@ -62,17 +63,47 @@ data_aug <- read_csv("../data/03_data_aug.csv")
 ```
 
 
+
 ## Results from PCA and K-means
 <!-- - Plots -->
 <!-- ![image](../results/06_pca.png) -->
 ```{r out.width = "90%"}
 pca_path = "../results/06_continent_pca.png"
 include_graphics(pca_path)
+```
 
+## World map
+```{r out.width = "90%"}
+
+data_world <- data_aug %>%
+distinct(Country, Snake) %>%
+count(Country) %>%
+arrange(desc(n))
+
+map.world <- map_data("world")
+
+
+map.world_joined <- map.world %>%
+  left_join(data_world, by = c("region" = "Country")) %>%
+  rename(count = n)
+
+world <- map.world_joined %>%
+  ggplot(aes(x = long, y = lat, group = group, fill = count, label = region)) +
+    geom_polygon() +
+    scale_fill_gradient(
+      low = "white",
+      high = "red"
+    ) +
+    labs(title = "World map of snake counts",
+         x = "Longitude",
+         y = "Latitude",
+         fill = "Snake count")
+
+ggplotly(world)
 ```
 
 
-## Test
+## Intra species comparison
 ```{r out.width = "90%"}
 toxins <- data_aug %>% 
   select_if(is.numeric)
@@ -95,12 +126,15 @@ p <- data_aug %>%
 ggplotly(p)
 ```
 
-## Test 2
+
+## Snake family
+<!-- ## Comparing snake families -->
 ```{r out.width = "90%"}
-family_toxins <- data_aug %>% 
+# includeHTML( "../results/04_family_plotly.html")
+family_toxins <- data_aug %>%
   pivot_longer(colnames(toxins),
                names_to = "Toxin",
-               values_to = "Value") %>% 
+               values_to = "Value") %>%
   group_by(Family, Toxin) %>%
   summarise(mean(Value)) %>%
   mutate(Value = round(`mean(Value)`, 2)) %>%
@@ -110,81 +144,76 @@ family_toxins <- data_aug %>%
   labs(title = "Mean Venom Composition of Viperidae and Elapidae",
        y = "Mean venom composition (%)") +
   theme(legend.position = "none")
-ggplotly(family_toxins) 
+ggplotly(family_toxins)
 ```
 
 
-## Results from ANN
-- Plots
+<!-- ## Results from ANN -->
+<!-- - Plots -->
 
 
-## Discussion
-- Discuss results, what can we say about the data based on the study
+<!-- ## Discussion -->
+<!-- - Discuss results, what can we say about the data based on the study -->
 
  
 ## Shiny app
 ```{r, echo=FALSE}
-ui <- fluidPage(
-  fluidRow(
-    column(4,
-           wellPanel(
-             textInput("snake1", "Snake:", value = "Bothrops atrox"),
-             textInput("snake2", "Another snake:", value = "Naja kaouthia")
-           )
-    ),
-    column(8,
-           plotlyOutput("plot", height = "400px"))
-  )
-)
+include_app("https://shdam.shinyapps.io/compareTwo/")
+# ui <- fluidPage(
+#   fluidRow(
+#     column(4,
+#            wellPanel(
+#              textInput("snake1", "Snake:", value = "Bothrops atrox"),
+#              textInput("snake2", "Another snake:", value = "Naja kaouthia")
+#            )
+#     ),
+#     column(8,
+#            plotlyOutput("plot", height = "400px"))
+#   )
+# )
+# 
+# apply_filter <- function(data, input){
+#   snakes <- str_c(c(input$snake1, input$snake2), collapse = "|")
+#   
+#   if( snakes == "|" ){
+#     snakes <- NULL
+#   }else if( endsWith(snakes, "|") ){
+#     snakes <- input$snake1
+#   }else if( startsWith(snakes, "|") ){
+#     snakes <- input$snake2
+#   }
+# 
+#   if( !is.null(snakes) ){
+#     data <- data %>% 
+#           filter(str_detect(str_to_lower(Snake), str_to_lower(snakes)))
+#   }else{data}
+# }
+# 
+# server <- function(input, output) {
+#   dataset <- reactive({
+#       data_aug %>%
+#         apply_filter(input) %>% 
+#         pivot_longer(colnames(toxins),
+#                names_to = "Toxin",
+#                values_to = "Value") %>% 
+#         group_by(Snake, Toxin) %>%
+#         summarise(mean(Value)) %>%
+#         mutate(Value = round(`mean(Value)`, 2)) %>%
+#         filter(Value > 0)
+#     })
+#     
+#   output$plot <- renderPlotly({
+#     plot <- dataset() %>% 
+#       ggplot(aes(y = Snake, x = Value, fill = Toxin)) +
+#       geom_col() +
+#       labs(y = 'Venom composition (%)', 
+#        title = "Comparing venom composition",  
+#        subtitle = "Viperidae: 'Bothrops atrox', Elapidae: 'Naja kaouthia'" ) +
+#       theme(legend.position = "none")
+#   })
+# }
+# shinyApp(ui = ui, server = server)
 
-apply_filter <- function(data, input){
-  snakes <- str_c(c(input$snake1, input$snake2), collapse = "|")
-  
-  if( snakes == "|" ){
-    snakes <- NULL
-  }else if( endsWith(snakes, "|") ){
-    snakes <- input$snake1
-  }else if( startsWith(snakes, "|") ){
-    snakes <- input$snake2
-  }
-
-  if( !is.null(snakes) ){
-    data <- data %>% 
-          filter(str_detect(str_to_lower(Snake), str_to_lower(snakes)))
-  }else{data}
-}
-
-server <- function(input, output) {
-  dataset <- reactive({
-      data_aug %>%
-        apply_filter(input) %>% 
-        pivot_longer(colnames(toxins),
-               names_to = "Toxin",
-               values_to = "Value") %>% 
-        group_by(Snake, Toxin) %>%
-        summarise(mean(Value)) %>%
-        mutate(Value = round(`mean(Value)`, 2)) %>%
-        filter(Value > 0)
-    })
-    
-  output$plot <- renderPlotly({
-    plot <- dataset() %>% 
-      ggplot(aes(y = Snake, x = Value, fill = Toxin)) +
-      geom_col() +
-      labs(y = 'Venom composition (%)', 
-       title = "Comparing venom composition",  
-       subtitle = "Viperidae: 'Bothrops atrox', Elapidae: 'Naja kaouthia'" ) +
-      theme(legend.position = "none")
-  })
-}
-shinyApp(ui = ui, server = server)
-
-## Slide with R Output
 
 ```
 
-## Slide with Plot
-
-```{r pressure}
-plot(pressure)
-```
