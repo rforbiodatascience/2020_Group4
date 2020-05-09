@@ -60,6 +60,9 @@ Created using ioslides_presentation rmarkdown (i.e. the right-most doc column in
 ```{r}
 # Load augmented data
 data_aug <- read_csv("../data/03_data_aug.csv")
+toxin_names <- data_aug %>% 
+  select_if(is.numeric) %>% 
+  colnames()
 ```
 
 
@@ -109,15 +112,13 @@ include_graphics("../results/04_avg_toxin_genus.png")
 
 ## Intra species comparison
 ```{r out.width = "90%"}
-toxins <- data_aug %>% 
-  select_if(is.numeric)
 # Bar chart comparing within snake species
 intra_species <- data_aug %>% 
   filter(Snake == "Naja kaouthia") %>%
   mutate(Snake = paste(Snake, " (",
                     row_number(), ")",
                     sep = "")) %>%
-  pivot_longer(colnames(toxins),
+  pivot_longer(all_of(toxin_names),
                names_to = "Toxin",
                values_to = "Value") %>% 
   # mutate(Value = round(Value, 2)) %>% 
@@ -136,7 +137,7 @@ ggplotly(intra_species)
 ```{r out.width = "90%"}
 # includeHTML( "../results/04_family_plotly.html")
 family_toxins <- data_aug %>%
-  pivot_longer(colnames(toxins),
+  pivot_longer(all_of(toxin_names),
                names_to = "Toxin",
                values_to = "Value") %>%
   group_by(Family, Toxin) %>%
@@ -160,8 +161,31 @@ ggplotly(family_toxins)
 <!-- - Discuss results, what can we say about the data based on the study -->
 
 ## Compare two snakes
-```{r out.width = 0.5}
-includeHTML("../results/04_compareTwo.html")
+```{r out.width = "80%"}
+# includeHTML("../results/04_compareTwo.html")
+compareTwo <- data_aug %>% 
+  filter(Snake %in% c("Naja kaouthia", "Bothrops atrox")) %>%
+  pivot_longer(all_of(toxin_names),
+               names_to = "Toxin",
+               values_to = "Value") %>% 
+  group_by(Snake, Toxin) %>%
+  summarise(mean(Value)) %>%
+  mutate(Value = round(`mean(Value)`, 2)) %>%
+  filter(Value > 0) %>%
+  ggplot(aes(x = Value, y = Snake, fill = Toxin)) +
+  geom_col() +
+  labs(x = 'Venom composition (%)', 
+       title = "Comparing venom composition",  
+       subtitle = "Viperidae: 'Bothrops atrox', Elapidae: 'Naja kaouthia'" ) +
+  theme(legend.position = "none") #+
+
+ggplotly(compareTwo) %>%
+  layout(title = list(text = paste0('Comparing venom composition',
+                                    '<br>',
+                                    '<sup>',
+                                    'Viperidae: "Bothrops atrox", Elapidae: "Naja kaouthia"',
+                                    '</sup>')))
+
 ```
 
  
@@ -202,7 +226,7 @@ include_app("https://shdam.shinyapps.io/compareTwo/")
 #   dataset <- reactive({
 #       data_aug %>%
 #         apply_filter(input) %>% 
-#         pivot_longer(colnames(toxins),
+#         pivot_longer(all_of(toxin_names),
 #                names_to = "Toxin",
 #                values_to = "Value") %>% 
 #         group_by(Snake, Toxin) %>%
