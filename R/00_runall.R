@@ -5,3 +5,4 @@ source('R/02_clean.R')
 source('R/03_augment.R')
 source('R/04_analysis.R')
 source('R/06_model_PCA.R')
+# Shiny app uploaded to: https://shdam.shinyapps.io/compareTwo/

@@ -8,28 +8,31 @@ results_dir <- paste0(getwd(),"/results")
 
 # Load augmented data -----------------------------------------------------
 data_aug <- read_csv("data/03_data_aug.csv")
+# Store toxin names for easier plotting
+toxin_names <- data_aug %>% 
+  select_if(is.numeric) %>% 
+  colnames()
 
 # Distribution of genera --------------------------------------------------
-data_aug %>% 
+genus_count <- data_aug %>% 
   distinct(Snake, Genus, Family) %>% 
   ggplot(aes(y = Genus, fill = Family)) +
   labs(x = "Count", title = "Count of distinct snakes in genera") +
   geom_bar()
+ggsave("results/04_genus_distribution.png", plot = genus_count, device = "png")
 
 
 # Most common toxins for each genus ---------------------------------------
-toxins <- data_aug %>% 
-  select_if(is.numeric)
-data_aug %>% 
-  select(Snake, Genus, colnames(toxins)) %>% 
-  group_by(Genus) %>% 
-  summarise_all(is_not_zero) %>% 
-  filter(Genus %in% c("Bothrops")) %>%
-  pivot_longer(-c(Genus, Snake)) %>% 
-  arrange(desc(value)) %>% 
-  ggplot(aes(x = value, y = name, fill = value)) +
-  geom_col() + 
-  labs(y = "Toxins", title = "Abundance of toxins in 'Bothrops'")
+# data_aug %>% 
+#   select(Snake, Genus, toxin_names) %>% 
+#   group_by(Genus) %>% 
+#   summarise_all(is_not_zero) %>% 
+#   filter(Genus %in% c("Bothrops")) %>%
+#   pivot_longer(-c(Genus, Snake)) %>% 
+#   arrange(desc(value)) %>% 
+#   ggplot(aes(x = value, y = name, fill = value)) +
+#   geom_col() + 
+#   labs(y = "Toxins", title = "Abundance of toxins in 'Bothrops'")
 
 
 # Which toxin is most abundant for each genus -----------------------------
@@ -37,7 +40,7 @@ data_aug %>%
 genus_num <- data_aug %>% 
   count(Genus)
 data_aug %>% 
-  select(Genus, Family, colnames(toxins)) %>% 
+  select(Genus, Family, toxin_names) %>% 
   group_by(Genus, Family) %>% 
   summarise_all(sum) %>% 
   pivot_longer(-c(Genus, Family), names_to = "Toxin") %>% 
@@ -77,15 +80,16 @@ world <- map.world_joined %>%
          x = "Longitude",
          y = "Latitude",
          fill = "Snake count")
-ggsave(filename = paste0(results_dir, "/04_world_of_snakes.png"), device = "png")
+# Too big to be stored as html
+ggsave(filename = "results/04_world_of_snakes.png", device = "png")
 
 # Bar chart comparing within snake species --------------------------------
-p <- data_aug %>% 
+intra_species <- data_aug %>% 
   filter(Snake == "Naja kaouthia") %>%
   mutate(Snake = paste(Snake, " (",
                        row_number(), ")",
                        sep = "")) %>%
-  pivot_longer(colnames(toxins),
+  pivot_longer(toxin_names,
                names_to = "Toxin",
                values_to = "Value") %>% 
   # mutate(Value = round(Value, 2)) %>% 
@@ -95,41 +99,40 @@ p <- data_aug %>%
   coord_flip() +
   theme(legend.position = "none") +
   ylab('Venom composition (%)')
-ggplotly(p)
+
+intra_species <- ggplotly(intra_species)
+htmlwidgets::saveWidget(intra_species, file = paste0(results_dir, "/04_intra_species.html"))
 
 
 # Compare snake genera ----------------------------------------------------
-p <- data_aug %>% 
+compareTwo <- data_aug %>% 
   filter(Snake %in% c("Naja kaouthia", "Bothrops atrox")) %>%
-  pivot_longer(colnames(toxins),
+  pivot_longer(toxin_names,
                names_to = "Toxin",
                values_to = "Value") %>% 
   group_by(Snake, Toxin) %>%
   summarise(mean(Value)) %>%
   mutate(Value = round(`mean(Value)`, 2)) %>%
   filter(Value > 0) %>%
-  ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
+  ggplot(aes(x = Value, y = Snake, fill = Toxin)) +
   geom_col() +
-  labs(y = 'Venom composition (%)', 
+  labs(x = 'Venom composition (%)', 
        title = "Comparing venom composition",  
        subtitle = "Viperidae: 'Bothrops atrox', Elapidae: 'Naja kaouthia'" ) +
-
-  coord_flip() +
   theme(legend.position = "none") #+
-  #ylab('Venom composition')
 
-ggplotly(p) %>%
+compareTwo <- ggplotly(compareTwo) %>%
   layout(title = list(text = paste0('Comparing venom composition',
                                     '<br>',
                                     '<sup>',
                                     'Viperidae: "Bothrops atrox", Elapidae: "Naja kaouthia"',
                                     '</sup>')))
-
+htmlwidgets::saveWidget(compareTwo, file = paste0(results_dir, "/04_compareTwo.html"))
 
 
 # Compare venom compostion of the two snake families ----------------------
 family_toxins <- data_aug %>% 
-  pivot_longer(colnames(toxins),
+  pivot_longer(toxin_names,
                names_to = "Toxin",
                values_to = "Value") %>% 
   group_by(Family, Toxin) %>%

@@ -68,8 +68,7 @@ data_aug <- read_csv("../data/03_data_aug.csv")
 <!-- - Plots -->
 <!-- ![image](../results/06_pca.png) -->
 ```{r out.width = "90%"}
-pca_path = "../results/06_continent_pca.png"
-include_graphics(pca_path)
+include_graphics("../results/06_continent_pca.png")
 ```
 
 ## World map
@@ -102,13 +101,18 @@ world <- map.world_joined %>%
 ggplotly(world)
 ```
 
+## Most abundant toxins
+```{r out.width = "90%"}
+include_graphics("../results/04_avg_toxin_genus.png")
+```
+
 
 ## Intra species comparison
 ```{r out.width = "90%"}
 toxins <- data_aug %>% 
   select_if(is.numeric)
 # Bar chart comparing within snake species
-p <- data_aug %>% 
+intra_species <- data_aug %>% 
   filter(Snake == "Naja kaouthia") %>%
   mutate(Snake = paste(Snake, " (",
                     row_number(), ")",
@@ -123,7 +127,7 @@ p <- data_aug %>%
   coord_flip() +
   theme(legend.position = "none") +
   ylab('Venom composition (%)')
-ggplotly(p)
+ggplotly(intra_species)
 ```
 
 
@@ -155,9 +159,14 @@ ggplotly(family_toxins)
 <!-- ## Discussion -->
 <!-- - Discuss results, what can we say about the data based on the study -->
 
+## Compare two snakes
+```{r out.width = 0.5}
+includeHTML("../results/04_compareTwo.html")
+```
+
  
 ## Shiny app
-```{r, echo=FALSE}
+```{r}
 include_app("https://shdam.shinyapps.io/compareTwo/")
 # ui <- fluidPage(
 #   fluidRow(
