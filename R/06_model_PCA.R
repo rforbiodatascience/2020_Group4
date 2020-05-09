@@ -100,6 +100,6 @@ data_pca_aug_k_org %>%
   ggplot(aes(x = .fittedPC1,
              y = .fittedPC2,
              color = cluster_org)) +
-  geom_point() +
+  geom_point(shape = 1, size = 3, alpha = 0.5) +
   labs(x = x, y = y, title = "Plot of k-means", color = "Snake family")
 ggsave("results/06_kmeans.png", device = "png")
