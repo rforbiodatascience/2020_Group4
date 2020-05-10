@@ -26,7 +26,7 @@ ui <- fluidPage(
            wellPanel(
              textInput("snake1", "Snake:", value = "Bothrops atrox"),
              textInput("snake2", "Another snake:", value = "Naja kaouthia"),
-             checkboxInput("merge", "Merged", value = TRUE)
+             checkboxInput("merge", "Merge species", value = TRUE)
            )
     ),
     column(9,
@@ -58,7 +58,7 @@ apply_filter <- function(data, input){
 server <- function(input, output) {
   dataset <- reactive({
     # Detect whether the venoms should be merged
-    if( input$merge == TRUE){
+    if( input$merge){
       data_aug %>%
         apply_filter(input) %>% 
         pivot_longer(all_of(toxin_names),
@@ -84,7 +84,7 @@ server <- function(input, output) {
     plot <- dataset() %>% 
       ggplot(aes(y = Snake, x = Value, fill = Toxin)) +
       geom_col() +
-      labs(x = "Mean Venom Composition (%)",
+      labs(x = "Venom Composition (%)",
            y = "Snake",
            title = "Comparing venom composition") +
       theme(legend.position = "none")

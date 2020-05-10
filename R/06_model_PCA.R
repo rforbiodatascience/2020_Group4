@@ -70,7 +70,7 @@ family_pca <- data_pca_aug %>%
              y = .fittedPC2,
              colour = Family)) +
   geom_point(shape = 1, size = 3, alpha = 0.5) + 
-  labs(x = x, y = y, title = "Plot of PCA", color = "Snake family") +
+  labs(x = x, y = y, title = "PCA", color = "Snake family") +
   theme_grey()
 
 ggsave("results/06_family_pca.png", device = "png")
@@ -81,7 +81,7 @@ continent_plot <- data_pca_aug %>%
              y = (.fittedPC2),
              colour = Continent)) +
   geom_point(shape = 1, size = 3) + 
-  labs(x = x, y = y, title = "Plot of PCA", color = "Continent of Snake") +
+  labs(x = x, y = y, title = "PCA", color = "Continent of Snake") +
   theme_grey()
 
 ggsave('results/06_continent_pca.png', continent_plot, scale = 2)
@@ -96,10 +96,13 @@ data_pca_aug_k_org <- data_k_org %>%
   augment(data_pca_aug) %>% 
   rename(cluster_org = .cluster)
 
-data_pca_aug_k_org %>% 
+kmeans <- data_pca_aug_k_org %>% 
   ggplot(aes(x = .fittedPC1,
              y = .fittedPC2,
              color = cluster_org)) +
   geom_point(shape = 1, size = 3, alpha = 0.5) +
-  labs(x = x, y = y, title = "Plot of k-means", color = "Snake family")
+  labs(x = x, y = y, title = "K-means", color = "Cluster")
 ggsave("results/06_kmeans.png", device = "png")
+
+library(patchwork)
+ggsave("results/06_kmeans-family.png", plot = family_pca + kmeans, device = "png")
