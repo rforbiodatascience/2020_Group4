@@ -6,3 +6,6 @@ new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, 
 if( length(new.packages) ) {
   install.packages(new.packages)
 }
+
+
+
