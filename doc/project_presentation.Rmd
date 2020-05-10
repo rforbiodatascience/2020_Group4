@@ -42,12 +42,25 @@ Created using ioslides_presentation rmarkdown (i.e. the right-most doc column in
 - Goal of study:
   - Group snakes by genus based on venom composition (PCA, K-means, ANN)
   
-## The dataset
+## The datasets
 - Main data
-- New data, adding three snakes from litterature
+```{r, message = FALSE}
+data_raw <- read_csv("../data/_raw/01_data_load_relative.csv")
+print(data_raw, width = 80, n = 4, n_extra = 1)
+```
+
+- New data
+```{r, messages = FALSE}
+new_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR1J2-JTgyqdK48fycrWrlC5bqWFHxVatiCLhvWuxnxTJYhuKoq-bMpEvxjL57LwePK819TJAHU-tkC/pub?gid=0&single=true&output=csv", col_types = "cnnn")
+print(new_data, width = 80, n = 4, n_extra = 1)
+```
+
 
 ## Materials and methods
-- Talk about how the data sets are merged 
+- Loading data
+- Cleaning data
+- Augmenting data
+- Analysis
 - Talk about which methods have been used to reach the goal for the study (PCA, K-means, ANN)
 
 ## Results from cleaning and augmenting the data
@@ -206,6 +219,6 @@ include_graphics("../results/06_kmeans-family.png")
 
 ## Training of ANN predicting snake family
 ```{r out.width = "80%"}
-includeHTML("../results/05_ANN_Training.html")
+# includeHTML("../results/05_ANN_Training.html")
 ```
 

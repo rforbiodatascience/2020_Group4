@@ -41,7 +41,7 @@ data_clean <- data_raw %>%
   select(-c("Note", "Sum"))
 
 # Add new data ------------------------------------------------------------
-new_data <- read_csv("data/01.2_new_data.csv")
+new_data <- read_csv("data/_raw/01.2_new_data.csv")
 
 data_joined <- data_clean %>% 
   full_join(new_data) %>%
