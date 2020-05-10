@@ -123,36 +123,13 @@ include_graphics("../results/04_avg_toxin_genus.png")
 ```
 
 
-## Intra species comparison
-```{r out.width = "90%"}
-# Bar chart comparing within snake species
-intra_species <- data_aug %>% 
-  filter(Snake == "Naja kaouthia") %>%
-  mutate(Snake = paste(Snake, " (",
-                    row_number(), ")",
-                    sep = "")) %>%
-  pivot_longer(all_of(toxin_names),
-               names_to = "Toxin",
-               values_to = "Value") %>% 
-  # mutate(Value = round(Value, 2)) %>% 
-  arrange(desc(Snake)) %>% 
-  ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
-  geom_col() +
-  coord_flip() +
-  theme(legend.position = "none") +
-  ylab('Venom composition (%)')
-ggplotly(intra_species)
-```
-
-
-
 
 
 <!-- ## Discussion -->
 <!-- - Discuss results, what can we say about the data based on the study -->
 
 ## Compare two snakes
-```{r out.width = "80%"}
+```{r out.width = "90%"}
 # includeHTML("../results/04_compareTwo.html")
 compareTwo <- data_aug %>%
   filter(Snake %in% c("Naja kaouthia", "Bothrops atrox")) %>%
@@ -178,6 +155,28 @@ ggplotly(compareTwo) %>%
                                     '</sup>')))
 
 ```
+
+## Intra species comparison
+```{r out.width = "90%"}
+# Bar chart comparing within snake species
+intra_species <- data_aug %>% 
+  filter(Snake == "Naja kaouthia") %>%
+  mutate(Snake = paste(Snake, " (",
+                    row_number(), ")",
+                    sep = "")) %>%
+  pivot_longer(all_of(toxin_names),
+               names_to = "Toxin",
+               values_to = "Value") %>% 
+  arrange(desc(Snake)) %>% 
+  ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
+  geom_col() +
+  coord_flip() +
+  theme(legend.position = "none") +
+  ylab('Venom composition (%)')
+ggplotly(intra_species)
+```
+
+
 
 ## Shiny app
 ```{r}

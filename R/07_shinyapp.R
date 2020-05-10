@@ -1,9 +1,10 @@
-list.of.packages <- c("shiny", "plotly", "maps", "tidyverse", "rsconnect")
-
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
-if( length(new.packages) ) {
-  install.packages(new.packages)
-}
+# Dependencies
+# list.of.packages <- c("shiny", "plotly", "maps", "tidyverse", "rsconnect")
+# 
+# new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
+# if( length(new.packages) ) {
+#   install.packages(new.packages)
+# }
 
 library(tidyverse)
 library(plotly)
@@ -11,15 +12,21 @@ library(shiny)
 library(maps)
 library(rsconnect)
 
+# Load data
 data_aug <- read_csv("03_data_aug.csv")
-toxins <- data_aug %>% 
-  select_if(is.numeric)
+# Vector containing all toxin names
+toxin_names <- data_aug %>% 
+  select_if(is.numeric) %>% 
+  colnames()
+
+# The app UI
 ui <- fluidPage(
   fluidRow(
     column(3,
            wellPanel(
              textInput("snake1", "Snake:", value = "Bothrops atrox"),
-             textInput("snake2", "Another snake:", value = "Naja kaouthia")
+             textInput("snake2", "Another snake:", value = "Naja kaouthia"),
+             checkboxInput("merge", "Merged", value = TRUE)
            )
     ),
     column(9,
@@ -27,9 +34,12 @@ ui <- fluidPage(
   )
 )
 
+# Filter based on the given input
+# No input returns an empty string
 apply_filter <- function(data, input){
   snakes <- str_c(c(input$snake1, input$snake2), collapse = "|")
   
+  # Detect the choices
   if( snakes == "|" ){
     snakes <- NULL
   }else if( endsWith(snakes, "|") ){
@@ -38,6 +48,7 @@ apply_filter <- function(data, input){
     snakes <- input$snake2
   }
   
+  # If no choices, show all data
   if( !is.null(snakes) ){
     data <- data %>% 
       filter(str_detect(str_to_lower(Snake), str_to_lower(snakes)))
@@ -46,17 +57,29 @@ apply_filter <- function(data, input){
 
 server <- function(input, output) {
   dataset <- reactive({
-    data_aug %>%
-      apply_filter(input) %>% 
-      pivot_longer(colnames(toxins),
-                   names_to = "Toxin",
-                   values_to = "Value") %>% 
-      group_by(Snake, Toxin) %>%
-      summarise(mean(Value)) %>%
-      mutate(Value = round(`mean(Value)`, 2)) %>%
-      filter(Value > 0)
+    # Detect whether the venoms should be merged
+    if( input$merge == TRUE){
+      data_aug %>%
+        apply_filter(input) %>% 
+        pivot_longer(all_of(toxin_names),
+                     names_to = "Toxin",
+                     values_to = "Value") %>% 
+        group_by(Snake, Toxin) %>%
+        summarise(mean(Value)) %>%
+        mutate(Value = round(`mean(Value)`, 2))
+    }else{
+      data_aug %>% 
+        apply_filter(input) %>% 
+        mutate(Snake = paste(Snake, " (",
+                             row_number(), ")",
+                             sep = "")) %>%
+        pivot_longer(all_of(toxin_names),
+                     names_to = "Toxin",
+                     values_to = "Value")
+    }
   })
   
+  # Generate plot
   output$plot <- renderPlotly({
     plot <- dataset() %>% 
       ggplot(aes(y = Snake, x = Value, fill = Toxin)) +
@@ -67,5 +90,5 @@ server <- function(input, output) {
       theme(legend.position = "none")
   })
 }
-shinyApp(ui = ui, server = server)
+shinyApp(ui, server)
 # deployApp(appName = "compareTwo")

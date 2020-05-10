@@ -48,25 +48,31 @@ ggsave(filename = "results/04_world_of_snakes.png", device = "png")
 # Distribution of genera --------------------------------------------------
 genus_count <- data_aug %>% 
   distinct(Snake, Genus, Family) %>% 
-  ggplot(aes(y = Genus, fill = Family)) +
-  labs(x = "Count", title = "Count of distinct snakes in genera") +
-  geom_bar()
+  ggplot(aes(x = Genus, fill = Family)) +
+  geom_bar() + 
+  facet_grid(. ~ Family,
+             space = "free",
+             scales = "free") +
+  theme(axis.text.x = element_text(angle = 90,
+                                   hjust = 1,
+                                   vjust = 0.4),
+        legend.position = "none") +
+  labs(y = "Count", title = "Count of distinct snakes in genera")
 ggsave("results/04_genus_distribution.png", plot = genus_count, device = "png")
 
 
 # Compare venom compostion of the two snake families ----------------------
 family_toxins <- data_aug %>% 
-  pivot_longer(toxin_names,
+  pivot_longer(all_of(toxin_names),
                names_to = "Toxin",
                values_to = "Value") %>% 
   group_by(Family, Toxin) %>%
   summarise(mean(Value)) %>%
   mutate(Value = round(`mean(Value)`, 2)) %>%
-  ggplot(aes(x = Family, y = Value, fill = Toxin)) +
+  ggplot(aes(x = Value, y = Family, fill = Toxin)) +
   geom_col() +
-  coord_flip() +
   labs(title = "Mean Venom Composition of Viperidae and Elapidae",
-       y = "Mean venom composition (%)") +
+       x = "Mean venom composition (%)") +
   theme(legend.position = "none")
 
 # Save plot in html file
@@ -78,7 +84,7 @@ htmlwidgets::saveWidget(family_plotly, file = paste0(results_dir, "/04_family_pl
 genus_num <- data_aug %>% 
   count(Genus)
 data_aug %>% 
-  select(Genus, Family, toxin_names) %>% 
+  select(Genus, Family, all_of(toxin_names)) %>% 
   group_by(Genus, Family) %>% 
   summarise_all(sum) %>% 
   pivot_longer(-c(Genus, Family), names_to = "Toxin") %>% 
@@ -110,7 +116,7 @@ intra_species <- data_aug %>%
   mutate(Snake = paste(Snake, " (",
                        row_number(), ")",
                        sep = "")) %>%
-  pivot_longer(toxin_names,
+  pivot_longer(all_of(toxin_names),
                names_to = "Toxin",
                values_to = "Value") %>% 
   arrange(desc(Snake)) %>% 
@@ -127,7 +133,7 @@ htmlwidgets::saveWidget(intra_species, file = paste0(results_dir, "/04_intra_spe
 # Compare snake genera ----------------------------------------------------
 compareTwo <- data_aug %>% 
   filter(Snake %in% c("Naja kaouthia", "Bothrops atrox")) %>%
-  pivot_longer(toxin_names,
+  pivot_longer(all_of(toxin_names),
                names_to = "Toxin",
                values_to = "Value") %>% 
   group_by(Snake, Toxin) %>%
