@@ -44,12 +44,19 @@ data_aug %>%
   group_by(Genus, Family) %>% 
   summarise_all(sum) %>% 
   pivot_longer(-c(Genus, Family), names_to = "Toxin") %>% 
-  group_by(Family, Genus) %>% 
+  group_by(Family, Genus) %>%
   filter(value == max(value)) %>% 
   inner_join(genus_num, by = "Genus") %>% 
   mutate(avg_abundance = round(value / n, 2)) %>% 
-  ggplot(aes(x = avg_abundance, y = Genus, fill = Toxin, color = Family)) +
+  ggplot(aes(x = avg_abundance, y = Genus, fill = Toxin)) +
   geom_col(width = 0.7) +
+  facet_grid(. ~ Family,
+             space = "free",
+             scales = "free") +
+  coord_flip()+
+  theme(axis.text.x = element_text(angle = 90,
+                                   hjust = 1,
+                                   vjust = 0.4)) +
   labs(title = "Average abundance",
        subtitle = "Comparing all genera",
        x = "Average abundance (%)")
@@ -70,19 +77,21 @@ map.world_joined <- map.world %>%
   rename(count = n)
 
 world <- map.world_joined %>% 
-  ggplot(aes(x = long, y = lat, group = group, fill = count, label = region)) +
+  ggplot(aes(x = long,
+             y = lat,
+             group = group,
+             fill = count,
+             label = region)) +
     geom_polygon() +
-    scale_fill_gradient(
-      low = "#ffded2",
-      high = "red"
-    ) +
+    scale_fill_gradient(low = "#ffded2",
+                        high = "red") +
     labs(title = "World map of snake counts",
          x = "Longitude",
          y = "Latitude",
          fill = "Snake count")
 # Too big to be stored as html
 ggsave(filename = "results/04_world_of_snakes.png", device = "png")
-ggplotly(world)
+
 # Bar chart comparing within snake species --------------------------------
 intra_species <- data_aug %>% 
   filter(Snake == "Naja kaouthia") %>%
