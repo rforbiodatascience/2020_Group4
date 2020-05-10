@@ -57,16 +57,24 @@ print(new_data, width = 80, n = 4, n_extra = 1)
 
 
 ## Materials and methods
-- Loading data
-- Cleaning data
-- Augmenting data
-- Analysis
-- Talk about which methods have been used to reach the goal for the study (PCA, K-means, ANN)
+- Loading and cleaning data
+  - Merge datsets
+  - Map locations to country
+- Augmentation of data
+  - Group snake subspecies and venom types
+- Initial Analysis and visualisations
+  - Venom composition
+  - Geographical distribution
+- Unsupervised analysis
+  - PCA
+  - K-means clustering
+- Supervised classification model
+  - Artificial Neural Network (ANN)
 
 ## Cleaning
 ```{r}
 data_raw %>% 
-  distinct(Note, `Sum, %`) %>% 
+  distinct(Note) %>% 
   print(n = 10, n_ekstra = 2)
 ```
 

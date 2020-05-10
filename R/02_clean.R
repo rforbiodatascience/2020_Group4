@@ -16,7 +16,7 @@ data_clean <- data_raw %>%
   rename_if(is_double, rm_percent) %>% 
   rename(`SP (Serine Proteinase)` = `SP (Serine roteinase)`,
          `α-NTx (α-NeuroToxin)` = `?-NTx (?-NeuroToxin)`) %>% 
-  filter(!(str_to_lower(Note) %in% c("origin unknown", "pooled", "neonate", "adult")),
+  filter(!(str_to_lower(Note) == "pooled"),
          # Condition in data set is that rownames ending with * indicates transcriptomic data
          str_detect(Snake, '\\*', negate = TRUE)) %>% 
   mutate(Country = case_when(
@@ -28,6 +28,9 @@ data_clean <- data_raw %>%
                             str_detect(Note, "Venezuelan") ~ "Venezuela",
                             str_detect(Note, "Mexican") ~ "Mexico",
                             str_detect(Note, 'India') ~ "India",
+                            Note == "origin unknown" ~ "Unknown",
+                            Note == "neonate" ~ "Unknown",
+                            Note == "adult" ~ "Unknown",
                             Note == "Carribean" ~ "Costa Rica",
                             Note == "Columbia" ~ "Colombia",
                             Note == "Marocco" ~ "Morocco",
