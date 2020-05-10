@@ -1,9 +1,16 @@
-# source('R/05_ANN_setup.R')
+#This script is heavily inspired by the course material given in the course 
+#22100 - R for Bio Data Science at the Technical University of Denmark.
+#http://teaching.healthtech.dtu.dk/22100/index.php/22100_-_R_for_Bio_Data_Science
+
+#Only run first time:
+#source('R/05_ANN_setup.R')
 
 rm(list=ls())
 
 library('tidyverse')
 library('keras')
+
+set.seed(2001)
 
 ###### Load augmented data, and filter for low observations
 data <- read_csv("data/03_data_aug.csv")  
@@ -16,7 +23,7 @@ nn_dat <- data %>%
   mutate(class_num = as.numeric(as.factor(Family)) - 1, # factor, so = 0, 1
          class_label = as.factor(Family)) %>%
   #Reorganise order of columns
-  select(1:Region, class_label, class_num, everything())
+  select(1:Continent, class_label, class_num, everything())
 nn_dat %>% head(3)
 
 test_f <- 0.20
@@ -49,23 +56,24 @@ y_test <- nn_dat %>%
   to_categorical
 
 
-#### OLD MODEL:
+
+# Model -------------------------------------------------------------------
+
 
 #Number of features is number of input venoms (38)
 n_features = ncol(x_train)
 
 #Number of classes is the number of snake families investigated (2)
-n_classes = length(unique(nn_dat$family))
+n_classes = length(unique(nn_dat$Family))
 
 model <- keras_model_sequential() %>% 
   layer_dense(units = 4, activation = 'relu', input_shape = n_features) %>% 
-  layer_dense(units = 4, activation = 'relu', input_shape = 32) %>%
   layer_dense(units = n_classes, activation = 'softmax')
 
 
 model %>%
   compile(loss = 'binary_crossentropy',
-          optimizer = optimizer_rmsprop(lr = 0.005),
+          optimizer = optimizer_rmsprop(lr = 0.001),
           metrics = c('accuracy')
   )
 
