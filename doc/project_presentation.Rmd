@@ -235,7 +235,7 @@ include_graphics("../results/05_ANN_family_training.png")
 </p>
 ## Analysis of incorrect labels (1)
 
-- If test size is increased to 40 %, the model misclassifies 3 snakes as illustrated below:
+- If test size is increased to 40 %, the model misclassifies 5 snakes as illustrated below:
 
 
 <p align="center">
