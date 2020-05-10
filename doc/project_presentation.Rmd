@@ -206,6 +206,7 @@ include_graphics("../results/06_kmeans-family.png")
 
 ## Training of ANN predicting snake family
 ```{r out.width = "80%"}
-includeHTML("../results/05_ANN_Training.html")
+include_graphics("")
+
 ```
 
