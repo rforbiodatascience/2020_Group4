@@ -71,21 +71,9 @@ print(new_data, width = 80, n = 4, n_extra = 1)
 - Supervised classification model
   - Artificial Neural Network (ANN)
 
-## Cleaning
-```{r}
-data_raw %>% 
-  distinct(Note) %>% 
-  print(n = 10, n_ekstra = 2)
-```
-
-
-## Results from cleaning and augmenting the data
-- Show dirty data vs. clean data
-- Show region, family, genus, species rows
-- Show grouping of the toxin families columns
 
 ## Augmented data
-```{r}
+```{r message = FALSE}
 # Load augmented data
 data_aug <- read_csv("../data/03_data_aug.csv")
 toxin_names <- data_aug %>% 
@@ -95,7 +83,10 @@ toxin_names <- data_aug %>%
 
 
 
-## World map
+## Geographical overview of samples
+
+Snakes from richer countries or countries with a focus on snake research is overrepresented.
+
 ```{r out.width = "90%"}
 
 data_world <- data_aug %>%
@@ -127,7 +118,7 @@ ggplotly(world)
 
 
 ## Snake family count
-```{r out.width = "90%"}
+```{r out.width = "80%"}
 include_graphics("../results/04_genus_distribution.png")
 ```
 
