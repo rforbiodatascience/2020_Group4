@@ -144,11 +144,9 @@ ggplotly(family_toxins)
 ```
 
 ## Most abundant toxins
-```{r out.width = "90%"}
+```{r out.width = "100%"}
 include_graphics("../results/04_avg_toxin_genus.png")
 ```
-
-
 
 
 <!-- ## Discussion -->

@@ -107,7 +107,7 @@ data_aug %>%
        subtitle = "Comparing all genera",
        y = "Average abundance (%)")
 
-ggsave("results/04_avg_toxin_genus.png", device = "png")
+ggsave("results/04_avg_toxin_genus.png", device = "png", width = 9)
 
 
 # Intra species comparizon --------------------------------
