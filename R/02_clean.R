@@ -30,10 +30,13 @@ data_clean <- data_raw %>%
                             Note == "Columbia" ~ "Colombia",
                             Note == "Marocco" ~ "Morocco",
                             Note == "Tunesia" ~ "Tunisia",
+                            Note == "New Guinea" ~ "Papua New Guinea",
                             Note == "Woodlark island" ~ "Papua New Guinea",
                             Note == "Saibai Island" ~ "Australia",
                             Note == "Java Island" ~ "Indonesia",
                             Note == "Chinese adult" ~ "China",
+                            Note == "Burkina faso" ~ "Burkina Faso",
+                            Note == "North Africa" ~ "Egypt",
                             TRUE ~ Note)) %>% 
   select(-c("Note", "Sum"))
 

@@ -1,9 +1,8 @@
 ---
 title: "Project presentation Group 4"
 subtitle: "Composition of snake venom"
-author: "Nikolas Thuesen (s152993), Gitte Aasbjerg, Søren H. Dam & Sofie O. Villumsen"
+author: "Nikolas Thuesen (s152993), Gitte Aasbjerg (s154144), Søren H. Dam (s153398), & Sofie O. Villumsen (s141217)"
 date: "May 14th 2020"
-# runtime: shiny
 output:
   ioslides_presentation:
     widescreen: true
@@ -93,7 +92,7 @@ world <- map.world_joined %>%
   ggplot(aes(x = long, y = lat, group = group, fill = count, label = region)) +
     geom_polygon() +
     scale_fill_gradient(
-      low = "white",
+      low = "#ffded2",
       high = "red"
     ) +
     labs(title = "World map of snake counts",
@@ -163,21 +162,21 @@ ggplotly(family_toxins)
 ## Compare two snakes
 ```{r out.width = "80%"}
 # includeHTML("../results/04_compareTwo.html")
-compareTwo <- data_aug %>% 
+compareTwo <- data_aug %>%
   filter(Snake %in% c("Naja kaouthia", "Bothrops atrox")) %>%
   pivot_longer(all_of(toxin_names),
                names_to = "Toxin",
-               values_to = "Value") %>% 
+               values_to = "Value") %>%
   group_by(Snake, Toxin) %>%
   summarise(mean(Value)) %>%
   mutate(Value = round(`mean(Value)`, 2)) %>%
   filter(Value > 0) %>%
   ggplot(aes(x = Value, y = Snake, fill = Toxin)) +
   geom_col() +
-  labs(x = 'Venom composition (%)', 
-       title = "Comparing venom composition",  
+  labs(x = 'Venom composition (%)',
+       title = "Comparing venom composition",
        subtitle = "Viperidae: 'Bothrops atrox', Elapidae: 'Naja kaouthia'" ) +
-  theme(legend.position = "none") #+
+  theme(legend.position = "none")
 
 ggplotly(compareTwo) %>%
   layout(title = list(text = paste0('Comparing venom composition',
@@ -188,65 +187,9 @@ ggplotly(compareTwo) %>%
 
 ```
 
- 
+
 ## Shiny app
 ```{r}
 include_app("https://shdam.shinyapps.io/compareTwo/")
-# ui <- fluidPage(
-#   fluidRow(
-#     column(4,
-#            wellPanel(
-#              textInput("snake1", "Snake:", value = "Bothrops atrox"),
-#              textInput("snake2", "Another snake:", value = "Naja kaouthia")
-#            )
-#     ),
-#     column(8,
-#            plotlyOutput("plot", height = "400px"))
-#   )
-# )
-# 
-# apply_filter <- function(data, input){
-#   snakes <- str_c(c(input$snake1, input$snake2), collapse = "|")
-#   
-#   if( snakes == "|" ){
-#     snakes <- NULL
-#   }else if( endsWith(snakes, "|") ){
-#     snakes <- input$snake1
-#   }else if( startsWith(snakes, "|") ){
-#     snakes <- input$snake2
-#   }
-# 
-#   if( !is.null(snakes) ){
-#     data <- data %>% 
-#           filter(str_detect(str_to_lower(Snake), str_to_lower(snakes)))
-#   }else{data}
-# }
-# 
-# server <- function(input, output) {
-#   dataset <- reactive({
-#       data_aug %>%
-#         apply_filter(input) %>% 
-#         pivot_longer(all_of(toxin_names),
-#                names_to = "Toxin",
-#                values_to = "Value") %>% 
-#         group_by(Snake, Toxin) %>%
-#         summarise(mean(Value)) %>%
-#         mutate(Value = round(`mean(Value)`, 2)) %>%
-#         filter(Value > 0)
-#     })
-#     
-#   output$plot <- renderPlotly({
-#     plot <- dataset() %>% 
-#       ggplot(aes(y = Snake, x = Value, fill = Toxin)) +
-#       geom_col() +
-#       labs(y = 'Venom composition (%)', 
-#        title = "Comparing venom composition",  
-#        subtitle = "Viperidae: 'Bothrops atrox', Elapidae: 'Naja kaouthia'" ) +
-#       theme(legend.position = "none")
-#   })
-# }
-# shinyApp(ui = ui, server = server)
-
-
 ```
 

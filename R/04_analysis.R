@@ -73,7 +73,7 @@ world <- map.world_joined %>%
   ggplot(aes(x = long, y = lat, group = group, fill = count, label = region)) +
     geom_polygon() +
     scale_fill_gradient(
-      low = "white",
+      low = "#ffded2",
       high = "red"
     ) +
     labs(title = "World map of snake counts",
@@ -82,7 +82,7 @@ world <- map.world_joined %>%
          fill = "Snake count")
 # Too big to be stored as html
 ggsave(filename = "results/04_world_of_snakes.png", device = "png")
-
+ggplotly(world)
 # Bar chart comparing within snake species --------------------------------
 intra_species <- data_aug %>% 
   filter(Snake == "Naja kaouthia") %>%
