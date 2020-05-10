@@ -1,12 +1,12 @@
 library(googlesheets4)
 library(tidyverse)
+library(httr)
+library(readxl)
 
 # Load data ---------------------------------------------------------------
-new_data <- read_sheet('https://docs.google.com/spreadsheets/d/1vLrvvQmQdvCtr6n0hjDbIoLiOv3cHVGx7MK_2w_WH3E/edit#gid=0',
-                       sheet = 1,
-                       col_types = 'cnnn')
-new_meta <- read_sheet('https://docs.google.com/spreadsheets/d/1vLrvvQmQdvCtr6n0hjDbIoLiOv3cHVGx7MK_2w_WH3E/edit#gid=0',
-                       sheet = 2)
+new_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR1J2-JTgyqdK48fycrWrlC5bqWFHxVatiCLhvWuxnxTJYhuKoq-bMpEvxjL57LwePK819TJAHU-tkC/pub?gid=0&single=true&output=csv",
+                     col_types = "cnnn")
+new_meta <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR1J2-JTgyqdK48fycrWrlC5bqWFHxVatiCLhvWuxnxTJYhuKoq-bMpEvxjL57LwePK819TJAHU-tkC/pub?gid=1686090584&single=true&output=csv")
 
 # Tidy data ---------------------------------------------------------------
 new_data <- new_data %>% 
