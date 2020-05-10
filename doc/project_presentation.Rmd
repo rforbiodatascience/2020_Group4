@@ -63,6 +63,14 @@ print(new_data, width = 80, n = 4, n_extra = 1)
 - Analysis
 - Talk about which methods have been used to reach the goal for the study (PCA, K-means, ANN)
 
+## Cleaning
+```{r}
+data_raw %>% 
+  distinct(Note, `Sum, %`) %>% 
+  print(n = 10, n_ekstra = 2)
+```
+
+
 ## Results from cleaning and augmenting the data
 - Show dirty data vs. clean data
 - Show region, family, genus, species rows
@@ -244,7 +252,7 @@ Analysis of the venom composition of the incorrectly labeled snakes:
 <p align="center">
 ```{r, message=FALSE}
 read_csv('../results/05_incorrect_pred.csv') %>%
-  select(Snake)
+  select(Snake, Family)
 
 ```
 </p>

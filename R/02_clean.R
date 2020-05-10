@@ -6,9 +6,11 @@ data_raw <- read_csv("data/_raw/01_data_load_relative.csv")
 
 
 # Clean column containing regions -----------------------------------------
-Brazilian_cities <- c("Juazeiro", "Ceara", "Paraiba", "Pernambuco", "ilha de Itaparica", "Adult and young in Brazil")
-USA <- c("Colorado", "Arizona", "Idyllwild", "Loma Linda", "Phelan", "Catalina", "Texas", "Kentucky", "Missouri",
-         "Florida", "Kansas", "Colorado", "Ohio", "New Mexico", "Forida")
+Brazilian_cities <- c("Juazeiro", "Ceara", "Paraiba", "Pernambuco", "ilha de Itaparica",
+                      "Adult and young in Brazil")
+USA <- c("Colorado", "Arizona", "Idyllwild", "Loma Linda", "Phelan", "Catalina",
+         "Texas", "Kentucky", "Missouri", "Florida", "Kansas", "Colorado", "Ohio",
+         "New Mexico", "Forida")
 
 data_clean <- data_raw %>% 
   rename_if(is_double, rm_percent) %>% 
