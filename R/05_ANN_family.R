@@ -1,4 +1,4 @@
-#This script is heavily inspired by the course material given in the course 
+#This script and the script 05_ANN_continents.R are heavily inspired by the course material given in the course 
 #22100 - R for Bio Data Science at the Technical University of Denmark.
 #http://teaching.healthtech.dtu.dk/22100/index.php/22100_-_R_for_Bio_Data_Science
 
@@ -118,7 +118,7 @@ ggsave("results/05_accuracy_plot.png", plot = accuracy_plot, device = "png")
 
 
 
-# Analysis of mislabeled snakes -------------------------------------------
+# Create table with mislabeled snakes -------------------------------------------
 
 incorrect <- plot_dat %>% filter(Correct == "No")
 
