@@ -97,6 +97,12 @@ ggplotly(world)
 ```
 
 
+## Snake family count
+```{r out.width = "90%"}
+include_graphics("../results/04_genus_distribution.png")
+```
+
+
 ## Snake family
 <!-- ## Comparing snake families -->
 ```{r out.width = "90%"}
@@ -183,12 +189,11 @@ ggplotly(intra_species)
 include_app("https://shdam.shinyapps.io/compareTwo/")
 ```
 
-
 ## Results from PCA and K-means
 <!-- - Plots -->
 <!-- ![image](../results/06_pca.png) -->
-```{r out.width = "90%"}
-include_graphics("../results/06_continent_pca.png")
+```{r, out.width = "90%", fig.align = "center"}
+include_graphics("../results/06_kmeans-family.png")
 ```
 
 ## Prediction models based on venom composition
@@ -202,7 +207,5 @@ include_graphics("../results/06_continent_pca.png")
 ## Training of ANN predicting snake family
 ```{r out.width = "80%"}
 includeHTML("../results/05_ANN_Training.html")
-
-
 ```
 
