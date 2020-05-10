@@ -10,7 +10,7 @@ rm(list=ls())
 library('tidyverse')
 library('keras')
 
-set.seed(2001)
+set.seed(1996)
 
 ###### Load augmented data, and filter for low observations
 data <- read_csv("data/03_data_aug.csv")  
@@ -26,7 +26,7 @@ nn_dat <- data %>%
   select(1:Continent, class_label, class_num, everything())
 nn_dat %>% head(3)
 
-test_f <- 0.20
+test_f <- 0.25
 nn_dat <- nn_dat %>%
   mutate(partition = sample(x = c('train','test'),
                             size = nrow(.),
@@ -81,13 +81,16 @@ model %>%
 history <- model %>%
   fit(x = x_train,
       y = y_train,
-      epochs = 150,
+      epochs = 100,
       batch_size = 50,
       validation_split = 0.2
   )
 
-
 plot(history)
+
+png('results/05_ANN_family_training.png', width = 500, height = 500)
+plot(history)
+dev.off()
 
 perf <- model %>% evaluate(x_test, y_test)
 perf
@@ -97,6 +100,7 @@ plot_dat <- nn_dat %>%
   mutate(class_num = factor(class_num),
          y_pred = factor(predict_classes(model, x_test)),
          Correct = factor(ifelse(class_num == y_pred, "Yes", "No")))
+
 plot_dat %>% select(-contains("feat")) %>% head(3)
 
 
@@ -104,10 +108,19 @@ title     = "Classification Performance of Artificial Neural Network"
 sub_title = str_c("Accuracy = ", round(perf$acc, 3) * 100, "%")
 x_lab     = "True snake family"
 y_lab     = "Predicted snake family"
-accuracy_plot <- plot_dat %>% ggplot(aes(x = class_num, y = y_pred, colour = Correct)) +
-  geom_jitter() +
-  scale_x_discrete(labels = levels(nn_dat$class_label)) +
-  scale_y_discrete(labels = levels(nn_dat$class_label)) +
-  theme_bw() +
-  labs(title = title, subtitle = sub_title, x = x_lab, y = y_lab)
+accuracy_plot <- plot_dat %>% ggplot(aes(x = class_num, y = y_pred, colour = Correct)) + 
+  geom_jitter() + 
+  scale_x_discrete(labels = levels(nn_dat$class_label)) +  
+  scale_y_discrete(labels = levels(nn_dat$class_label)) +     
+  theme_bw() + labs(title = title, subtitle = sub_title, x = x_lab, y = y_lab)
 
+ggsave("results/05_accuracy_plot.png", plot = accuracy_plot, device = "png")
+
+
+
+# Analysis of mislabeled snakes -------------------------------------------
+
+incorrect <- plot_dat %>% filter(Correct == "No")
+
+incorrect %>% 
+  write_csv('results/05_incorrect_pred.csv')
