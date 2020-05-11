@@ -1,67 +1,21 @@
 library(tidyverse)
 library(plotly)
-library(maps)
 source('R/99_proj_func.R')
 
-# Store plotly files in results folder
-results_dir <- paste0(getwd(), "/results")
 
-# Load augmented data -----------------------------------------------------
+# Load augmented data
 data_aug <- read_csv("data/03_data_aug.csv")
-# Store toxin names for easier plotting
+
+# Store toxin names for plotting
 toxin_names <- data_aug %>% 
   select_if(is.numeric) %>% 
   colnames()
 
-
-# World map ---------------------------------------------------------------
-# Country with most different snakes
-data_world <- data_aug %>% 
-  distinct(Country, Snake) %>% 
-  count(Country) %>%
-  arrange(desc(n))
-
-map.world <- map_data("world")
-
-map.world_joined <- map.world %>% 
-  left_join(data_world, by = c('region' = 'Country')) %>% 
-  rename(count = n)
-
-world <- map.world_joined %>% 
-  ggplot(aes(x = long,
-             y = lat,
-             group = group,
-             fill = count,
-             label = region)) +
-  geom_polygon() +
-  scale_fill_gradient(low = "#ffded2",
-                      high = "red") +
-  labs(title = "World map of snake counts",
-       x = "Longitude",
-       y = "Latitude",
-       fill = "Snake count")
-# Too big to be stored as html
-ggsave(filename = "results/04_world_of_snakes.png", device = "png")
+# Store plotly files in results folder
+results_dir <- paste0(getwd(), "/results")
 
 
-
-# Distribution of genera --------------------------------------------------
-genus_count <- data_aug %>% 
-  distinct(Snake, Genus, Family) %>% 
-  ggplot(aes(x = Genus, fill = Family)) +
-  geom_bar() + 
-  facet_grid(. ~ Family,
-             space = "free",
-             scales = "free") +
-  theme(axis.text.x = element_text(angle = 90,
-                                   hjust = 1,
-                                   vjust = 0.4),
-        legend.position = "none") +
-  labs(y = "Count", title = "Count of distinct snakes in genera")
-ggsave("results/04_genus_distribution.png", plot = genus_count, device = "png")
-
-
-# Compare venom compostion of the two snake families ----------------------
+# Compare venom composition of the two snake families ----------------------
 family_toxins <- data_aug %>% 
   pivot_longer(all_of(toxin_names),
                names_to = "Toxin",
@@ -72,18 +26,18 @@ family_toxins <- data_aug %>%
   ggplot(aes(x = Value, y = Family, fill = Toxin)) +
   geom_col() +
   labs(title = "Mean Venom Composition of Viperidae and Elapidae",
-       x = "Mean venom composition (%)") +
-  theme(legend.position = "none")
-
+       x = "Mean venom composition (%)")
+ggsave("results/05_family_legend.png", plot = family_toxins,
+       device = "png", scale = 2)
 # Save plot in html file
-family_plotly <- ggplotly(family_toxins)
-htmlwidgets::saveWidget(family_plotly, file = paste0(results_dir, "/04_family_plotly.html"))
+family_plotly <- ggplotly(family_toxins + theme(legend.position = "none"))
+htmlwidgets::saveWidget(family_plotly, file = paste0(results_dir, "/05_family_plotly.html"))
 
 
 # Which toxin is most abundant for each genus -----------------------------
 genus_num <- data_aug %>% 
   count(Genus)
-data_aug %>% 
+avg_toxin <- data_aug %>% 
   select(Genus, Family, all_of(toxin_names)) %>% 
   group_by(Genus, Family) %>% 
   summarise_all(sum) %>% 
@@ -101,13 +55,11 @@ data_aug %>%
   theme(axis.text.x = element_text(angle = 90,
                                    hjust = 1,
                                    vjust = 0.4)) +
-  # scale_fill_brewer(palette="Set1") +
-  # scale_colour_manual(values = c("#f8766d", "#00b7e9", "#b584ff", "#ec68ee", "#f663e1"), aesthetics = "fill") +
   labs(title = "Average abundance",
        subtitle = "Comparing all genera",
        y = "Average abundance (%)")
 
-ggsave("results/04_avg_toxin_genus.png", device = "png", width = 9)
+ggsave("results/05_avg_toxin_genus.png", plot = avg_toxin, device = "png", width = 9)
 
 
 # Intra species comparizon --------------------------------
@@ -123,15 +75,18 @@ intra_species <- data_aug %>%
   ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
   geom_col() +
   coord_flip() +
-  theme(legend.position = "none") +
-  ylab('Venom composition (%)')
+  labs(title = "Intra species comparison",
+       y = "Venom composition (%)")
 
-intra_species <- ggplotly(intra_species)
-htmlwidgets::saveWidget(intra_species, file = paste0(results_dir, "/04_intra_species.html"))
+ggsave("results/05_intra_species.png", plot = intra_species,
+       device = "png", scale = 2)
+# Save plot in html file
+intra_species_plotly <- ggplotly(intra_species + theme(legend.position = "none"))
+htmlwidgets::saveWidget(intra_species_plotly, file = paste0(results_dir, "/05_intra_species.html"))
 
 
 # Compare snake genera ----------------------------------------------------
-compareTwo <- data_aug %>% 
+compare_two <- data_aug %>% 
   filter(Snake %in% c("Naja kaouthia", "Bothrops atrox")) %>%
   pivot_longer(all_of(toxin_names),
                names_to = "Toxin",
@@ -144,15 +99,17 @@ compareTwo <- data_aug %>%
   geom_col() +
   labs(x = 'Venom composition (%)', 
        title = "Comparing venom composition",  
-       subtitle = "Viperidae: 'Bothrops atrox', Elapidae: 'Naja kaouthia'" ) +
-  theme(legend.position = "none") #+
+       subtitle = "Viperidae: 'Bothrops atrox', Elapidae: 'Naja kaouthia'" )
 
-compareTwo <- ggplotly(compareTwo) %>%
+ggsave("results/05_compare_two.png", plot = compare_two,
+       device = "png", scale = 2)
+# Save plot in html file
+compare_two_plotly <- ggplotly(compare_two + theme(legend.position = "none")) %>% 
   layout(title = list(text = paste0('Comparing venom composition',
                                     '<br>',
                                     '<sup>',
                                     'Viperidae: "Bothrops atrox", Elapidae: "Naja kaouthia"',
                                     '</sup>')))
-htmlwidgets::saveWidget(compareTwo, file = paste0(results_dir, "/04_compareTwo.html"))
+htmlwidgets::saveWidget(compare_two_plotly, file = paste0(results_dir, "/05_compare_two.html"))
 
 

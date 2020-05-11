@@ -1,7 +1,14 @@
 library(tidyverse)
 
-# Load raw data
-data_aug <- read_csv("data/02_data_clean.csv")
+# Load clean data
+data_clean <- read_csv("data/02_data_clean.csv")
+
+# Add new data ------------------------------------------------------------
+new_data <- read_csv("data/_raw/01_new_data.csv")
+
+data_aug <- data_clean %>% 
+  full_join(new_data) %>%
+  mutate_each(list(~replace(., which(is.na(.)), 0)))
 
 
 # Group toxins ------------------------------------------------------------
@@ -47,6 +54,9 @@ data_aug <- data_aug %>%
     Unknown = unknown
   )
 
+# Rename colnames to only contain abbreviations
+colnames(data_aug) <- str_split(colnames(data_aug), pattern = " ", simplify = TRUE)[, 1]
+
 # Remove toxins with few occurances ---------------------------------------
 summed_toxins <- data_aug %>% 
   select_if(is.numeric) %>% 
@@ -56,7 +66,7 @@ summed_toxins <- data_aug %>%
   filter(toxin_occurance > 5)
 
 data_aug <- data_aug %>% 
-  select(c("Snake", "Reference", "Country", "Continent", summed_toxins$toxin)) %>% 
+  select(c("Snake", "Reference", "Country", summed_toxins$toxin)) %>% 
   mutate(Unknown = 100 - Reduce(`+`, select_if(., is.numeric)))
 
 

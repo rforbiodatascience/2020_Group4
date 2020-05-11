@@ -18,4 +18,4 @@ new_data <- new_data %>%
 
 # Write data --------------------------------------------------------------
 new_data %>% 
-  write_csv('data/_raw/01.2_new_data.csv')
+  write_csv('data/_raw/01_new_data.csv')

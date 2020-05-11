@@ -73,7 +73,7 @@ print(new_data, width = 80, n = 4, n_extra = 1)
 
 
 ## Augmented data
-```{r message = FALSE}
+```{r, message = FALSE}
 # Load augmented data
 data_aug <- read_csv("../data/03_data_aug.csv")
 toxin_names <- data_aug %>% 
@@ -87,12 +87,15 @@ toxin_names <- data_aug %>%
 
 Snakes from richer countries or countries with a focus on snake research is overrepresented.
 
-```{r out.width = "90%"}
+```{r, out.width = "90%"}
 
 data_world <- data_aug %>%
-distinct(Country, Snake) %>%
-count(Country) %>%
-arrange(desc(n))
+  distinct(Country, Snake) %>%
+  count(Country) %>%
+  arrange(desc(n))
+n_unknown <- data_world %>% 
+  filter(Country == "Unknown") %>% 
+  pull(n)
 
 map.world <- map_data("world")
 
@@ -109,23 +112,30 @@ world <- map.world_joined %>%
       high = "red"
     ) +
     labs(title = "World map of snake counts",
+         subtitle = paste("There are", n_unknown, "snakes of unknown origin."),
          x = "Longitude",
          y = "Latitude",
          fill = "Snake count")
 
-ggplotly(world)
+ggplotly(world) %>% 
+  layout(title = list(text = paste0("World map of snake counts",
+                                    '<br>',
+                                    '<sup>',
+                                    paste("There are", n_unknown, "snakes of unknown origin."),
+                                    '</sup>')))
+
 ```
 
 
 ## Snake family count
-```{r out.width = "80%"}
+```{r, out.width = "80%"}
 include_graphics("../results/04_genus_distribution.png")
 ```
 
 
 ## Snake family
 <!-- ## Comparing snake families -->
-```{r out.width = "90%"}
+```{r, out.width = "90%"}
 # includeHTML( "../results/04_family_plotly.html")
 family_toxins <- data_aug %>%
   pivot_longer(all_of(toxin_names),
@@ -144,7 +154,7 @@ ggplotly(family_toxins)
 ```
 
 ## Most abundant toxins
-```{r out.width = "100%"}
+```{r, out.width = "100%"}
 include_graphics("../results/04_avg_toxin_genus.png")
 ```
 
@@ -153,7 +163,7 @@ include_graphics("../results/04_avg_toxin_genus.png")
 <!-- - Discuss results, what can we say about the data based on the study -->
 
 ## Compare two snakes
-```{r out.width = "90%"}
+```{r, out.width = "90%"}
 # includeHTML("../results/04_compareTwo.html")
 compareTwo <- data_aug %>%
   filter(Snake %in% c("Naja kaouthia", "Bothrops atrox")) %>%
@@ -181,7 +191,7 @@ ggplotly(compareTwo) %>%
 ```
 
 ## Intra species comparison
-```{r out.width = "90%"}
+```{r, out.width = "90%"}
 # Bar chart comparing within snake species
 intra_species <- data_aug %>% 
   filter(Snake == "Naja kaouthia") %>%
@@ -225,7 +235,7 @@ include_graphics("../results/06_kmeans-family.png")
 ## Training of ANN predicting snake family
 
 <p align="center">
-```{r out.width = "50%"}
+```{r, out.width = "50%"}
 include_graphics("../results/05_ANN_family_training.png")
 
 ```
@@ -236,7 +246,7 @@ include_graphics("../results/05_ANN_family_training.png")
 
 
 <p align="center">
-```{r out.width = "50%"}
+```{r, out.width = "50%"}
 include_graphics("../results/05_accuracy_plot.png")
 
 ```

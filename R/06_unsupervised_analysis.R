@@ -1,8 +1,8 @@
 library(broom)
-library(ggplot2)
 library(tidyverse)
 
-set.seed(1997)
+# sample(1e6, 1)
+set.seed(839865)
 
 
 ###### Load augmented data
@@ -75,22 +75,11 @@ family_pca <- data_pca_aug %>%
 
 ggsave("results/06_family_pca.png", device = "png")
 
-#Plot PCA with continent of origin as labels
-continent_plot <- data_pca_aug %>% 
-  ggplot(aes(x = (.fittedPC1),
-             y = (.fittedPC2),
-             colour = Continent)) +
-  geom_point(shape = 1, size = 3) + 
-  labs(x = x, y = y, title = "PCA", color = "Continent of Snake") +
-  theme_grey()
-
-ggsave('results/06_continent_pca.png', continent_plot, scale = 2)
-
 # K-means -----------------------------------------------------------------
 
 data_k_org <- data_pca_aug %>%
   select(contains("PC")) %>% 
-  kmeans(centers = 2)
+  kmeans(centers = 3)
 
 data_pca_aug_k_org <- data_k_org %>%
   augment(data_pca_aug) %>% 
