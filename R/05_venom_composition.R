@@ -11,9 +11,6 @@ toxin_names <- data_aug %>%
   select_if(is.numeric) %>% 
   colnames()
 
-# Store plotly files in results folder
-results_dir <- paste0(getwd(), "/results")
-
 
 # Compare venom composition of the two snake families ----------------------
 family_toxins <- data_aug %>% 
@@ -29,9 +26,10 @@ family_toxins <- data_aug %>%
        x = "Mean venom composition (%)")
 ggsave("results/05_family_legend.png", plot = family_toxins,
        device = "png", scale = 2)
-# Save plot in html file
+
+# Save plot in Rdata file
 family_plotly <- ggplotly(family_toxins + theme(legend.position = "none"))
-htmlwidgets::saveWidget(family_plotly, file = paste0(results_dir, "/05_family_plotly.html"))
+save(family_plotly, file = "results/05_family_plotly.Rdata")
 
 
 # Which toxin is most abundant for each genus -----------------------------
@@ -80,9 +78,9 @@ intra_species <- data_aug %>%
 
 ggsave("results/05_intra_species.png", plot = intra_species,
        device = "png", scale = 2)
-# Save plot in html file
+# Save plot in Rdata file
 intra_species_plotly <- ggplotly(intra_species + theme(legend.position = "none"))
-htmlwidgets::saveWidget(intra_species_plotly, file = paste0(results_dir, "/05_intra_species.html"))
+save(intra_species_plotly, file = "results/05_intra_species.Rdata")
 
 
 # Compare snake genera ----------------------------------------------------
@@ -103,13 +101,13 @@ compare_two <- data_aug %>%
 
 ggsave("results/05_compare_two.png", plot = compare_two,
        device = "png", scale = 2)
-# Save plot in html file
+# Save plot in Rdata file
 compare_two_plotly <- ggplotly(compare_two + theme(legend.position = "none")) %>% 
   layout(title = list(text = paste0('Comparing venom composition',
                                     '<br>',
                                     '<sup>',
                                     'Viperidae: "Bothrops atrox", Elapidae: "Naja kaouthia"',
                                     '</sup>')))
-htmlwidgets::saveWidget(compare_two_plotly, file = paste0(results_dir, "/05_compare_two.html"))
+save(compare_two_plotly, file = "results/05_compare_two.Rdata")
 
 

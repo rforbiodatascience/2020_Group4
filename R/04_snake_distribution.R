@@ -12,6 +12,10 @@ data_world <- data_aug %>%
   count(Country) %>%
   arrange(desc(n))
 
+n_unknown <- data_world %>%
+  filter(Country == "Unknown") %>%
+  pull(n)
+
 map.world <- map_data("world")
 
 map.world_joined <- map.world %>% 
@@ -31,6 +35,16 @@ world <- map.world_joined %>%
        x = "Longitude",
        y = "Latitude",
        fill = "Snake count")
+
+world_plotly <- ggplotly(world) %>% 
+  layout(title = list(text = paste0("World map of snake counts",
+                                    '<br>',
+                                    '<sup>',
+                                    paste("There are", n_unknown, "snakes of unknown origin."),
+                                    '</sup>')))
+
+save(world_plotly, file = "results/04_world_of_snakes.Rdata")
+
 # Too big to be stored as html
 ggsave(filename = "results/04_world_of_snakes.png", device = "png")
 

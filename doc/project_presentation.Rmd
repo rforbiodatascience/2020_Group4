@@ -88,74 +88,27 @@ toxin_names <- data_aug %>%
 Snakes from richer countries or countries with a focus on snake research is overrepresented.
 
 ```{r, out.width = "90%"}
-
-data_world <- data_aug %>%
-  distinct(Country, Snake) %>%
-  count(Country) %>%
-  arrange(desc(n))
-n_unknown <- data_world %>% 
-  filter(Country == "Unknown") %>% 
-  pull(n)
-
-map.world <- map_data("world")
-
-
-map.world_joined <- map.world %>%
-  left_join(data_world, by = c("region" = "Country")) %>%
-  rename(count = n)
-
-world <- map.world_joined %>%
-  ggplot(aes(x = long, y = lat, group = group, fill = count, label = region)) +
-    geom_polygon() +
-    scale_fill_gradient(
-      low = "#ffded2",
-      high = "red"
-    ) +
-    labs(title = "World map of snake counts",
-         subtitle = paste("There are", n_unknown, "snakes of unknown origin."),
-         x = "Longitude",
-         y = "Latitude",
-         fill = "Snake count")
-
-ggplotly(world) %>% 
-  layout(title = list(text = paste0("World map of snake counts",
-                                    '<br>',
-                                    '<sup>',
-                                    paste("There are", n_unknown, "snakes of unknown origin."),
-                                    '</sup>')))
-
+load("../results/04_world_of_snakes.Rdata")
+world_plotly
 ```
 
 
 ## Snake family count
-```{r, out.width = "80%"}
+```{r, out.width = "90%"}
 include_graphics("../results/04_genus_distribution.png")
 ```
 
 
 ## Snake family
 <!-- ## Comparing snake families -->
-```{r, out.width = "90%"}
-# includeHTML( "../results/04_family_plotly.html")
-family_toxins <- data_aug %>%
-  pivot_longer(all_of(toxin_names),
-               names_to = "Toxin",
-               values_to = "Value") %>%
-  group_by(Family, Toxin) %>%
-  summarise(mean(Value)) %>%
-  mutate(Value = round(`mean(Value)`, 2)) %>%
-  ggplot(aes(x = Family, y = Value, fill = Toxin)) +
-  geom_col() +
-  coord_flip() +
-  labs(title = "Mean Venom Composition of Viperidae and Elapidae",
-       y = "Mean venom composition (%)") +
-  theme(legend.position = "none")
-ggplotly(family_toxins)
+```{r}
+load("../results/05_family_plotly.Rdata")
+family_plotly
 ```
 
 ## Most abundant toxins
 ```{r, out.width = "100%"}
-include_graphics("../results/04_avg_toxin_genus.png")
+include_graphics("../results/05_avg_toxin_genus.png")
 ```
 
 
@@ -165,49 +118,15 @@ include_graphics("../results/04_avg_toxin_genus.png")
 ## Compare two snakes
 ```{r, out.width = "90%"}
 # includeHTML("../results/04_compareTwo.html")
-compareTwo <- data_aug %>%
-  filter(Snake %in% c("Naja kaouthia", "Bothrops atrox")) %>%
-  pivot_longer(all_of(toxin_names),
-               names_to = "Toxin",
-               values_to = "Value") %>%
-  group_by(Snake, Toxin) %>%
-  summarise(mean(Value)) %>%
-  mutate(Value = round(`mean(Value)`, 2)) %>%
-  filter(Value > 0) %>%
-  ggplot(aes(x = Value, y = Snake, fill = Toxin)) +
-  geom_col() +
-  labs(x = 'Venom composition (%)',
-       title = "Comparing venom composition",
-       subtitle = "Viperidae: 'Bothrops atrox', Elapidae: 'Naja kaouthia'" ) +
-  theme(legend.position = "none")
-
-ggplotly(compareTwo) %>%
-  layout(title = list(text = paste0('Comparing venom composition',
-                                    '<br>',
-                                    '<sup>',
-                                    'Viperidae: "Bothrops atrox", Elapidae: "Naja kaouthia"',
-                                    '</sup>')))
-
+load("../results/05_compare_two.Rdata")
+compare_two_plotly
 ```
 
 ## Intra species comparison
 ```{r, out.width = "90%"}
 # Bar chart comparing within snake species
-intra_species <- data_aug %>% 
-  filter(Snake == "Naja kaouthia") %>%
-  mutate(Snake = paste(Snake, " (",
-                    row_number(), ")",
-                    sep = "")) %>%
-  pivot_longer(all_of(toxin_names),
-               names_to = "Toxin",
-               values_to = "Value") %>% 
-  arrange(desc(Snake)) %>% 
-  ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
-  geom_col() +
-  coord_flip() +
-  theme(legend.position = "none") +
-  ylab('Venom composition (%)')
-ggplotly(intra_species)
+load("../results/05_intra_species.Rdata")
+intra_species_plotly
 ```
 
 
@@ -236,7 +155,7 @@ include_graphics("../results/06_kmeans-family.png")
 
 <p align="center">
 ```{r, out.width = "50%"}
-include_graphics("../results/05_ANN_family_training.png")
+include_graphics("../results/07_ANN_family_training.png")
 
 ```
 </p>
@@ -247,7 +166,7 @@ include_graphics("../results/05_ANN_family_training.png")
 
 <p align="center">
 ```{r, out.width = "50%"}
-include_graphics("../results/05_accuracy_plot.png")
+include_graphics("../results/07_accuracy_plot.png")
 
 ```
 </p>
@@ -258,7 +177,7 @@ Analysis of the venom composition of the incorrectly labeled snakes:
 
 <p align="center">
 ```{r, message=FALSE}
-read_csv('../results/05_incorrect_pred.csv') %>%
+read_csv('../results/07_incorrect_pred.csv') %>%
   select(Snake, Family)
 
 ```
