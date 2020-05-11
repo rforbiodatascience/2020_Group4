@@ -73,12 +73,18 @@ print(new_data, width = 80, n = 4, n_extra = 1)
 
 
 ## Augmented data
+- Join new data
+- Group toxins
+- Remove toxins with few occurances
+- Map genus to snake family
 ```{r, message = FALSE}
 # Load augmented data
 data_aug <- read_csv("../data/03_data_aug.csv")
 toxin_names <- data_aug %>% 
   select_if(is.numeric) %>% 
   colnames()
+
+print(data_aug, width = 80, n = 4, n_extra = 1)
 ```
 
 
@@ -96,6 +102,11 @@ world_plotly
 ## Snake family count
 ```{r, out.width = "90%"}
 include_graphics("../results/04_genus_distribution.png")
+```
+
+## Snake family
+```{r, out.width = "90%"}
+include_graphics("../results/05_family_legend.png")
 ```
 
 
@@ -182,4 +193,19 @@ read_csv('../results/07_incorrect_pred.csv') %>%
 
 ```
 </p>
+
+## Static plots
+
+## Compare two snakes
+```{r, out.width = "90%"}
+# includeHTML("../results/04_compareTwo.html")
+include_graphics("../results/05_compare_two.png")
+```
+
+## Intra species comparison
+```{r, out.width = "90%"}
+# Bar chart comparing within snake species
+include_graphics("../results/05_intra_species.png")
+```
+
 

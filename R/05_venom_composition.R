@@ -33,7 +33,7 @@ save(family_plotly, file = "results/05_family_plotly.Rdata")
 
 
 # Which toxin is most abundant for each genus -----------------------------
-genus_num <- data_aug %>% 
+genus_count <- data_aug %>% 
   count(Genus)
 avg_toxin <- data_aug %>% 
   select(Genus, Family, all_of(toxin_names)) %>% 
@@ -42,7 +42,7 @@ avg_toxin <- data_aug %>%
   pivot_longer(-c(Genus, Family), names_to = "Toxin") %>% 
   group_by(Family, Genus) %>%
   filter(value == max(value)) %>% 
-  inner_join(genus_num, by = "Genus") %>% 
+  inner_join(genus_count, by = "Genus") %>% 
   mutate(avg_abundance = round(value / n, 2)) %>%
   ggplot(aes(x = Genus, y = avg_abundance, fill = Toxin)) +
   geom_col(width = 0.7) +
