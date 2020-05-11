@@ -33,6 +33,22 @@ Should not include all your code (we will look into that at the individual exami
 
 Created using ioslides_presentation rmarkdown (i.e. the right-most doc column in the project organisation will be a rmarkdown based presentation)
 
+## Project outline:
+
+- Loading and cleaning data
+  - Merge datsets
+  - Map locations to country
+- Augmentation of data
+  - Group snake subspecies and venom types
+- Initial Analysis and visualisations
+  - Venom composition
+  - Geographical distribution
+- Unsupervised analysis
+  - PCA
+  - K-means clustering
+- Supervised classification model
+  - Artificial Neural Network (ANN)
+
 
 
 ## Introduction
@@ -57,19 +73,12 @@ print(new_data, width = 80, n = 4, n_extra = 1)
 
 
 ## Materials and methods
-- Loading and cleaning data
-  - Merge datsets
-  - Map locations to country
-- Augmentation of data
-  - Group snake subspecies and venom types
-- Initial Analysis and visualisations
-  - Venom composition
-  - Geographical distribution
-- Unsupervised analysis
-  - PCA
-  - K-means clustering
-- Supervised classification model
-  - Artificial Neural Network (ANN)
+Data processing and modelling performed in Rstudio Cloud
+  Used packages:
+  httr, tidyverse, readxl, googlesheets4, shiny, knitr, plotly, maps, patchwork, rsconnect
+  
+Whole project exists at github at: 
+https://github.com/rforbiodatascience/2020_group04
 
 
 ## Augmented data
