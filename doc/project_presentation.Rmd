@@ -19,29 +19,39 @@ library(maps)
 source("../R/99_proj_func.R")
 ```
 
+## Introduction to the study
+- Raw data
+```{r, message = FALSE}
+data_raw <- read_csv("../data/_raw/01_data_load_relative.csv")
+print(data_raw, width = 80, n = 4, n_extra = 1)
+```
 
-## Project requirements
-Follow the IMRAD standard scientific structure:
-- Introduction
-- Materials and Methods
-- Results (And)
-- Discussion
-With a technical focus, but minding to communicate which-ever biological insights you arrived at
+- Newly found data
+```{r, messages = FALSE}
+new_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR1J2-JTgyqdK48fycrWrlC5bqWFHxVatiCLhvWuxnxTJYhuKoq-bMpEvxjL57LwePK819TJAHU-tkC/pub?gid=0&single=true&output=csv", col_types = "cnnn")
+print(new_data, width = 80, n = 4, n_extra = 1)
+```
 
-Should not include all your code (we will look into that at the individual examinations), but rather focus on the broader picture of what you did and include data summaries and visualisations
 
-Created using ioslides_presentation rmarkdown (i.e. the right-most doc column in the project organisation will be a rmarkdown based presentation)
 
-## Project outline:
+## Goal of study
+- Develop a tool for venom composition analysis
+- Group snakes by family based on venom composition (PCA, K-means, ANN)
+
+## Project outline
+```{r, out.width= "60%", out.extra='style="float:right; padding:10px"'}
+include_graphics("../doc/Flow1.png")
+```
 
 - Loading and cleaning data
-  - Merge datsets
   - Map locations to country
 - Augmentation of data
-  - Group snake subspecies and venom types
-- Initial Analysis and visualisations
-  - Venom composition
-  - Geographical distribution
+  - Merge datasets
+  - Create genus and species columns
+  - Group toxins
+- Analysis and visualisations
+  - Geographical and genus distribution
+  - Venom composition analysis
 - Unsupervised analysis
   - PCA
   - K-means clustering
@@ -50,40 +60,37 @@ Created using ioslides_presentation rmarkdown (i.e. the right-most doc column in
 
 
 
-## Introduction
-- Intro to snake venom
-- Data set for the study: 
-  - Venom compositions from snakes all around the world
-- Goal of study:
-  - Group snakes by genus based on venom composition (PCA, K-means, ANN)
-  
-## The datasets
-- Main data
-```{r, message = FALSE}
-data_raw <- read_csv("../data/_raw/01_data_load_relative.csv")
-print(data_raw, width = 80, n = 4, n_extra = 1)
-```
 
-- New data
-```{r, messages = FALSE}
-new_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR1J2-JTgyqdK48fycrWrlC5bqWFHxVatiCLhvWuxnxTJYhuKoq-bMpEvxjL57LwePK819TJAHU-tkC/pub?gid=0&single=true&output=csv", col_types = "cnnn")
-print(new_data, width = 80, n = 4, n_extra = 1)
-```
+<!-- ## Introduction -->
+<!-- - Intro to snake venom -->
+<!-- - Data set for the study:  -->
+<!--   - Venom compositions from snakes all around the world -->
+<!-- - Goal of study: -->
+<!--   - Group snakes by genus based on venom composition (PCA, K-means, ANN) -->
+
+
 
 
 ## Materials and methods
-Data processing and modelling performed in Rstudio Cloud
-  Used packages:
-  httr, tidyverse, readxl, googlesheets4, shiny, knitr, plotly, maps, patchwork, rsconnect
-  
-Whole project exists at github at: 
+- Data processing and modelling as well as the creation of this presentation was performed in Rstudio Cloud.
+
+- Coding followed the tidyverse style guide by Hadley Wickham.
+
+- Results obtained from modelling using Artificial Neural Networks were performed in another project.
+
+- Whole project exists at github at: 
 https://github.com/rforbiodatascience/2020_group04
 
+*Used packages:*
+*httr, readxl, tidyverse, knitr, plotly, maps, patchwork, shiny, rsconnect, keras, devtools*
+
+
+    
 
 ## Augmented data
 - Join new data
 - Group toxins
-- Remove toxins with few occurances
+- Remove toxins found in fewer than five snakes
 - Map genus to snake family
 ```{r, message = FALSE}
 # Load augmented data
@@ -92,11 +99,15 @@ toxin_names <- data_aug %>%
   select_if(is.numeric) %>% 
   colnames()
 
-print(data_aug, width = 80, n = 4, n_extra = 1)
+print(data_aug, width = 80, n = 10, n_extra = 1)
 ```
 
-
-
+## Analysis and visualisations
+<p align="center">
+```{r, out.width = "70%"}
+include_graphics("../doc/Flow2.png")
+```
+</p>
 ## Geographical overview of samples
 
 Snakes from richer countries or countries with a focus on snake research is overrepresented.
@@ -107,25 +118,24 @@ world_plotly
 ```
 
 
-## Snake family count
+## Genus distribution according to family
 ```{r, out.width = "90%"}
 include_graphics("../results/04_genus_distribution.png")
 ```
 
-## Snake family
+## Venom composition in snake families
 ```{r, out.width = "90%"}
 include_graphics("../results/05_family_legend.png")
 ```
 
 
-## Snake family
-<!-- ## Comparing snake families -->
+## Venom composition in snake families
 ```{r}
 load("../results/05_family_plotly.Rdata")
 family_plotly
 ```
 
-## Most abundant toxins
+## Toxin abundances
 ```{r, out.width = "100%"}
 include_graphics("../results/05_avg_toxin_genus.png")
 ```
@@ -134,14 +144,14 @@ include_graphics("../results/05_avg_toxin_genus.png")
 <!-- ## Discussion -->
 <!-- - Discuss results, what can we say about the data based on the study -->
 
-## Compare two snakes
+## Comparing venom composition between snake species
 ```{r, out.width = "90%"}
-# includeHTML("../results/04_compareTwo.html")
 load("../results/05_compare_two.Rdata")
 compare_two_plotly
 ```
 
-## Intra species comparison
+
+## Comparing venom composition within species
 ```{r, out.width = "90%"}
 # Bar chart comparing within snake species
 load("../results/05_intra_species.Rdata")
@@ -155,33 +165,38 @@ intra_species_plotly
 include_app("https://shdam.shinyapps.io/compareTwo/")
 ```
 
+
+## Unsupervised and supervised learning
+<p align="center">
+```{r, out.width = "70%"}
+include_graphics("../doc/Flow3.png")
+```
+</p>
+
+
 ## Results from PCA and K-means
-<!-- - Plots -->
-<!-- ![image](../results/06_pca.png) -->
-```{r, out.width = "90%", fig.align = "center"}
+```{r, out.width = "100%", fig.align = "center"}
 include_graphics("../results/06_kmeans-family.png")
 ```
 
-## Prediction models based on venom composition
-- A smiple vanilla ANN managed to correctly classify the whole testset (25 % of data)
-  - Specifications: 4 hidden neurons, learning rate = 0.001, n_epocs = 100, loss criterion = Binary Crossentropy
+## Prediction model based on venom composition
+```{r, out.width= "50%", out.extra='style="float:right; padding:10px"'}
+include_graphics("../results/07_ANN_family_training.png")
+```
+A simple vanilla ANN managed to correctly classify the whole testset (25 % of data).
+
+- Specifications: 4 hidden neurons, learning rate = 0.001, n_epocs = 100, loss criterion = Binary Crossentropy.
 <!-- - Prediction of which continent, the snake originated from  -->
 <!--   - Attempted a number of architechtures ranging from 1 to 4 hidden layers, with/without dropout and tried optimizing hyperparameters. -->
 <!--   - Problems with overfitting - further regularization e.g. early stopping might be a solution -->
 <!--   - Question might be ill posed - venom composition predicts snake family and not necessarily location. e.g. snakes from two different families both from the same country have completely different venom compositions. -->
 
-## Training of ANN predicting snake family
+<!-- ## Training of ANN predicting snake family -->
 
-<p align="center">
-```{r, out.width = "50%"}
-include_graphics("../results/07_ANN_family_training.png")
 
-```
-</p>
-## Analysis of incorrect labels (1)
 
-- If test size is increased to 40 %, the model misclassifies 5 snakes as illustrated below:
-
+## Theoretic analysis of incorrect labels
+To investigate a case with misclassified snakes, a new model was trained with a test size of 40%, 5 snakes are misclassified as illustrated below:
 
 <p align="center">
 ```{r, out.width = "50%"}
@@ -190,17 +205,21 @@ include_graphics("../results/07_accuracy_plot.png")
 ```
 </p>
 
-## Analysis of incorrect labels (2)
+## Analysis of special cases
 
-Analysis of the venom composition of the incorrectly labeled snakes:
-
-<p align="center">
+Incorrectly labeled snakes by sub-optimal ANN:
 ```{r, message=FALSE}
 read_csv('../results/07_incorrect_pred.csv') %>%
   select(Snake, Family)
-
 ```
-</p>
+
+Snake from K-means cluster 2:
+```{r, message=FALSE}
+load("../results/06_kmeans_cluster2.Rdata")
+cluster2 %>% 
+  select(Snake, Family)
+```
+
 
 ## Shiny app
 ```{r}
@@ -209,15 +228,15 @@ include_app("https://shdam.shinyapps.io/compareTwo/")
 
 
 
-## Static plots
+## Static plots for publication
 
-## Compare two snakes
+## Comparing venom composition between snake species
 ```{r, out.width = "90%"}
 # includeHTML("../results/04_compareTwo.html")
 include_graphics("../results/05_compare_two.png")
 ```
 
-## Intra species comparison
+## Comparing venom composition within species
 ```{r, out.width = "90%"}
 # Bar chart comparing within snake species
 include_graphics("../results/05_intra_species.png")

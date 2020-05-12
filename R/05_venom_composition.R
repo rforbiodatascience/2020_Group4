@@ -40,7 +40,6 @@ avg_toxin <- data_aug %>%
   group_by(Genus, Family) %>% 
   summarise_all(sum) %>% 
   pivot_longer(-c(Genus, Family), names_to = "Toxin") %>% 
-  group_by(Family, Genus) %>%
   filter(value == max(value)) %>% 
   inner_join(genus_count, by = "Genus") %>% 
   mutate(avg_abundance = round(value / n, 2)) %>%
@@ -53,11 +52,11 @@ avg_toxin <- data_aug %>%
   theme(axis.text.x = element_text(angle = 90,
                                    hjust = 1,
                                    vjust = 0.4)) +
-  labs(title = "Average abundance",
-       subtitle = "Comparing all genera",
+  labs(title = "Primary toxin in each genus",
+       subtitle = "Segregated by family",
        y = "Average abundance (%)")
 
-ggsave("results/05_avg_toxin_genus.png", plot = avg_toxin, device = "png", width = 9)
+ggsave("results/05_avg_toxin_genus.png", plot = avg_toxin, device = "png")
 
 
 # Intra species comparizon --------------------------------
@@ -73,7 +72,7 @@ intra_species <- data_aug %>%
   ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
   geom_col() +
   coord_flip() +
-  labs(title = "Intra species comparison",
+  labs(title = "Intra species comparison of Naja kaouthia",
        y = "Venom composition (%)")
 
 ggsave("results/05_intra_species.png", plot = intra_species,

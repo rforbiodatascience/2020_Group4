@@ -95,3 +95,8 @@ ggsave("results/06_kmeans.png", device = "png")
 
 library(patchwork)
 ggsave("results/06_kmeans-family.png", plot = family_pca + kmeans, device = "png")
+
+
+cluster2 <- data_pca_aug %>% 
+  filter(.fittedPC2 == min(.fittedPC2))
+save(cluster2, file = "results/06_kmeans_cluster2.Rdata")

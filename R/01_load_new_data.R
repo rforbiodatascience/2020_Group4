@@ -1,7 +1,4 @@
-library(googlesheets4)
 library(tidyverse)
-library(httr)
-library(readxl)
 
 # Load data ---------------------------------------------------------------
 new_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR1J2-JTgyqdK48fycrWrlC5bqWFHxVatiCLhvWuxnxTJYhuKoq-bMpEvxjL57LwePK819TJAHU-tkC/pub?gid=0&single=true&output=csv",
