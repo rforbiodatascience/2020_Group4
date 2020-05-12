@@ -62,7 +62,8 @@ data_new <- data_new %>%
   pivot_longer(-Toxin, names_to = "Snake", values_to = "value") %>% 
   pivot_wider(names_from = Toxin, values_from = value) %>% 
   left_join(meta_new, by = "Snake") %>% 
-  mutate(`Unknown/Undetermined` = 100 - Reduce(`+`, select_if(., is.numeric))) 
+  mutate(`Unknown/Undetermined` = 100 - Reduce(`+`, select_if(., is.numeric))) %>% 
+  replace(is.na(.), 0)
 
 # Wrtie output clean new file
 data_new %>% 

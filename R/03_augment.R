@@ -10,7 +10,7 @@ data_new <- read_csv("data/02_data_new_clean.csv")
 
 # Join data ---------------------------------------------------------------
 data_aug <- data_clean %>% 
-  full_join(data_new) %>%
+  full_join(data_new) %>% 
   replace(is.na(.), 0)
 
 # # Rename colnames to only contain abbreviations
