@@ -1,3 +1,5 @@
+rm(list = ls())
+
 library(tidyverse)
 library(plotly)
 source('R/99_proj_func.R')

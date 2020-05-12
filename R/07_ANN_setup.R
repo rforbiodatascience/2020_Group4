@@ -2,6 +2,7 @@
 # Setup session:
 # Artificial Neural Networks using Keras / Tensorflow in R
 # ------------------------------------------------------------------------------
+rm(list = ls())
 
 # Install packages
 # ------------------------------------------------------------------------------

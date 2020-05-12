@@ -1,3 +1,5 @@
+rm(list = ls())
+
 # Functions
 
 # Removes ', %' from a string

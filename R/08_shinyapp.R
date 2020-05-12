@@ -1,3 +1,5 @@
+rm(list = ls())
+
 # Dependencies
 list.of.packages <- c("shiny", "plotly", "maps", "tidyverse", "rsconnect")
 

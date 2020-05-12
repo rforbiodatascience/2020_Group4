@@ -11,10 +11,10 @@ Agkistrodon contortrix pictigaster,Agkistrodon,contortrix,Viperidae,USA,https://
 Agkistrodon piscivorus conanti,Agkistrodon,piscivorus,Viperidae,USA,https://www.ncbi.nlm.nih.gov/pubmed/24211403,0,0,3,0,0,13.9,0,0,4.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,2.2,1.3,0,46,5.7,2.3999999999999915
 Agkistrodon piscivorus leucostoma,Agkistrodon,piscivorus,Viperidae,USA,https://www.ncbi.nlm.nih.gov/pubmed/24211403,0,0,2,0,0,10.1,0,0,2.7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,26.1,4.9,0.8,0,43.2,5.9,4.299999999999983
 Agkistrodon piscivorus piscivorus,Agkistrodon,piscivorus,Viperidae,USA,https://www.ncbi.nlm.nih.gov/pubmed/24211403,0,0,3.5,0,0,13.2,0,0,0.8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,33.1,3.6,3.2,0,33.6,5.8,3.200000000000003
-Aipysurus laevis,Aipysurus,laevis,Elapidae,Australia,https://www.ncbi.nlm.nih.gov/pubmed/26169672,0,0,2.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,25.3,71.2,0,1
-Atropoides nummifer mexicanus,Atropoides,nummifer,Viperidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/18161938,0,0.1,1.89,0,0,21.91,0,0,9.06,0.1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18.13,2.49,1.29,0.1,36.35,8.57,0.009999999999990905
+Aipysurus laevis,Aipysurus,laevis,Elapidae,Australia,https://www.ncbi.nlm.nih.gov/pubmed/26169672,0,0,2.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,71.2,0,25.299999999999997
+Atropoides nummifer mexicanus,Atropoides,nummifer,Viperidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/18161938,0,0.1,1.89,0,0,21.91,0,0,9.06,0.1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18.13,2.49,1.29,1,36.35,8.57,-0.8899999999999864
 Atropoides picadoi,Atropoides,picadoi,Viperidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/18161938,0,0.1,4.79,0,0,13.46,0,0,2.19,0.1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,66.2,0.1,1.79,0,9.47,1.79,0.009999999999990905
-Austrelaps labialis,Austrelaps,labialis,Elapidae,Australia,https://www.ncbi.nlm.nih.gov/pubmed/18307759,0,0,8,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,45,33,0,2
+Austrelaps labialis,Austrelaps,labialis,Elapidae,Australia,https://www.ncbi.nlm.nih.gov/pubmed/18307759,0,0,8,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,1,33,0,46
 Bitis arietans,Bitis,arietans,Viperidae,Ghana,https://www.ncbi.nlm.nih.gov/pubmed/16786436,0,0,0,0,0,19.48,4.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,38.46,17.78,13.19,0,4.3,0,2.5900000000000034
 Bitis caudalis,Bitis,caudalis,Viperidae,Unknown,https://www.ncbi.nlm.nih.gov/pubmed/17559253,0,0,1.2,0,0,15.1,3.2,0,1.7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11.5,2.3,4.9,0,59.8,0,0.30000000000001137
 Bitis gabonica,Bitis,gabonica,Viperidae,Unknown,https://www.ncbi.nlm.nih.gov/pubmed/17203976,0,0.5,2,0,0,26.4,3,0,1.3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22.9,3.4,14.3,0,11.4,2.8,11
@@ -83,11 +83,11 @@ Bothrops neuwiedi,Bothrops,neuwiedi,Viperidae,Brazil,https://www.ncbi.nlm.nih.go
 Bothrops pictus,Bothrops,pictus,Viperidae,Peru,https://www.ncbi.nlm.nih.gov/pubmed/22300577,0,0,0,0,0,7.7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,68,8.9,1.1,0,14.1,0,0.20000000000000284
 Bothrops pirajai,Bothrops,pirajai,Viperidae,Brazil,https://www.ncbi.nlm.nih.gov/pubmed/23385358,0,0,0,0,0,7.1,0,0,5.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20.7,1.4,9.2,0,40.2,0,16.200000000000003
 Bothrops punctatus,Bothrops,punctatus,Viperidae,Colombia,https://www.ncbi.nlm.nih.gov/pubmed/24498576,0,0,1.2,0,0,5.4,0,0,3.1,1.7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,41.5,3.8,16.7,0,9.3,10.7,6.6000000000000085
-Bungarus caeruleus,Bungarus,caeruleus,Elapidae,Sri Lanka,https://www.ncbi.nlm.nih.gov/pubmed/28476572,0,0,5.5,0,0,0,4.4,0,0,0,0,0,0,0,0,0,0,0.1,0,1.6,0,0,0,0,1.3,0,0,19,64.5,0,3.5999999999999943
-Bungarus candidus,Bungarus,candidus,Elapidae,Malaysia,https://www.ncbi.nlm.nih.gov/pubmed/25154052,0,0,3.9,1,0,3.9,12.59,0,5.79,0,0,0,0,0,0,1.9,1.9,1,0,4.9,0,1,0,0,4.9,0,0,30.07,25.17,1,0.980000000000004
-Bungarus fasciatus,Bungarus,fasciatus,Elapidae,Malaysia,https://www.ncbi.nlm.nih.gov/pubmed/25154052,0,0,1.2,0,0,5.79,9.28,0,5.79,1.2,0,0,0,0,0,0,0,0,1.2,4.69,2.3,1.2,0,0,4.69,0,0,17.37,44.11,0,1.1800000000000068
-Bungarus fasciatus,Bungarus,fasciatus,Elapidae,Vietnam,https://www.ncbi.nlm.nih.gov/pubmed/26341420,0,0,0.42,0.71,0,0,1.83,0,7.07,0.1,0,0,0,0,0,0,0,1.1,0,5.08,0,0,0,0,3.54,0,0,1.9300000000000002,66.83,0,11.39
-Bungarus multicinctus,Bungarus,multicinctus,Elapidae,Vietnam,https://www.ncbi.nlm.nih.gov/pubmed/26341420,0,0,2.42,0.33,0,0.08,2.26,0,2.11,0.08,0,0,0,0,0,0.19,0.29,0.32,0,1.1,0,0,0,0,0.78,0,0,68.25,15.34,0.09,6.359999999999999
+Bungarus caeruleus,Bungarus,caeruleus,Elapidae,Sri Lanka,https://www.ncbi.nlm.nih.gov/pubmed/28476572,0,0,5.5,0,0,0,4.4,0,0,0,0,0,0,0,0,0,0,0.1,0,1.6,0,0,0,0,1.3,0,0,1,64.5,0,21.599999999999994
+Bungarus candidus,Bungarus,candidus,Elapidae,Malaysia,https://www.ncbi.nlm.nih.gov/pubmed/25154052,0,0,3.9,1,0,3.9,12.59,0,5.79,0,0,0,0,0,0,1.9,1.9,1,0,4.9,0,1,0,0,4.9,0,0,1,25.17,1,30.05000000000001
+Bungarus fasciatus,Bungarus,fasciatus,Elapidae,Malaysia,https://www.ncbi.nlm.nih.gov/pubmed/25154052,0,0,1.2,0,0,5.79,9.28,0,5.79,1.2,0,0,0,0,0,0,0,0,1.2,4.69,2.3,1.2,0,0,4.69,0,0,1,44.11,0,17.55000000000001
+Bungarus fasciatus,Bungarus,fasciatus,Elapidae,Vietnam,https://www.ncbi.nlm.nih.gov/pubmed/26341420,0,0,0.42,0.71,0,0,1.83,0,7.07,0.1,0,0,0,0,0,0,0,1.1,0,5.08,0,0,0,0,3.54,0,0,1.6600000000000001,66.83,0,11.659999999999997
+Bungarus multicinctus,Bungarus,multicinctus,Elapidae,Vietnam,https://www.ncbi.nlm.nih.gov/pubmed/26341420,0,0,2.42,0.33,0,0.08,2.26,0,2.11,0.08,0,0,0,0,0,0.19,0.29,0.32,0,1.1,0,0,0,0,0.78,0,0,41.75,15.34,0.09,32.86
 Calloselasma rhodostoma,Calloselasma,rhodostoma,Viperidae,Malaysia,https://www.ncbi.nlm.nih.gov/pubmed/27418434,0,0,0,0.9,0,14.9,0,0,7,0,0,0,0,0,0,0,0,0.6,0.2,0,0.3,0,0,0,41.2,0,26,0,0,0,8.899999999999991
 Cerastes cerastes cerastes,Cerastes,cerastes,Viperidae,Tunisia,https://www.ncbi.nlm.nih.gov/pubmed/16206329,0,0,0,0,0,8.18,0,0,10.91,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,33.64,7.27,21.82,0,18.18,0,0
 Cerastes cerastes cerastes,Cerastes,cerastes,Viperidae,Morocco,https://www.ncbi.nlm.nih.gov/pubmed/22387316,0,0,0.7,0,0,6.9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63.099999999999994,8.5,1.7,0,19.1,0,0
@@ -156,14 +156,14 @@ Crotalus viridis viridis,Crotalus,viridis,Viperidae,USA,https://www.ncbi.nlm.nih
 Daboia russelii,Daboia,russelii,Viperidae,Sri Lanka,https://www.ncbi.nlm.nih.gov/pubmed/26342672,0,0,2,0.1,0,16,4.6,0,5.2,0,0,0,0,0,0,0,0,3.5,1.3,0,3,0,0,0,6.9,0,22.4,0,35,0,0
 Daboia russelii,Daboia,russelii,Viperidae,India,https://www.ncbi.nlm.nih.gov/pubmed/27936776,0,0,6.79,0.1,0,7.99,12.49,0,0.3,1.8,0,0,0,0,0,0,0,4.8,1.4,0,0.4,0,0,0,24.78,4.9,1.8,0,32.47,0,-0.01999999999999602
 Daboia russelii russelii,Daboia,russelii,Viperidae,Pakistan,https://www.ncbi.nlm.nih.gov/pubmed/27265321,0,0,2.6,0,0,3.2,28.4,0,0.6,1.5,0,0,0,0,0,0,0.2,0.4,0.6,0,0.6,0,0,0,21.8,0.4,6.4,0,32.8,0,0.5
-Dendroaspis angusticeps,Dendroaspis,angusticeps,Elapidae,Tanzania,https://www.ncbi.nlm.nih.gov/pubmed/26877184,0,0,2,0,0,0,16.3,0,0,0,0,0,0,0,0,0,0.3,0.1,0,0,0,0.1,0,0,6.7,0,0.5,69.2,0,0,4.799999999999997
-Dendroaspis polylepis,Dendroaspis,polylepis,Elapidae,Kenya,https://www.ncbi.nlm.nih.gov/pubmed/25688917,0,0,0,0,0,0,61.1,0,0,0.1,0,0,0,0,0,0,0.5,0.3,0.1,0,0,0.3,0,0,3.2,0,0,31,0.1,2.9,0.4000000000000057
-Drysdalia coronoides,Drysdalia,coronoides,Elapidae,Adult,https://www.ncbi.nlm.nih.gov/pubmed/26169672,0,0,2.8,0,0,0,9.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,86.4,0,0,1.5999999999999943
+Dendroaspis angusticeps,Dendroaspis,angusticeps,Elapidae,Tanzania,https://www.ncbi.nlm.nih.gov/pubmed/26877184,0,0,2,0,0,0,16.3,0,0,0,0,0,0,0,0,0,0.3,0.1,0,0,0,0.1,0,0,6.7,0,0.5,1,0,0,73
+Dendroaspis polylepis,Dendroaspis,polylepis,Elapidae,Kenya,https://www.ncbi.nlm.nih.gov/pubmed/25688917,0,0,0,0,0,0,61.1,0,0,0.1,0,0,0,0,0,0,0.5,0.3,0.1,0,0,0.3,0,0,3.2,0,0,1,0.1,2.9,30.400000000000006
+Drysdalia coronoides,Drysdalia,coronoides,Elapidae,Adult,https://www.ncbi.nlm.nih.gov/pubmed/26169672,0,0,2.8,0,0,0,9.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,87
 Echis ocellatus,Echis,ocellatus,Viperidae,Nigeria,https://www.ncbi.nlm.nih.gov/pubmed/19026773,0.47,1.58,1.4,0,0,1.86,0,0,1.3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,62.47,12.66,6.52,0,11.73,0,0.010000000000005116
 Gloydius brevicaudus,Gloydius,brevicaudus,Viperidae,China,https://www.ncbi.nlm.nih.gov/pubmed/24487038,0,0,1.1,0,0,3.7,0,0,0.9,0,0,0,0,0,0,0,0,0,0,0,0.1,0,0,0,64.4,4.6,0.2,0,25,0,0
 Gloydius brevicaudus,Gloydius,brevicaudus,Viperidae,Neonate,https://www.ncbi.nlm.nih.gov/pubmed/24487038,0,0,2.5,0,0,4.5,0,0,1.7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65.7,7.4,4.8,0,13.4,0,-1.4210854715202004e-14
 Hydrophis cyanocinctus,Hydrophis,cyanocinctus,Elapidae,Iran,https://www.ncbi.nlm.nih.gov/pubmed/22643073,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,81.1,18.9,0,0
-Hydrophis platurus,Hydrophis,platurus,Elapidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/24704853,0,0,9.1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.8,0,0,0,0.9,0,0,49.9,32.9,0,6.400000000000006
+Hydrophis platurus,Hydrophis,platurus,Elapidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/24704853,0,0,9.1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.8,0,0,0,0.9,0,0,1,32.9,0,55.3
 Hydrophis schistosus,Hydrophis,schistosus,Elapidae,Malaysia,https://www.ncbi.nlm.nih.gov/pubmed/26047715,0,0,1.3,0,0,0,0,0,0.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.5,0,0,70.5,27.5,0,0
 Lachesis acrochorda,Lachesis,acrochorda,Viperidae,Colombia,https://www.ncbi.nlm.nih.gov/pubmed/22982523,0,0,0.9,0,0,35.06,0,0,9.59,0.6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23.17,0,6.89,0,2.3,21.48,0.010000000000005116
 Lachesis melanocephala,Lachesis,melanocephala,Viperidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/22982523,0,0,0,0,0,21,0,0,3.6,0.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18.9,0,7.5,0,13.4,30.2,4.8999999999999915
@@ -178,50 +178,50 @@ Macrovipera lebetina,Macrovipera,lebetina,Viperidae,Tunisia,https://www.ncbi.nlm
 Macrovipera lebetina obtusa,Macrovipera,lebetina,Viperidae,Armenia,https://www.ncbi.nlm.nih.gov/pubmed/18590992,0,1.67,2.56,0,0,14.67,0,0,1.67,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31.59,11.129999999999999,14.57,0,14.37,7.779999999999999,-0.009999999999990905
 Macrovipera lebetina transmediterranea,Macrovipera,lebetina,Viperidae,Armenia,https://www.ncbi.nlm.nih.gov/pubmed/18590992,0,0.99,0,0,0,8.91,0,0,0,1.98,0,0,0,0,0,0,0,0,0,0,0,0,0,0,66.34,6.930000000000001,9.9,0,3.96,1,-0.010000000000005116
 Macrovipera mauritanica,Macrovipera,mauritanica,Viperidae,Morocco,https://www.ncbi.nlm.nih.gov/pubmed/22387317,0,1.1,0,0,0,8.3,2.5,0,0,10.8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,45.4,13.8,8.1,0,5.5,4.5,1.4210854715202004e-14
-Micropechis ikaheka,Micropechis,ikaheka,Elapidae,Papua New Guinea,https://www.ncbi.nlm.nih.gov/pubmed/25109465,0,0.3,1.8,0,0,0.1,0.7,0,0.4,0,0,0,0,0,0,0.3,0,0,0,0,0.1,0,0,0,7.29,0,0,9.18,79.84,0,-0.010000000000005116
-Micrurus alleni,Micrurus,alleni,Elapidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/26325292,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0.2,0.8,0.1,0,0,0,0,0,0,1.2,0,1.8,77.3,10.9,0,4.700000000000003
-Micrurus altirostris,Micrurus,altirostris,Elapidae,Brazil,https://www.ncbi.nlm.nih.gov/pubmed/21515432,0,0,0.1,0,0,0,2.1,0,1.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.9,0,0.1,79.5,13.7,0,2.3999999999999915
-Micrurus clarki,Micrurus,clarki,Elapidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/27164141,0,0,0,0.2,0,1,0.9,0,3.8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.6,0,1.1,48.2,36.5,0,6.699999999999989
-Micrurus corallinus,Micrurus,corallinus,Elapidae,Brazil,https://www.ncbi.nlm.nih.gov/pubmed/21515432,0,0,0,0,0,0.8,0,0,2.3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2.4,0,0.9,81.7,11.9,0,-1.4210854715202004e-14
-Micrurus dumerilii,Micrurus,dumerilii,Elapidae,Colombia,https://www.ncbi.nlm.nih.gov/pubmed/26883873,0,0,0,0.1,0,1.9,9,0,3.1,0,0,0,0,0,0,0,0.1,0,0.1,0,0.1,0,0,0,1.8,0,1.1,28.1,52,2.4,0.19999999999998863
-Micrurus mipartitus,Micrurus,mipartitus,Elapidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/21963438,0,0,0,0,0,0,1.9,0,3.19,0,0,0,0,0,0,0,0,0,0,0.3,0,0,0,0,3.59,0,0,82.83,8.18,0,0.009999999999990905
-Micrurus mipartitus,Micrurus,mipartitus,Elapidae,Colombia,https://www.ncbi.nlm.nih.gov/pubmed/21963438,0,0,0,0,0,1.3,1.9,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.6,0,1.1,61.1,29,0,0
-Micrurus mosquitensis,Micrurus,mosquitensis,Elapidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/26325292,0,0,0,0,0,0.5,9.8,0,2.8,0,0,0,0,0,0,0,0,0.6,0.2,0,0.2,0,0,0,2.6,0,1.3,22.5,55.6,0,3.9000000000000057
-Micrurus nigrocinctus,Micrurus,nigrocinctus,Elapidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/21280576,0,0,0,0,0,0.7,0,0,2.3,0,0,0,0,3.8,0,0,0,0,0,0,0.5,0,0,0,4.3,0,2.2,38,48,0,0.20000000000000284
-Micrurus tschudii,Micrurus,tschudii,Elapidae,Peru,https://www.ncbi.nlm.nih.gov/pubmed/27338473,0,0,0,0,0,0,1.57,0,0.69,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,93.7,4.04,0,-1.4210854715202004e-14
-Naja atra,Naja,atra,Elapidae,China,https://www.ncbi.nlm.nih.gov/pubmed/26924299,0,0,1.8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.1,0,0,0,0,0,0,1.6,0,0,84.3,12.2,0,0
+Micropechis ikaheka,Micropechis,ikaheka,Elapidae,Papua New Guinea,https://www.ncbi.nlm.nih.gov/pubmed/25109465,0,0.3,1.8,0,0,0.1,0.7,0,0.4,0,0,0,0,0,0,0.3,0,0,0,0,0.1,0,0,0,7.29,0,0,1,79.84,0,8.170000000000002
+Micrurus alleni,Micrurus,alleni,Elapidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/26325292,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0.2,0.8,0.1,0,0,0,0,0,0,1.2,0,1.8,1,10.9,0,81
+Micrurus altirostris,Micrurus,altirostris,Elapidae,Brazil,https://www.ncbi.nlm.nih.gov/pubmed/21515432,0,0,0.1,0,0,0,2.1,0,1.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.9,0,0.1,1,13.7,0,80.9
+Micrurus clarki,Micrurus,clarki,Elapidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/27164141,0,0,0,0.2,0,1,0.9,0,3.8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.6,0,1.1,1,36.5,0,53.9
+Micrurus corallinus,Micrurus,corallinus,Elapidae,Brazil,https://www.ncbi.nlm.nih.gov/pubmed/21515432,0,0,0,0,0,0.8,0,0,2.3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2.4,0,0.9,1,11.9,0,80.7
+Micrurus dumerilii,Micrurus,dumerilii,Elapidae,Colombia,https://www.ncbi.nlm.nih.gov/pubmed/26883873,0,0,0,0.1,0,1.9,9,0,3.1,0,0,0,0,0,0,0,0.1,0,0.1,0,0.1,0,0,0,1.8,0,1.1,1,52,2.4,27.299999999999997
+Micrurus mipartitus,Micrurus,mipartitus,Elapidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/21963438,0,0,0,0,0,0,1.9,0,3.19,0,0,0,0,0,0,0,0,0,0,0.3,0,0,0,0,3.59,0,0,1,8.18,0,81.84
+Micrurus mipartitus,Micrurus,mipartitus,Elapidae,Colombia,https://www.ncbi.nlm.nih.gov/pubmed/21963438,0,0,0,0,0,1.3,1.9,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.6,0,1.1,1,29,0,60.1
+Micrurus mosquitensis,Micrurus,mosquitensis,Elapidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/26325292,0,0,0,0,0,0.5,9.8,0,2.8,0,0,0,0,0,0,0,0,0.6,0.2,0,0.2,0,0,0,2.6,0,1.3,1,55.6,0,25.400000000000006
+Micrurus nigrocinctus,Micrurus,nigrocinctus,Elapidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/21280576,0,0,0,0,0,0.7,0,0,2.3,0,0,0,0,3.8,0,0,0,0,0,0,0.5,0,0,0,4.3,0,2.2,1,48,0,37.2
+Micrurus tschudii,Micrurus,tschudii,Elapidae,Peru,https://www.ncbi.nlm.nih.gov/pubmed/27338473,0,0,0,0,0,0,1.57,0,0.69,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,4.04,0,92.7
+Naja atra,Naja,atra,Elapidae,China,https://www.ncbi.nlm.nih.gov/pubmed/26924299,0,0,1.8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.1,0,0,0,0,0,0,1.6,0,0,1,12.2,0,83.3
 Naja atra,Naja,atra,Elapidae,Taiwan,https://www.ncbi.nlm.nih.gov/pubmed/26196238,0,0,2.16,0,0,0,0,0,0.19,0,0.25,59.4,0,0,0,0,0,1.08,0,0,0.38,0,0,0,0.72,0,0,20.54,13.95,0,1.3299999999999983
-Naja haje legionis,Naja,haje,Elapidae,Morocco,https://www.ncbi.nlm.nih.gov/pubmed/24269350,0,0,10,0,0,0,1.9,0,1,0,0.1,0,0,0,0,0,0,5,0,1,0,0,0,0,9,0,0,60,4,0,8
+Naja haje legionis,Naja,haje,Elapidae,Morocco,https://www.ncbi.nlm.nih.gov/pubmed/24269350,0,0,10,0,0,0,1.9,0,1,0,0.1,0,0,0,0,0,0,5,0,1,0,0,0,0,9,0,0,1,4,0,67
 Naja kaouthia,Naja,kaouthia,Elapidae,Thailand,https://www.ncbi.nlm.nih.gov/pubmed/25748141,0,0,0.8,0,0,0,0.1,0,0.5,0,0.7,44.72,0,0,0,0.2,0,1.29,0.4,0,0.2,0,0,0,1.59,0,0,31.369999999999997,17.33,0,0.7999999999999972
 Naja kaouthia,Naja,kaouthia,Elapidae,Vietnam,https://www.ncbi.nlm.nih.gov/pubmed/25748141,0,0,2.3,0,0,0,0,0,1,0,1.1,27.57,0,0,0,0.7,0,0.5,0.3,0,0.2,0,0,0,2.6,0,0.4,50.650000000000006,12.19,0.2,0.28999999999999204
 Naja kaouthia,Naja,kaouthia,Elapidae,Thailand,https://www.ncbi.nlm.nih.gov/pubmed/25748141,0,0,4.3,0,0,0,0.5,0,1.1,0,0.8,45.7,0,0,0,0.3,0,0.2,0.4,0,0.3,0,0,0,3.3,0,0.2,18,23.5,0,1.4000000000000057
 Naja kaouthia,Naja,kaouthia,Elapidae,Malaysia,https://www.ncbi.nlm.nih.gov/pubmed/25771242,0,0,1.7,0,0,0,0,0,0.4,0,0.1,24.3,0,0.6,0,0,0,0.3,0.4,0,0,0.4,0,0,2.4,0,0.5,53.2,13.5,1.1,1.1000000000000085
 Naja kaouthia,Naja,kaouthia,Elapidae,China,https://www.ncbi.nlm.nih.gov/pubmed/28263888,0,0,5.39,0,0,0,0,0,0,0,0,27.87,0,9.19,0,0,0,1,0,0,0,0,0,0,1.1,0,0,28.58,26.87,0,0
-Naja katiensis,Naja,katiensis,Elapidae,Burkina Faso,https://www.ncbi.nlm.nih.gov/pubmed/21171584,0,0,0.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.2,0,0,3.3,0,0,67.03,28.97,0,0.29999999999999716
-Naja melanoleuca,Naja,melanoleuca,Elapidae,Uganda,https://www.ncbi.nlm.nih.gov/pubmed/27593527,0,0,7.6,0,0,0,3.8,0,0,0,0,0,0,0.5,0,0,0,0.4,1.1,0,0,0,0,0,9.7,0,0.8999999999999999,57.1,12.9,0,6
-Naja mossambica,Naja,mossambica,Elapidae,Tanzania,https://www.ncbi.nlm.nih.gov/pubmed/21171584,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.6,0,0,2.6,0,0,69.3,27.1,0,0.4000000000000057
-Naja naja,Naja,naja,Elapidae,Sri Lanka,https://www.ncbi.nlm.nih.gov/pubmed/28062377,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.62,0,0,0,0,0,0,0.85,0,0,80.47,13.95,0,4.109999999999999
-Naja naja,Naja,naja,Elapidae,India,https://www.ncbi.nlm.nih.gov/pubmed/26506536,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.73,0,0,0,0,0,0,0.86,0,0,74.18,21.43,0,2.799999999999983
-Naja naja,Naja,naja,Elapidae,India,https://www.ncbi.nlm.nih.gov/pubmed/26506536,0,0,2.1,0,0,0.3,0.4,0,0.8,0,1.1,0,0,0,0,0,0,0.9,2.1,6.3,0.4,0,0,0,1,0,0,63.8,11.4,2,7.3999999999999915
-Naja nigricollis,Naja,nigricollis,Elapidae,Nigeria,https://www.ncbi.nlm.nih.gov/pubmed/21171584,0,0,0.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.3,0,0,2.4,0,0,73.3,21.9,0,1.9000000000000057
-Naja nubiae,Naja,nubiae,Elapidae,Egypt,https://www.ncbi.nlm.nih.gov/pubmed/21171584,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2.6,0,0,70.9,26.4,0,0.09999999999999432
-Naja pallida,Naja,pallida,Elapidae,Kenya,https://www.ncbi.nlm.nih.gov/pubmed/21171584,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.1,0,0,1.6,0,0,67.63,30.07,0,0.5999999999999943
+Naja katiensis,Naja,katiensis,Elapidae,Burkina Faso,https://www.ncbi.nlm.nih.gov/pubmed/21171584,0,0,0.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.2,0,0,3.3,0,0,1,28.97,0,66.33
+Naja melanoleuca,Naja,melanoleuca,Elapidae,Uganda,https://www.ncbi.nlm.nih.gov/pubmed/27593527,0,0,7.6,0,0,0,3.8,0,0,0,0,0,0,0.5,0,0,0,0.4,1.1,0,0,0,0,0,9.7,0,0.8999999999999999,1,12.9,0,62.1
+Naja mossambica,Naja,mossambica,Elapidae,Tanzania,https://www.ncbi.nlm.nih.gov/pubmed/21171584,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.6,0,0,2.6,0,0,1,27.1,0,68.7
+Naja naja,Naja,naja,Elapidae,Sri Lanka,https://www.ncbi.nlm.nih.gov/pubmed/28062377,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.62,0,0,0,0,0,0,0.85,0,0,1,13.95,0,83.58
+Naja naja,Naja,naja,Elapidae,India,https://www.ncbi.nlm.nih.gov/pubmed/26506536,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.73,0,0,0,0,0,0,0.86,0,0,1,21.43,0,75.98
+Naja naja,Naja,naja,Elapidae,India,https://www.ncbi.nlm.nih.gov/pubmed/26506536,0,0,2.1,0,0,0.3,0.4,0,0.8,0,1.1,0,0,0,0,0,0,0.9,2.1,6.3,0.4,0,0,0,1,0,0,1,11.4,2,70.2
+Naja nigricollis,Naja,nigricollis,Elapidae,Nigeria,https://www.ncbi.nlm.nih.gov/pubmed/21171584,0,0,0.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.3,0,0,2.4,0,0,1,21.9,0,74.2
+Naja nubiae,Naja,nubiae,Elapidae,Egypt,https://www.ncbi.nlm.nih.gov/pubmed/21171584,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2.6,0,0,1,26.4,0,70
+Naja pallida,Naja,pallida,Elapidae,Kenya,https://www.ncbi.nlm.nih.gov/pubmed/21171584,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.1,0,0,1.6,0,0,1,30.07,0,67.22999999999999
 Naja sputatrix,Naja,sputatrix,Elapidae,Indonesia,https://www.ncbi.nlm.nih.gov/pubmed/28159706,0,0,0,0.02,0,0.42,0.24,0,0.08,0,0.29,48.08,0,0,0,0.12,0,1.82,0.08,0.04,0.1,0,0,0,1.33,0,0,16.14,31.24,0,1.4210854715202004e-14
 Notechis scutatus,Notechis,scutatus,Elapidae,Australia,https://www.ncbi.nlm.nih.gov/pubmed/27282922,0,0,0.4,0,0,6.9,4.8,0,2,0,0,0,0,0,0,0.3,0,1.4,0,1.4,1.4,0,0,0,0,0,0,0,69.69999999999999,5.9,5.800000000000011
 Ophiophagus hannah,Ophiophagus,hannah,Elapidae,Indonesia,https://www.ncbi.nlm.nih.gov/pubmed/25896403,0,0,6.48,0,0,0,3.29,0,0.5,0,0,17.65,0,1.1,0,0,0,0,0,0,0,0,0,0,11.86,0,0,55.34,2.79,0.2,0.789999999999992
-Oxyuranus scutellatus canni,Oxyuranus,scutellatus,Elapidae,Papua New Guinea,https://www.ncbi.nlm.nih.gov/pubmed/22266484,0,0,0.8,0,0,0,12.97,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8.88,0,0.6,4.19,68.16,1.9,2.5
-Oxyuranus scutellatus scutellatus,Oxyuranus,scutellatus,Elapidae,Australia,https://www.ncbi.nlm.nih.gov/pubmed/22266484,0,0,0.6,0,0,0.6,7.8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5.2,0,0,1.5,79.4,0,4.8999999999999915
-Pelamis platura,Pelamis,platura,Elapidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/24704853,0,0,9.1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.8,0,0,0,0.9,0,0,49.9,32.9,0,6.400000000000006
+Oxyuranus scutellatus canni,Oxyuranus,scutellatus,Elapidae,Papua New Guinea,https://www.ncbi.nlm.nih.gov/pubmed/22266484,0,0,0.8,0,0,0,12.97,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8.88,0,0.6,1,68.16,1.9,5.689999999999998
+Oxyuranus scutellatus scutellatus,Oxyuranus,scutellatus,Elapidae,Australia,https://www.ncbi.nlm.nih.gov/pubmed/22266484,0,0,0.6,0,0,0.6,7.8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5.2,0,0,1,79.4,0,5.3999999999999915
+Pelamis platura,Pelamis,platura,Elapidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/24704853,0,0,9.1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.8,0,0,0,0.9,0,0,1,32.9,0,55.3
 Porthidium lansbergii lansbergii,Porthidium,lansbergii,Viperidae,Colombia,https://www.ncbi.nlm.nih.gov/pubmed/25496801,0,0,1.4,0.7,0,4.5,0,0,3.6,2.2,0,0,0,0,0,0,0,0,0.3,0,0.4,0,0,0,35.5,12.9,6.7,0,16.2,0,15.599999999999994
 Porthidium nasutum,Porthidium,nasutum,Viperidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/22212456,0,0,1.3,0,0,9.6,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0.2,0,0,0,52.1,9.9,10.4,0,11.6,1.9,-1.4210854715202004e-14
 Porthidium ophryomegas,Porthidium,ophryomegas,Viperidae,Costa Rica,https://www.ncbi.nlm.nih.gov/pubmed/22212456,0,0,0.6,0,0,7.3,0,0,3.3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,45,16.7,8,0,13.5,4.2,1.3999999999999915
 Protobothrops mucrosquamatus,Protobothrops,mucrosquamatus,Viperidae,Taiwan,https://www.ncbi.nlm.nih.gov/pubmed/22906718,3.3,0,0.8,0,0,10.4,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,43.400000000000006,0.8,3.9,0,23.5,3.6,8.299999999999997
-Pseudechis papuanus,Pseudechis,papuanus,Elapidae,Australia,https://www.ncbi.nlm.nih.gov/pubmed/27650695,0,0,2.3,0,0,0,0,0,1.6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2.8,0,0,3.1,90.2,0,0
+Pseudechis papuanus,Pseudechis,papuanus,Elapidae,Australia,https://www.ncbi.nlm.nih.gov/pubmed/27650695,0,0,2.3,0,0,0,0,0,1.6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2.8,0,0,1,90.2,0,2.0999999999999943
 Sistrurus catenatus catenatus,Sistrurus,catenatus,Viperidae,USA,https://www.ncbi.nlm.nih.gov/pubmed/16944921,0,0.1,0.8,0,0,18.18,0,0,4.2,0,0,0,0.4,0,0,0,0,0.1,0,0,0,0,0,0,43.76,2.5,0.1,0,29.87,0,-0.009999999999990905
 Sistrurus catenatus edwardsii,Sistrurus,catenatus,Viperidae,USA,https://www.ncbi.nlm.nih.gov/pubmed/16944921,0,0.1,10.56,0,0,24.09,0.1,0,2.47,0,0,0,0,0,0,0,0,0.1,0,0,0,0,0,0,47.98,0.89,0.1,0,13.52,0.1,-0.009999999999990905
 Sistrurus catenatus tergeminus,Sistrurus,catenatus,Viperidae,USA,https://www.ncbi.nlm.nih.gov/pubmed/16944921,0,0.1,1.3,0,0,20.38,0,0,1.6,0,0,0,0.1,0,0,0,0,0.1,0,0,0,0,0,0,40.56,4.2,0.1,0,31.57,0,-0.009999999999990905
 Sistrurus miliarius barbouri,Sistrurus,miliarius,Viperidae,USA,https://www.ncbi.nlm.nih.gov/pubmed/16944921,0,1.3,2.9,0,0,17.08,0.1,0,2.1,0,0,0,0,0,0,0,0,0.1,0,0,0,0,0,0,36.06,7.69,0.1,0,32.47,0.1,1.4210854715202004e-14
-Toxicocalamus longissimus,Toxicocalamus,longissimus,Elapidae,Papua New Guinea,https://www.ncbi.nlm.nih.gov/pubmed/22643073,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.4,0,0,92.1,6.5,0,0
+Toxicocalamus longissimus,Toxicocalamus,longissimus,Elapidae,Papua New Guinea,https://www.ncbi.nlm.nih.gov/pubmed/22643073,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.4,0,0,1,6.5,0,91.1
 Trimeresurus stejnegeri,Trimeresurus,stejnegeri,Viperidae,Taiwan,https://www.ncbi.nlm.nih.gov/pubmed/22906718,2.85,0,5.51,0,0,10.11,0,0,3.03,0.83,0,0,0,0,0,0,0,0,0,0,0,0,0,0,39.61,2.02,1.38,0,22.52,5.24,6.900000000000006
 Vipera berus berus,Vipera,berus,Viperidae,Croatia,https://www.ncbi.nlm.nih.gov/pubmed/27327134,4,0,8,0,0,31,0.07,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,19,1,2,0,10,11,11.930000000000007
 Vipera kaznakovi,Vipera,kaznakovi,Viperidae,Russia,https://www.ncbi.nlm.nih.gov/pubmed/27077884,0,0,10,0.32,0,11,0,0,4,4,0,0,0,0,0,0,0.01,0.14,0,0,0.21,0,0,0,16,0.53,12,0,41,0,0.789999999999992

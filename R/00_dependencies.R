@@ -1,4 +1,6 @@
 # Setup script with all packages
+rm(list = ls())
+
 list_of_packages <- c("httr", "tidyverse", "readxl", "shiny", "devtools",
                       "knitr", "plotly", "maps", "patchwork", "rsconnect", "keras")
 

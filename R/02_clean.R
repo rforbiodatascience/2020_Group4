@@ -1,5 +1,7 @@
+rm(list = ls())
 library(tidyverse)
 source('R/99_proj_func.R')
+
 
 # Load raw data
 data_raw <- read_csv("data/_raw/01_data_load_relative.csv")
@@ -49,3 +51,19 @@ data_clean <- data_raw %>%
 # Write output clean file -------------------------------------------------
 data_clean %>% 
   write_csv('data/02_data_clean.csv')
+
+
+# Clean new data ----------------------------------------------------------
+data_new <- read_csv("data/_raw/01_data_new.csv")
+meta_new <- read_csv('data/_raw/01_meta_new.csv')
+
+# Make new data tidy
+data_new <- data_new %>% 
+  pivot_longer(-Toxin, names_to = "Snake", values_to = "value") %>% 
+  pivot_wider(names_from = Toxin, values_from = value) %>% 
+  left_join(meta_new, by = "Snake") %>% 
+  mutate(`Unknown/Undetermined` = 100 - Reduce(`+`, select_if(., is.numeric))) 
+
+# Wrtie output clean new file
+data_new %>% 
+  write_csv('data/02_data_new_clean.csv')

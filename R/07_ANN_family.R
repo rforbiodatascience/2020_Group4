@@ -2,10 +2,10 @@
 #22100 - R for Bio Data Science at the Technical University of Denmark.
 #http://teaching.healthtech.dtu.dk/22100/index.php/22100_-_R_for_Bio_Data_Science
 
+rm(list=ls())
+
 #Only run first time:
 #source('R/07_ANN_setup.R')
-
-rm(list=ls())
 
 library('tidyverse')
 library('keras')

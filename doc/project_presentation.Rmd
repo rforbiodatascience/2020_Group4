@@ -15,8 +15,6 @@ knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(knitr)
 library(plotly)
-library(maps)
-source("../R/99_proj_func.R")
 ```
 
 ## Introduction to the study

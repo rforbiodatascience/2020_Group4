@@ -1,3 +1,5 @@
+rm(list = ls())
+
 library(broom)
 library(tidyverse)
 library(patchwork)

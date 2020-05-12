@@ -1,6 +1,7 @@
+rm(list = ls())
+
 source("R/00_dependencies.R")
-source("R/01_load_main.R")
-source("R/01_load_new_data.R")
+source("R/01_load_data.R")
 source("R/02_clean.R")
 source("R/03_augment.R")
 source("R/04_snake_distribution.R")
