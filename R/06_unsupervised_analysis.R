@@ -37,30 +37,6 @@ x <- data_pca %>%
   pull(percent)
 x <- str_c("PC1 (", round(x*100, 2), "%)")
 
-
-#Augment
-data_pca_aug <- data_pca %>% 
-  augment(data)
-
-#Adding percentage to the PCA plot
-x <- data_pca %>% 
-  tidy("pcs") %>% 
-  filter(PC==1) %>% 
-  pull(percent)
-x <- str_c("PC1 (", round(x*100, 2), "%)")
-
-y <- data_pca %>% 
-  tidy("pcs") %>% 
-  filter(PC==2) %>% 
-  pull(percent)
-y <- str_c("PC2 (", round(y*100, 2), "%)")
-
-#Plot PCA
-data_pca_aug %>% 
-  ggplot(aes(x = .fittedPC1, y = .fittedPC2, colour = Family)) +
-  geom_point() + 
-  labs(x = x, y = y)
-
 y <- data_pca %>% 
   tidy("pcs") %>% 
   filter(PC==2) %>% 
@@ -75,7 +51,6 @@ family_pca <- data_pca_aug %>%
   geom_point(shape = 1, size = 3, alpha = 0.5) + 
   labs(x = x, y = y, title = "PCA", color = "Snake family") +
   theme_grey()
-
 ggsave("results/06_family_pca.png", device = "png")
 
 # K-means -----------------------------------------------------------------
@@ -97,9 +72,11 @@ kmeans <- data_pca_aug_k_org %>%
 ggsave("results/06_kmeans.png", device = "png")
 
 
+# Save PCA and K-means as multi-panel plot
 ggsave("results/06_kmeans-family.png", plot = family_pca + kmeans, device = "png")
 
 
+# Save plot in Rdata file
 cluster2 <- data_pca_aug %>% 
   filter(.fittedPC2 == min(.fittedPC2))
 save(cluster2, file = "results/06_kmeans_cluster2.Rdata")
