@@ -25,7 +25,7 @@ family_toxins <- data_aug %>%
   labs(title = "Mean Venom Composition of Viperidae and Elapidae",
        x = "Mean venom composition (%)")
 ggsave("results/05_family_legend.png", plot = family_toxins,
-       device = "png", scale = 2)
+       device = "png", scale = 1.5)
 
 # Save plot in Rdata file
 family_plotly <- ggplotly(family_toxins + theme(legend.position = "none"))
@@ -76,7 +76,7 @@ intra_species <- data_aug %>%
        y = "Venom composition (%)")
 
 ggsave("results/05_intra_species.png", plot = intra_species,
-       device = "png", scale = 2)
+       device = "png", scale = 1.5)
 # Save plot in Rdata file
 intra_species_plotly <- ggplotly(intra_species + theme(legend.position = "none"))
 save(intra_species_plotly, file = "results/05_intra_species.Rdata")
@@ -99,7 +99,7 @@ compare_two <- data_aug %>%
        subtitle = "Viperidae: 'Bothrops atrox', Elapidae: 'Naja kaouthia'" )
 
 ggsave("results/05_compare_two.png", plot = compare_two,
-       device = "png", scale = 2)
+       device = "png", scale = 1.5)
 # Save plot in Rdata file
 compare_two_plotly <- ggplotly(compare_two + theme(legend.position = "none")) %>% 
   layout(title = list(text = paste0('Comparing venom composition',

@@ -1,5 +1,6 @@
 library(broom)
 library(tidyverse)
+library(patchwork)
 
 # sample(1e6, 1)
 set.seed(839865)
@@ -93,7 +94,7 @@ kmeans <- data_pca_aug_k_org %>%
   labs(x = x, y = y, title = "K-means", color = "Cluster")
 ggsave("results/06_kmeans.png", device = "png")
 
-library(patchwork)
+
 ggsave("results/06_kmeans-family.png", plot = family_pca + kmeans, device = "png")
 
 

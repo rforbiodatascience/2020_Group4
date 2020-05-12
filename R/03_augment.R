@@ -7,56 +7,57 @@ data_clean <- read_csv("data/02_data_clean.csv")
 new_data <- read_csv("data/_raw/01_new_data.csv")
 
 data_aug <- data_clean %>% 
-  full_join(new_data) %>%
+  full_join(new_data) %>% 
   mutate_each(list(~replace(., which(is.na(.)), 0)))
 
+# data_aug %>% select(contains("dimeric")) %>% View
+# Rename colnames to only contain abbreviations
+colnames(data_aug) <- str_split(colnames(data_aug), pattern = " \\(", simplify = TRUE)[, 1] %>%
+  str_replace(pattern = "-toxin", replacement = "toxin")
 
 # Group toxins ------------------------------------------------------------
-SVMP <- data_aug %>% 
-  select(contains('SVMP (')) %>% 
-  rowSums()
+SVMPs <- data_aug %>% 
+  select(ends_with('SVMP'))
 
 disintegrins <- data_aug %>% 
-  select(ends_with('isintegrin')) %>% 
-  rowSums()
+  select(ends_with('disintegrin'))
 
 lectins <- data_aug %>% 
-  select(contains('lectin')) %>% 
-  rowSums()
+  select(`CTL`, Selectins, Gal)
 
-neurotoxins <- data_aug %>% 
-  select(contains('NeuroToxin')) %>% 
-  rowSums()
+FTx3 <- data_aug %>% 
+  select(contains('NTx'), `3Ftx`, `Muscarinictoxin`, `Mojavetoxin`, `beta-BTx`)
 
-PLA2 <- data_aug %>% 
-  select(contains('PLA2')) %>% 
-  rowSums()
+PLA2s <- data_aug %>% 
+  select(contains('PLA2'))
 
-unknown <- data_aug %>% 
-  select(contains('Unknown')) %>% 
-  rowSums()
+VAPs <- data_aug %>% 
+  select(VAP, NP, BPP, BIP)
+
+unknowns <- data_aug %>% 
+  select(contains('Unknown'))
 
 
 data_aug <- data_aug %>% 
-  select(-contains('SVMP ('), 
-         -ends_with('isintegrin'),
-         -contains('lectin'),
-         -contains('NeuroToxin'),
-         -contains('PLA2'),
-         -contains('Unknown')
+  select(-all_of(colnames(SVMPs)), 
+         -all_of(colnames(disintegrins)),
+         -all_of(colnames(lectins)),
+         -all_of(colnames(FTx3)),
+         -all_of(colnames(PLA2s)),
+         -all_of(colnames(VAPs)),
+         -all_of(colnames(unknowns))
   ) %>% 
   mutate(
-    SVMP = SVMP,
-    Disintegrin = disintegrins,
-    Lectins = lectins,
-    Neurotoxins = neurotoxins,
-    PLA2 = PLA2,
-    Unknown = unknown
+    SVMP = SVMPs %>% rowSums(),
+    Disintegrin = disintegrins %>% rowSums(),
+    Lectins = lectins %>% rowSums(),
+    `3FTx` = FTx3 %>% rowSums(),
+    PLA2 = PLA2s %>% rowSums(),
+    VAP = VAPs %>% rowSums(),
+    Unknown = unknowns %>% rowSums()
   )
 
-# Rename colnames to only contain abbreviations
-colnames(data_aug) <- str_split(colnames(data_aug), pattern = " ", simplify = TRUE)[, 1] %>% 
-  str_replace(pattern = "-toxin", replacement = "toxin")
+
 
 # Remove toxins with few occurances ---------------------------------------
 summed_toxins <- data_aug %>% 
