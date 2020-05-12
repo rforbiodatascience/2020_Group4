@@ -24,8 +24,8 @@ ui <- fluidPage(
   fluidRow(
     column(3,
            wellPanel(
-             textInput("snake1", "Snake 1:", value = "Bothrops atrox"),
-             textInput("snake2", "Snake 2:", value = "Naja kaouthia"),
+             textInput("snake1", "Snake 1:", value = "Bungarus candidus"),
+             textInput("snake2", "Snake 2:", value = "Daboia russelii russelii"),
              checkboxInput("merge", "Merge species", value = TRUE)
            )
     ),

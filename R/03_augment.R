@@ -55,7 +55,8 @@ data_aug <- data_aug %>%
   )
 
 # Rename colnames to only contain abbreviations
-colnames(data_aug) <- str_split(colnames(data_aug), pattern = " ", simplify = TRUE)[, 1]
+colnames(data_aug) <- str_split(colnames(data_aug), pattern = " ", simplify = TRUE)[, 1] %>% 
+  str_replace(pattern = "-toxin", replacement = "toxin")
 
 # Remove toxins with few occurances ---------------------------------------
 summed_toxins <- data_aug %>% 
@@ -74,8 +75,7 @@ data_aug <- data_aug %>%
 # Separate snake names ----------------------------------------------------
 data_aug <- data_aug %>% 
   mutate(Genus = str_split(Snake, " ", simplify = TRUE)[, 1],
-         Species = str_split(Snake, " ", simplify = TRUE)[, 2]) %>% 
-  select(Snake, Genus, Species, everything())
+         Species = str_split(Snake, " ", simplify = TRUE)[, 2])
   
 
 
@@ -88,7 +88,7 @@ snake_families <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR1J
 # Join families to data
 data_aug <- data_aug %>% 
   left_join(snake_families, by = "Genus") %>% 
-  select(1:Country, Family, everything())
+  select(Snake, Genus, Species, Family, Country, Reference, everything())
 
 # Sanity check
 data_aug %>% 
