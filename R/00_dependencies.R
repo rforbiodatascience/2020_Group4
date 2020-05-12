@@ -1,11 +1,8 @@
 # Setup script with all packages
-list.of.packages <- c("httr", "tidyverse", "readxl", "googlesheets4", 
-                      "shiny", "knitr", "plotly", "maps", "patchwork")
+list_of_packages <- c("httr", "tidyverse", "readxl", "shiny", "devtools",
+                      "knitr", "plotly", "maps", "patchwork", "rsconnect", "keras")
 
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
-if( length(new.packages) ) {
-  install.packages(new.packages)
+new_packages <- list_of_packages[!(list_of_packages %in% installed.packages()[, "Package"])]
+if(length(new_packages)) {
+  install.packages(new_packages)
 }
-
-
-
