@@ -14,7 +14,9 @@ data_aug <- data_clean %>%
   replace(is.na(.), 0)
 
 # # Rename colnames to only contain abbreviations
-colnames(data_aug) <- str_split(colnames(data_aug), pattern = " \\(", simplify = TRUE)[, 1] %>%
+colnames(data_aug) <- str_split(colnames(data_aug),
+                                pattern = " \\(",
+                                simplify = TRUE)[, 1] %>%
    str_replace(pattern = "-toxin", replacement = "toxin")
 
 
@@ -26,10 +28,10 @@ disintegrins <- data_aug %>%
   select(ends_with('disintegrin'))
 
 lectins <- data_aug %>% 
-  select(`CTL`, Selectins, Gal)
+  select(CTL, Selectins, Gal)
 
 FTx3 <- data_aug %>% 
-  select(contains('NTx'), `3Ftx`, `Muscarinictoxin`, `Mojavetoxin`, `beta-BTx`)
+  select(contains('NTx'), `3Ftx`, Muscarinictoxin, Mojavetoxin, `beta-BTx`)
 
 PLA2s <- data_aug %>% 
   select(contains('PLA2'))
