@@ -1,10 +1,10 @@
 library(tidyverse)
-source('R/99_proj_func.R')
+#Delete? function at USA source('R/99_proj_func.R')
 
 # Load raw data
 data_raw <- read_csv("data/_raw/01_data_load_relative.csv")
 
-# Clean column containing regions -----------------------------------------
+# Clean "Note" column containing countries -----------------------------------------
 Brazilian_cities <- c("Juazeiro", "Ceara", "Paraiba", "Pernambuco", 
                       "ilha de Itaparica", "Adult and young in Brazil")
 USA <- c("Colorado", "Arizona", "Idyllwild", "Loma Linda", "Phelan", 
@@ -13,8 +13,8 @@ USA <- c("Colorado", "Arizona", "Idyllwild", "Loma Linda", "Phelan",
 Unknown <- c("Origin unknown", "neonate", "adult")
 
 # Conditions in data set: 
-  # rownames in Snake column containing "*" indicates transcriptomic data, thus deleted.
-  # rownames in Note column containing "pooled" indicates pooled venom of different snakes, thus deleted.
+  # rownames in "Snake" column containing "*" indicates transcriptomic data, thus deleted.
+  # rownames in "Note" column containing "pooled" indicates pooled venom of different snakes, thus deleted.
 data_clean <- data_raw %>% 
   rename_if(is_double, rm_percent) %>% 
   rename(`SP (Serine Proteinase)` = `SP (Serine roteinase)`,
@@ -44,6 +44,7 @@ data_clean <- data_raw %>%
                             Note == "North Africa" ~ "Egypt",
                             TRUE ~ Note)) %>% 
   select(-c("Note", "Sum"))
+
 
 # Write output clean file -------------------------------------------------
 data_clean %>% 
