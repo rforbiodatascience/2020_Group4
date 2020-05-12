@@ -15,7 +15,6 @@ knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(knitr)
 library(plotly)
-library(shiny)
 library(maps)
 source("../R/99_proj_func.R")
 ```
@@ -166,10 +165,10 @@ include_graphics("../results/06_kmeans-family.png")
 ## Prediction models based on venom composition
 - A smiple vanilla ANN managed to correctly classify the whole testset (25 % of data)
   - Specifications: 4 hidden neurons, learning rate = 0.001, n_epocs = 100, loss criterion = Binary Crossentropy
-- Prediction of which continent, the snake originated from 
-  - Attempted a number of architechtures ranging from 1 to 4 hidden layers, with/without dropout and tried optimizing hyperparameters.
-  - Problems with overfitting - further regularization e.g. early stopping might be a solution
-  - Question might be ill posed - venom composition predicts snake family and not necessarily location. e.g. snakes from two different families both from the same country have completely different venom compositions.
+<!-- - Prediction of which continent, the snake originated from  -->
+<!--   - Attempted a number of architechtures ranging from 1 to 4 hidden layers, with/without dropout and tried optimizing hyperparameters. -->
+<!--   - Problems with overfitting - further regularization e.g. early stopping might be a solution -->
+<!--   - Question might be ill posed - venom composition predicts snake family and not necessarily location. e.g. snakes from two different families both from the same country have completely different venom compositions. -->
 
 ## Training of ANN predicting snake family
 
@@ -202,6 +201,13 @@ read_csv('../results/07_incorrect_pred.csv') %>%
 
 ```
 </p>
+
+## Shiny app
+```{r}
+include_app("https://shdam.shinyapps.io/compareTwo/")
+```
+
+
 
 ## Static plots
 
