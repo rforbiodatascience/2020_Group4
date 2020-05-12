@@ -146,7 +146,7 @@ include_graphics("../results/05_avg_toxin_genus.png")
 <!-- ## Discussion -->
 <!-- - Discuss results, what can we say about the data based on the study -->
 
-## Comparing venom composition between snake species
+## Comparing venom composition between species
 ```{r, out.width = "90%"}
 load("../results/05_compare_two.Rdata")
 compare_two_plotly
@@ -232,7 +232,7 @@ include_app("https://shdam.shinyapps.io/compareTwo/")
 
 ## Static plots for publication
 
-## Comparing venom composition between snake species
+## Comparing venom composition between species
 ```{r, out.width = "90%"}
 # includeHTML("../results/04_compareTwo.html")
 include_graphics("../results/05_compare_two.png")

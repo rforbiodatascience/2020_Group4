@@ -69,8 +69,8 @@ summed_toxins <- data_aug %>%
   select_if(is.numeric) %>% 
   select(-Unknown) %>%
   summarise_all(is_not_zero) %>% 
-  pivot_longer(everything(), values_to = 'toxin_occurance', names_to = 'toxin') %>%
-  filter(toxin_occurance > 5)
+  pivot_longer(everything(), values_to = 'toxin_occurrence', names_to = 'toxin') %>%
+  filter(toxin_occurrence > 5)
 
 data_aug <- data_aug %>% 
   select(c("Snake", "Reference", "Country", summed_toxins$toxin)) %>% 
