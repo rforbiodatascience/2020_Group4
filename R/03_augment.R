@@ -5,6 +5,14 @@ data_clean <- read_csv("data/02_data_clean.csv")
 
 # Add new data ------------------------------------------------------------
 new_data <- read_csv("data/_raw/01_new_data.csv")
+new_meta <- read_csv('data/_raw/01_new_meta.csv')
+
+new_data <- new_data %>% 
+  replace(is.na(.), 0) %>% 
+  pivot_longer(-Toxin, names_to = "Snake", values_to = "value") %>%
+  pivot_wider(names_from = Toxin, values_from = value) %>%
+  left_join(new_meta, by = "Snake") %>% 
+  mutate(`Unknown/Undetermined` = 100 - Reduce(`+`, select_if(., is.numeric)))
 
 data_aug <- data_clean %>% 
   full_join(new_data) %>%
