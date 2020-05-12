@@ -8,6 +8,7 @@ data_clean <- read_csv("data/02_data_clean.csv")
 new_data <- read_csv("data/_raw/01_new_data.csv")
 new_meta <- read_csv('data/_raw/01_new_meta.csv')
 
+# Make new data tidy
 new_data <- new_data %>% 
   pivot_longer(-Toxin, names_to = "Snake", values_to = "value") %>%
   pivot_wider(names_from = Toxin, values_from = value) %>%
@@ -15,19 +16,14 @@ new_data <- new_data %>%
   mutate(`Unknown/Undetermined` = 100 - Reduce(`+`, select_if(., is.numeric)))
 
 data_aug <- data_clean %>% 
-<<<<<<< HEAD
-  full_join(new_data) %>% 
-  mutate_each(list(~replace(., which(is.na(.)), 0)))
-
-# data_aug %>% select(contains("dimeric")) %>% View
-# Rename colnames to only contain abbreviations
-colnames(data_aug) <- str_split(colnames(data_aug), pattern = " \\(", simplify = TRUE)[, 1] %>%
-  str_replace(pattern = "-toxin", replacement = "toxin")
-=======
   full_join(new_data) %>%
   replace(is.na(.), 0)
-#Delete? mutate_each(list(~replace(., which(is.na(.)), 0)))
->>>>>>> dfef388d0617d012db6c7f1725505229298ca6cc
+
+# # Rename colnames to only contain abbreviations
+colnames(data_aug) <- str_split(colnames(data_aug), pattern = " \\(", simplify = TRUE)[, 1] %>%
+   str_replace(pattern = "-toxin", replacement = "toxin")
+
+
 
 # Group toxins ------------------------------------------------------------
 SVMPs <- data_aug %>% 

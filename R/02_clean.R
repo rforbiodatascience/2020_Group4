@@ -22,7 +22,7 @@ data_clean <- data_raw %>%
   filter(!(str_to_lower(Note) == "pooled"),
          str_detect(Snake, '\\*', negate = TRUE)) %>% 
   mutate(Country = case_when(
-                            Note %in% USA ~ "USA",
+                            detect_in_list(Note, USA) ~ "USA",
                             Note %in% Brazilian_cities ~ "Brazil",
                             Note %in% Unknown ~ "Unknown",
                             str_detect(Note, "Caribbean") ~ "Costa Rica",
