@@ -4,10 +4,14 @@
 # ------------------------------------------------------------------------------
 rm(list = ls())
 
-# Install packages
+# Install packages if not previously installed
 # ------------------------------------------------------------------------------
-install.packages("tidyverse")
-install.packages("devtools")
+list_of_packages <- c("tidyverse", "devtools")
+
+new_packages <- list_of_packages[!(list_of_packages %in% installed.packages()[, "Package"])]
+if(length(new_packages)) {
+  install.packages(new_packages)
+}
 
 # Load libraries
 # ------------------------------------------------------------------------------
