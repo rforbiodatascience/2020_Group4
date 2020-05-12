@@ -80,14 +80,15 @@ data_aug <- data_aug %>%
 
 
 # Add families ------------------------------------------------------------
-Snakedata <- read_csv('data/_raw/snake_families.csv')
-families <- Snakedata %>% 
+snake_families <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR1J2-JTgyqdK48fycrWrlC5bqWFHxVatiCLhvWuxnxTJYhuKoq-bMpEvxjL57LwePK819TJAHU-tkC/pub?gid=1798552264&single=true&output=csv",
+                           col_types = "cc") %>% 
   rename(Genus = 'Snake genus') %>% 
   unique()
 
 # Join families to data
 data_aug <- data_aug %>% 
-  left_join(families, by = "Genus")
+  left_join(snake_families, by = "Genus") %>% 
+  select(1:Country, Family, everything())
 
 # Sanity check
 data_aug %>% 
