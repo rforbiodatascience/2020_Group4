@@ -6,7 +6,7 @@ library(maps)
 data_aug <- read_csv("data/03_data_aug.csv")
 
 # World map ---------------------------------------------------------------
-# Country with most different snakes
+# Distribution of snakes pr. country
 data_world <- data_aug %>% 
   distinct(Country, Snake) %>% 
   count(Country) %>%
@@ -16,13 +16,13 @@ n_unknown <- data_world %>%
   filter(Country == "Unknown") %>%
   pull(n)
 
-map.world <- map_data("world")
+map_world <- map_data("world")
 
-map.world_joined <- map.world %>% 
+map_world_joined <- map_world %>% 
   left_join(data_world, by = c('region' = 'Country')) %>% 
   rename(count = n)
 
-world <- map.world_joined %>% 
+world <- map_world_joined %>% 
   ggplot(aes(x = long,
              y = lat,
              group = group,
@@ -43,9 +43,8 @@ world_plotly <- ggplotly(world) %>%
                                     paste("There are", n_unknown, "snakes of unknown origin."),
                                     '</sup>')))
 
+# Saved as both an interactive and static plot
 save(world_plotly, file = "results/04_world_of_snakes.Rdata")
-
-# Too big to be stored as html
 ggsave(filename = "results/04_world_of_snakes.png", device = "png")
 
 
@@ -54,7 +53,7 @@ genus_count <- data_aug %>%
   distinct(Snake, Genus, Family) %>% 
   ggplot(aes(x = Genus, fill = Family)) +
   geom_bar() + 
-  facet_grid(. ~ Family,
+  facet_grid(cols = vars(Family),
              space = "free",
              scales = "free") +
   theme(axis.text.x = element_text(angle = 90,
