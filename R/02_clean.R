@@ -1,5 +1,5 @@
 library(tidyverse)
-#Delete? function at USA source('R/99_proj_func.R')
+source('R/99_proj_func.R')
 
 # Load raw data
 data_raw <- read_csv("data/_raw/01_data_load_relative.csv")
