@@ -129,9 +129,6 @@ include_graphics("../results/05_avg_toxin_genus.png")
 ```
 
 
-<!-- ## Discussion -->
-<!-- - Discuss results, what can we say about the data based on the study -->
-
 ## Comparing venom composition between species
 ```{r, out.width = "90%"}
 load("../results/05_compare_two.Rdata")
@@ -218,6 +215,7 @@ include_graphics("../results/05_family_legend.png")
 # includeHTML("../results/04_compareTwo.html")
 include_graphics("../results/05_compare_two.png")
 ```
+
 
 ## Static plots for publication
 ```{r, out.width = "90%"}

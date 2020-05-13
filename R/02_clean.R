@@ -16,11 +16,14 @@ USA <- c("Colorado", "Arizona", "Idyllwild", "Loma Linda", "Phelan",
          "Colorado", "Ohio", "New Mexico", "Forida")
 Unknown <- c("origin unknown", "neonate", "adult")
 
+# Remove ", %" from column names
+colnames(data_raw) <- colnames(data_raw) %>% 
+  str_replace(pattern = ", %", replacement = "")
+
 # Conditions in data set: 
   # rownames in "Snake" column containing "*" indicates transcriptomic data, thus deleted.
   # rownames in "Note" column containing "pooled" indicates pooled venom of different snakes, thus deleted.
 data_clean <- data_raw %>% 
-  rename_if(is_double, rm_percent) %>% 
   rename(`SP (Serine Proteinase)` = `SP (Serine roteinase)`) %>% 
   filter(!(str_to_lower(Note) == "pooled"),
          str_detect(string = Snake, pattern = '\\*', negate = TRUE)) %>% 
@@ -63,7 +66,7 @@ data_new <- data_new %>%
   pivot_longer(cols = -Toxin, names_to = "Snake", values_to = "value") %>% 
   pivot_wider(names_from = Toxin, values_from = value) %>% 
   left_join(meta_new, by = "Snake") %>% 
-  replace(list = is.na(.), values = 0)
+  replace(is.na(.), values = 0)
 
 # Write output clean new file
 data_new %>% 
