@@ -19,3 +19,5 @@ source("R/00_runall.R")
 
 ### Access shiny app at:
 https://shdam.shinyapps.io/compareTwo/
+
+Danger noodle go hsss
