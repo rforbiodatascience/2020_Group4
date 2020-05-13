@@ -2,15 +2,6 @@ rm(list = ls())
 
 # Functions
 
-# Removes ', %' from a string
-rm_percent <- function(string){
-  if( endsWith(string, ", %")){
-    string <- string %>%
-      str_sub(start = 1, end = str_length(string)-3)
-  }
-  return(string)
-}
-
 # Check if any string in list is a substring of the string variable
 detect_in_list <- function(string, list){
  in_list <- string %>%
