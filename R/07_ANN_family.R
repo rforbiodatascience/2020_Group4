@@ -3,7 +3,7 @@
 #http://teaching.healthtech.dtu.dk/22100/index.php/22100_-_R_for_Bio_Data_Science
 
 #Only run first time:
-#source('R/07_ANN_setup.R')
+#source('R/05_ANN_setup.R')
 
 rm(list=ls())
 
@@ -101,13 +101,11 @@ plot_dat <- nn_dat %>%
          y_pred = factor(predict_classes(model, x_test)),
          Correct = factor(ifelse(class_num == y_pred, "Yes", "No")))
 
-plot_dat %>% select(-contains("feat")) %>% head(3)
 
-
-title     = "Classification Performance of Artificial Neural Network"
-sub_title = str_c("Accuracy = ", round(perf$acc, 3) * 100, "%")
-x_lab     = "True snake family"
-y_lab     = "Predicted snake family"
+title     <- "Classification Performance of Artificial Neural Network"
+sub_title <- str_c("Accuracy = ", round(perf$acc, 3) * 100, "%")
+x_lab     <- "True snake family"
+y_lab     <- "Predicted snake family"
 accuracy_plot <- plot_dat %>% ggplot(aes(x = class_num, y = y_pred, colour = Correct)) + 
   geom_jitter() + 
   scale_x_discrete(labels = levels(nn_dat$class_label)) +  
