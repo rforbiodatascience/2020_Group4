@@ -1,29 +1,29 @@
-#This script and the script 05_ANN_continents.R are heavily inspired by the course material given in the course 
-#22100 - R for Bio Data Science at the Technical University of Denmark.
-#http://teaching.healthtech.dtu.dk/22100/index.php/22100_-_R_for_Bio_Data_Science
+# This script is heavily inspired by the course material given in the course 
+# 22100 - R for Bio Data Science at the Technical University of Denmark.
+# http://teaching.healthtech.dtu.dk/22100/index.php/22100_-_R_for_Bio_Data_Science
 
-#Only run first time:
-#source('R/05_ANN_setup.R')
+# Only run first time:
+# source('R/07_ANN_setup.R')
 
 rm(list=ls())
 
 library('tidyverse')
 library('keras')
 
-#sample(1e6,1)
+# sample(1e6,1)
 set.seed(656907)
 
-###### Load augmented data, and filter for low observations
+# Load augmented data, and filter for low observations
 data <- read_csv("data/03_data_aug.csv")  
 
+#  Load data into test and training ---------------------------------------
 
-##### Load data into test and training
 
 nn_dat <- data %>%
-  #Add family labels and factors
+  # Add family labels and factors
   mutate(class_num = as.numeric(as.factor(Family)) - 1, # factor, so = 0, 1
          class_label = as.factor(Family)) %>%
-  #Reorganise order of columns
+  # Reorganise order of columns
   select(1:Reference, class_label, class_num, everything())
 nn_dat %>% head(3)
 

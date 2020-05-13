@@ -13,7 +13,7 @@ data_aug <- data_clean %>%
   full_join(data_new) %>% 
   replace(is.na(.), 0)
 
-# # Rename colnames to only contain abbreviations
+# Rename colnames to only contain abbreviations
 colnames(data_aug) <- str_split(colnames(data_aug),
                                 pattern = " \\(",
                                 simplify = TRUE)[, 1] %>%
@@ -65,22 +65,25 @@ data_aug <- data_aug %>%
 
 
 # Remove toxins with few occurances ---------------------------------------
-summed_toxins <- data_aug %>% 
-  select_if(is.numeric) %>% 
+count_toxins <- data_aug %>% 
+  select_if(is.numeric) %>%
   select(-Unknown) %>%
   summarise_all(is_not_zero) %>% 
   pivot_longer(everything(), values_to = 'toxin_occurrence', names_to = 'toxin') %>%
   filter(toxin_occurrence > 5)
 
 data_aug <- data_aug %>% 
-  select(c("Snake", "Reference", "Country", summed_toxins$toxin)) %>% 
+  select(c("Snake", "Reference", "Country", count_toxins$toxin)) %>% 
   mutate(Unknown = 100 - Reduce(`+`, select_if(., is.numeric)))
 
 
 # Separate snake names into genus and species ----------------------------------------------------
 data_aug <- data_aug %>% 
-  mutate(Genus = str_split(Snake, " ", simplify = TRUE)[, 1],
-         Species = str_split(Snake, " ", simplify = TRUE)[, 2])
+  separate(Snake,
+           into = c("Genus", "Species"),
+           sep = " ",
+           remove = FALSE,
+           extra = "drop")
 
 
 # Add snake families ------------------------------------------------------------

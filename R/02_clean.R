@@ -1,4 +1,6 @@
+# Clear workspace
 rm(list = ls())
+
 library(tidyverse)
 source('R/99_proj_func.R')
 
@@ -12,21 +14,20 @@ Brazilian_cities <- c("Juazeiro", "Ceara", "Paraiba", "Pernambuco",
 USA <- c("Colorado", "Arizona", "Idyllwild", "Loma Linda", "Phelan", 
          "Catalina","Texas", "Kentucky", "Missouri", "Florida", "Kansas", 
          "Colorado", "Ohio", "New Mexico", "Forida")
-Unknown <- c("Origin unknown", "neonate", "adult")
+Unknown <- c("origin unknown", "neonate", "adult")
 
 # Conditions in data set: 
   # rownames in "Snake" column containing "*" indicates transcriptomic data, thus deleted.
   # rownames in "Note" column containing "pooled" indicates pooled venom of different snakes, thus deleted.
 data_clean <- data_raw %>% 
   rename_if(is_double, rm_percent) %>% 
-  rename(`SP (Serine Proteinase)` = `SP (Serine roteinase)`,
-         `α-NTx (α-NeuroToxin)` = `?-NTx (?-NeuroToxin)`) %>% 
+  rename(`SP (Serine Proteinase)` = `SP (Serine roteinase)`) %>% 
   filter(!(str_to_lower(Note) == "pooled"),
          str_detect(Snake, '\\*', negate = TRUE)) %>% 
   mutate(Country = case_when(
                             detect_in_list(Note, USA) ~ "USA",
+                            str_to_lower(Note) %in% Unknown ~ "Unknown",
                             Note %in% Brazilian_cities ~ "Brazil",
-                            Note %in% Unknown ~ "Unknown",
                             str_detect(Note, "Caribbean") ~ "Costa Rica",
                             str_detect(Note, "Pacific") ~ "Costa Rica",
                             str_detect(str_to_lower(Note), "costa rica") ~ "Costa Rica",
@@ -45,7 +46,7 @@ data_clean <- data_raw %>%
                             Note == "Burkina faso" ~ "Burkina Faso",
                             Note == "North Africa" ~ "Egypt",
                             TRUE ~ Note)) %>% 
-  select(-c("Note", "Sum"))
+  select(-c(Note, Sum))
 
 
 # Write output clean file -------------------------------------------------
@@ -62,9 +63,8 @@ data_new <- data_new %>%
   pivot_longer(-Toxin, names_to = "Snake", values_to = "value") %>% 
   pivot_wider(names_from = Toxin, values_from = value) %>% 
   left_join(meta_new, by = "Snake") %>% 
-  mutate(`Unknown/Undetermined` = 100 - Reduce(`+`, select_if(., is.numeric))) %>% 
   replace(is.na(.), 0)
 
-# Wrtie output clean new file
+# Write output clean new file
 data_new %>% 
   write_csv('data/02_data_new_clean.csv')

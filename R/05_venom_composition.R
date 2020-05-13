@@ -20,34 +20,33 @@ family_toxins <- data_aug %>%
                names_to = "Toxin",
                values_to = "Value") %>% 
   group_by(Family, Toxin) %>%
-  summarise(mean(Value)) %>%
-  mutate(Value = round(`mean(Value)`, 2)) %>%
+  summarise(Value = Value %>% 
+              mean() %>%
+              round(2)) %>% 
   ggplot(aes(x = Value, y = Family, fill = Toxin)) +
   geom_col() +
   labs(title = "Mean Venom Composition of Viperidae and Elapidae",
        x = "Mean venom composition (%)")
+
+# Save plot as png and in Rdata file
 ggsave("results/05_family_legend.png", plot = family_toxins,
        device = "png", scale = 1.5, width = 6.17, height = 3.1)
 
-# Save plot in Rdata file
 family_plotly <- ggplotly(family_toxins + theme(legend.position = "none"))
 save(family_plotly, file = "results/05_family_plotly.Rdata")
 
 
 # Which toxin is most abundant for each genus -----------------------------
-genus_count <- data_aug %>% 
-  count(Genus)
+
 avg_toxin <- data_aug %>% 
   select(Genus, Family, all_of(toxin_names)) %>% 
   group_by(Genus, Family) %>% 
-  summarise_all(sum) %>% 
-  pivot_longer(-c(Genus, Family), names_to = "Toxin") %>% 
-  filter(value == max(value)) %>% 
-  inner_join(genus_count, by = "Genus") %>% 
-  mutate(avg_abundance = round(value / n, 2)) %>%
-  ggplot(aes(x = Genus, y = avg_abundance, fill = Toxin)) +
+  summarise_all(mean) %>% 
+  pivot_longer(-c(Genus, Family), names_to = "Toxin", values_to = "toxin_amount") %>% 
+  filter(toxin_amount == max(toxin_amount)) %>% 
+  ggplot(aes(x = Genus, y = toxin_amount, fill = Toxin)) +
   geom_col(width = 0.7) +
-  facet_grid(. ~ Family,
+  facet_grid(cols = vars(Family),
              space = "free",
              scales = "free") +
   ylim(0, 100) +
@@ -58,24 +57,23 @@ avg_toxin <- data_aug %>%
        subtitle = "Segregated by family",
        y = "Average abundance (%)")
 
+# Save plot as png
 ggsave("results/05_avg_toxin_genus.png", plot = avg_toxin, device = "png", width = 6.17, height = 3.1)
 
 
-# Intra species comparizon --------------------------------
+# Intra species comparison --------------------------------
 intra_species <- data_aug %>% 
   filter(Snake == "Naja kaouthia") %>%
-  mutate(Snake = paste(Snake, " (",
-                       row_number(), ")",
-                       sep = "")) %>%
+  mutate(Snake = paste0(Snake, " (",
+                       row_number(), ")")
+         ) %>%
   pivot_longer(all_of(toxin_names),
                names_to = "Toxin",
-               values_to = "Value") %>% 
-  arrange(desc(Snake)) %>% 
-  ggplot(aes(x = Snake, y = Value, fill = Toxin)) +
+               values_to = "Toxin amount (%)") %>% 
+  ggplot(aes(x = `Toxin amount (%)`, y = Snake, fill = Toxin)) +
   geom_col() +
-  coord_flip() +
   labs(title = "Intra species comparison of Naja kaouthia",
-       y = "Venom composition (%)")
+       x = "Venom composition (%)")
 
 ggsave("results/05_intra_species.png", plot = intra_species,
        device = "png", scale = 1.5, width = 6.17, height = 3.1)
@@ -86,19 +84,19 @@ save(intra_species_plotly, file = "results/05_intra_species.Rdata")
 
 # Compare snake genera ----------------------------------------------------
 compare_two <- data_aug %>% 
-  filter(Snake %in% c("Naja kaouthia", "Daboia russelii russelii")) %>%
+  filter(Snake %in% c("Naja kaouthia", "Daboia russelii russelii")) %>% 
   pivot_longer(all_of(toxin_names),
                names_to = "Toxin",
-               values_to = "Value") %>% 
+               values_to = "toxin_amount") %>% 
   group_by(Snake, Toxin) %>%
-  summarise(mean(Value)) %>%
-  mutate(Value = round(`mean(Value)`, 2)) %>%
-  filter(Value > 0) %>%
-  ggplot(aes(x = Value, y = Snake, fill = Toxin)) +
+  summarise(`Toxin amount (%)` = toxin_amount %>% 
+              mean() %>%
+              round(2)) %>% 
+  ggplot(aes(x = `Toxin amount (%)`, y = Snake, fill = Toxin)) +
   geom_col() +
   labs(x = 'Venom composition (%)', 
        title = "Comparing venom composition",  
-       subtitle = "Viperidae: 'Bothrops atrox', Elapidae: 'Naja kaouthia'" )
+       subtitle = "Viperidae: 'Daboia russelii russelii', Elapidae: 'Naja kaouthia'" )
 
 ggsave("results/05_compare_two.png", plot = compare_two,
        device = "png", scale = 1.5, width = 6.17, height = 3.1)

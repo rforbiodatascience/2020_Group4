@@ -1,4 +1,6 @@
 # Setup script with all packages
+
+# Clear workspace
 rm(list = ls())
 
 # Install packages only if not previously installed
