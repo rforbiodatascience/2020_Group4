@@ -47,7 +47,7 @@ world_plotly <- ggplotly(world) %>%
 
 # Saved as both an interactive and static plot
 save(world_plotly, file = "results/04_world_of_snakes.Rdata")
-ggsave(filename = "results/04_world_of_snakes.png", device = "png")
+ggsave(filename = "results/04_world_of_snakes.png", plot = world, device = "png")
 
 
 # Distribution of genera --------------------------------------------------
