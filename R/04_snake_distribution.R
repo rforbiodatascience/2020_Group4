@@ -47,7 +47,7 @@ world_plotly <- ggplotly(world) %>%
 
 # Saved as both an interactive and static plot
 save(world_plotly, file = "results/04_world_of_snakes.Rdata")
-ggsave(filename = "results/04_world_of_snakes.png", plot = world, device = "png")
+ggsave(filename = "results/04_world_of_snakes.png", plot = world, device = "png", width = 6.17, height = 3.1)
 
 
 # Distribution of genera --------------------------------------------------
@@ -63,4 +63,4 @@ genus_count <- data_aug %>%
                                    vjust = 0.4),
         legend.position = "none") +
   labs(y = "Count", title = "Count of distinct snakes in genera")
-ggsave("results/04_genus_distribution.png", plot = genus_count, device = "png")
+ggsave("results/04_genus_distribution.png", plot = genus_count, device = "png", width = 6.17, height = 3.1)

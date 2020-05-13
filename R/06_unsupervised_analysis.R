@@ -51,7 +51,7 @@ family_pca <- data_pca_aug %>%
   geom_point(shape = 1, size = 3, alpha = 0.5) + 
   labs(x = x, y = y, title = "PCA", color = "Snake family") +
   theme_grey()
-ggsave("results/06_family_pca.png", device = "png")
+ggsave("results/06_family_pca.png", device = "png", width = 6.17, height = 3.1)
 
 # K-means -----------------------------------------------------------------
 
@@ -69,14 +69,14 @@ kmeans <- data_pca_aug_k_org %>%
              color = cluster_org)) +
   geom_point(shape = 1, size = 3, alpha = 0.5) +
   labs(x = x, y = y, title = "K-means", color = "Cluster")
-ggsave("results/06_kmeans.png", device = "png")
+ggsave("results/06_kmeans.png", device = "png", width = 6.17, height = 3.1)
 
 
 # Save PCA and K-means as multi-panel plot
-ggsave("results/06_kmeans-family.png", plot = family_pca + kmeans, device = "png")
+ggsave("results/06_kmeans-family.png", plot = family_pca + kmeans, device = "png", width = 6.17, height = 3.1)
 
 
-# Save plot in Rdata file
+# Save snake in cluster 2
 cluster2 <- data_pca_aug %>% 
   filter(.fittedPC2 == min(.fittedPC2))
 save(cluster2, file = "results/06_kmeans_cluster2.Rdata")

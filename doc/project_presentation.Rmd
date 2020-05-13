@@ -36,9 +36,24 @@ print(new_data, width = 80, n = 4, n_extra = 1)
 - Develop a tool for venom composition analysis
 - Group snakes by family based on venom composition (PCA, K-means, ANN)
 
+## Materials and methods
+- Data processing and modelling as well as the creation of this presentation was performed in Rstudio Cloud.
+
+- Coding followed the tidyverse style guide by Hadley Wickham.
+
+- Results obtained from modelling using Artificial Neural Networks were performed in another project.
+
+- Whole project exists at github at: 
+https://github.com/rforbiodatascience/2020_group04
+
+*Used packages:*
+*httr, readxl, tidyverse, knitr, plotly, maps, patchwork, shiny, rsconnect, keras, devtools*
+
+
+
 ## Project outline
 ```{r, out.width= "60%", out.extra='style="float:right; padding:10px"'}
-include_graphics("../doc/Flow1.png")
+include_graphics("../doc/Flow2.png")
 ```
 
 - Loading and cleaning data
@@ -68,26 +83,6 @@ include_graphics("../doc/Flow1.png")
 
 
 
-
-## Materials and methods
-- Data processing and modelling as well as the creation of this presentation was performed in Rstudio Cloud.
-
-- Coding followed the tidyverse style guide by Hadley Wickham.
-
-- Results obtained from modelling using Artificial Neural Networks were performed in another project.
-
-- Whole project exists at github at: 
-https://github.com/rforbiodatascience/2020_group04
-
-*Used packages:*
-*httr, readxl, tidyverse, knitr, plotly, maps, patchwork, shiny, rsconnect, keras, devtools*
-
-## Tidying and transforming data 
-<p align="center">
-```{r, out.width = "70%"}
-include_graphics("../doc/Flow2.png")
-```
-</p>
     
 
 ## Tidying and transforming data
