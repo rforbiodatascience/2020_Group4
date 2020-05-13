@@ -86,7 +86,7 @@ save(intra_species_plotly, file = "results/05_intra_species.Rdata")
 
 # Compare snake genera ----------------------------------------------------
 compare_two <- data_aug %>% 
-  filter(Snake %in% c("Naja kaouthia", "Bothrops atrox")) %>%
+  filter(Snake %in% c("Naja kaouthia", "Daboia russelii russelii")) %>%
   pivot_longer(all_of(toxin_names),
                names_to = "Toxin",
                values_to = "Value") %>% 
@@ -107,7 +107,7 @@ compare_two_plotly <- ggplotly(compare_two + theme(legend.position = "none")) %>
   layout(title = list(text = paste0('Comparing venom composition',
                                     '<br>',
                                     '<sup>',
-                                    'Viperidae: "Bothrops atrox", Elapidae: "Naja kaouthia"',
+                                    'Viperidae: "Daboia russelii russelii", Elapidae: "Naja kaouthia"',
                                     '</sup>')))
 save(compare_two_plotly, file = "results/05_compare_two.Rdata")
 
