@@ -5,10 +5,13 @@
 #Only run first time:
 #source('R/07_ANN_setup.R')
 
+rm(list=ls())
+
 library('tidyverse')
 library('keras')
 
-set.seed(1996)
+#sample(1e6,1)
+set.seed(656907)
 
 ###### Load augmented data, and filter for low observations
 data <- read_csv("data/03_data_aug.csv")  
@@ -21,7 +24,7 @@ nn_dat <- data %>%
   mutate(class_num = as.numeric(as.factor(Family)) - 1, # factor, so = 0, 1
          class_label = as.factor(Family)) %>%
   #Reorganise order of columns
-  select(1:Continent, class_label, class_num, everything())
+  select(1:Reference, class_label, class_num, everything())
 nn_dat %>% head(3)
 
 test_f <- 0.25
@@ -57,7 +60,6 @@ y_test <- nn_dat %>%
 
 # Model -------------------------------------------------------------------
 
-
 #Number of features is number of input venoms (38)
 n_features = ncol(x_train)
 
@@ -71,7 +73,7 @@ model <- keras_model_sequential() %>%
 
 model %>%
   compile(loss = 'binary_crossentropy',
-          optimizer = optimizer_rmsprop(lr = 0.001),
+          optimizer = optimizer_rmsprop(lr = 0.005),
           metrics = c('accuracy')
   )
 
@@ -81,12 +83,12 @@ history <- model %>%
       y = y_train,
       epochs = 100,
       batch_size = 50,
-      validation_split = 0.2
+      validation_split = 0.20
   )
 
 plot(history)
 
-png('results/07_ANN_family_training.png', width = 500, height = 500)
+png('results/05_ANN_family_training.png', width = 500, height = 500)
 plot(history)
 dev.off()
 
@@ -112,7 +114,7 @@ accuracy_plot <- plot_dat %>% ggplot(aes(x = class_num, y = y_pred, colour = Cor
   scale_y_discrete(labels = levels(nn_dat$class_label)) +     
   theme_bw() + labs(title = title, subtitle = sub_title, x = x_lab, y = y_lab)
 
-ggsave("results/07_accuracy_plot.png", plot = accuracy_plot, device = "png")
+ggsave("results/05_accuracy_plot.png", plot = accuracy_plot, device = "png")
 
 
 
@@ -120,5 +122,4 @@ ggsave("results/07_accuracy_plot.png", plot = accuracy_plot, device = "png")
 
 incorrect <- plot_dat %>% filter(Correct == "No")
 
-incorrect %>% 
-  write_csv('results/07_incorrect_pred.csv')
+write_csv(incorrect, "results/05_incorrect_pred.csv")

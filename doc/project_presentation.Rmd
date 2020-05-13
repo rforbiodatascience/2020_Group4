@@ -185,9 +185,9 @@ include_graphics("../results/06_kmeans-family.png")
 ```{r, out.width= "50%", out.extra='style="float:right; padding:10px"'}
 include_graphics("../results/07_ANN_family_training.png")
 ```
-A simple vanilla ANN managed to correctly classify the whole testset (25 % of data).
+A simple vanilla ANN managed to achieve a classification accuracy of 98.2 %
 
-- Specifications: 4 hidden neurons, learning rate = 0.001, n_epocs = 100, loss criterion = Binary Crossentropy.
+- Specifications: 4 hidden neurons, test set size: 25 %, validation set size: 20 %, learning rate = 0.005, n_epocs = 100, loss criterion = Binary Crossentropy.
 <!-- - Prediction of which continent, the snake originated from  -->
 <!--   - Attempted a number of architechtures ranging from 1 to 4 hidden layers, with/without dropout and tried optimizing hyperparameters. -->
 <!--   - Problems with overfitting - further regularization e.g. early stopping might be a solution -->
@@ -198,7 +198,7 @@ A simple vanilla ANN managed to correctly classify the whole testset (25 % of da
 
 
 ## Theoretic analysis of incorrect labels
-To investigate a case with misclassified snakes, a new model was trained with a test size of 40%, 5 snakes are misclassified as illustrated below:
+The one snake being misclassified, is incorrectly labeled as Elapidae. 
 
 <p align="center">
 ```{r, out.width = "50%"}
@@ -209,7 +209,7 @@ include_graphics("../results/07_accuracy_plot.png")
 
 ## Analysis of special cases
 
-Incorrectly labeled snakes by sub-optimal ANN:
+Incorrectly labeled snake by ANN:
 ```{r, message=FALSE}
 read_csv('../results/07_incorrect_pred.csv') %>%
   select(Snake, Family)
@@ -222,15 +222,17 @@ cluster2 %>%
   select(Snake, Family)
 ```
 
-
 ## Shiny app
 ```{r}
 include_app("https://shdam.shinyapps.io/compareTwo/")
 ```
 
-
-
 ## Static plots for publication
+
+```{r, out.width = "90%", fig.align = "center"}
+include_graphics("../results/05_family_legend.png")
+```
+
 
 ## Comparing venom composition between species
 ```{r, out.width = "90%"}
