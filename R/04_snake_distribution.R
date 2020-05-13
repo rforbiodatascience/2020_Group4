@@ -33,16 +33,16 @@ world <- map_world_joined %>%
   scale_fill_gradient(low = "#ffded2",
                       high = "red") +
   labs(title = "World map of snake counts",
-       subtitle = paste("There are", n_unknown, "snakes of unknown origin."),
+       subtitle = str_c("There are", n_unknown, "snakes of unknown origin.", sep = " "),
        x = "Longitude",
        y = "Latitude",
        fill = "Snake count")
 
 world_plotly <- ggplotly(world) %>% # Insert subtitle
-  layout(title = list(text = paste0("World map of snake counts",
+  layout(title = list(text = str_c("World map of snake counts",
                                     '<br>',
                                     '<sup>',
-                                    paste("There are", n_unknown, "snakes of unknown origin."),
+                                    str_c("There are", n_unknown, "snakes of unknown origin.", sep = " "),
                                     '</sup>')))
 
 # Saved as both an interactive and static plot

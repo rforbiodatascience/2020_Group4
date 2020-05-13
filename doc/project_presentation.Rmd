@@ -7,6 +7,7 @@ output:
   ioslides_presentation:
     widescreen: true
     smaller: true
+    logo: "DTU.png"
 ---
 
 
@@ -33,8 +34,10 @@ print(new_data, width = 80, n = 4, n_extra = 1)
 
 
 ## Goal of study
+- Perform visual analysis of data distribution
 - Develop a tool for venom composition analysis
 - Group snakes by family based on venom composition (PCA, K-means, ANN)
+
 
 
 ## Materials and methods
@@ -54,7 +57,7 @@ https://github.com/rforbiodatascience/2020_group04
 
 ## Project outline
 ```{r, out.width= "60%", out.extra='style="float:right; padding:10px"'}
-include_graphics("../doc/Flow2.png")
+include_graphics("../doc/Flow1.png")
 ```
 
 - Loading and cleaning data
@@ -73,19 +76,6 @@ include_graphics("../doc/Flow2.png")
   - Artificial Neural Network (ANN)
 
 
-
-
-<!-- ## Introduction -->
-<!-- - Intro to snake venom -->
-<!-- - Data set for the study:  -->
-<!--   - Venom compositions from snakes all around the world -->
-<!-- - Goal of study: -->
-<!--   - Group snakes by genus based on venom composition (PCA, K-means, ANN) -->
-
-
-
-    
-
 ## Tidying and transforming data
 - Tidy raw data
   - Load and clean data
@@ -103,7 +93,7 @@ print(data_aug, width = 80, n = 7, n_extra = 1)
 ## Analysis and visualisations
 <p align="center">
 ```{r, out.width = "70%"}
-include_graphics("../doc/Flow3.png")
+include_graphics("../doc/Flow2.png")
 ```
 </p>
 ## Geographical overview of samples
@@ -167,7 +157,7 @@ include_app("https://shdam.shinyapps.io/compareTwo/")
 ## Unsupervised and supervised learning
 <p align="center">
 ```{r, out.width = "70%"}
-include_graphics("../doc/Flow4.png")
+include_graphics("../doc/Flow3.png")
 ```
 </p>
 
@@ -184,13 +174,6 @@ include_graphics("../results/07_ANN_family_training.png")
 A simple vanilla ANN managed to achieve a classification accuracy of 98.2 %
 
 - Specifications: 4 hidden neurons, test set size: 25 %, validation set size: 20 %, learning rate = 0.005, n_epocs = 100, loss criterion = Binary Crossentropy.
-<!-- - Prediction of which continent, the snake originated from  -->
-<!--   - Attempted a number of architechtures ranging from 1 to 4 hidden layers, with/without dropout and tried optimizing hyperparameters. -->
-<!--   - Problems with overfitting - further regularization e.g. early stopping might be a solution -->
-<!--   - Question might be ill posed - venom composition predicts snake family and not necessarily location. e.g. snakes from two different families both from the same country have completely different venom compositions. -->
-
-<!-- ## Training of ANN predicting snake family -->
-
 
 
 ## Theoretic analysis of incorrect labels
@@ -230,13 +213,13 @@ include_graphics("../results/05_family_legend.png")
 ```
 
 
-## Comparing venom composition between species
+## Static plots for publication
 ```{r, out.width = "90%"}
 # includeHTML("../results/04_compareTwo.html")
 include_graphics("../results/05_compare_two.png")
 ```
 
-## Comparing venom composition within species
+## Static plots for publication
 ```{r, out.width = "90%"}
 # Bar chart comparing within snake species
 include_graphics("../results/05_intra_species.png")

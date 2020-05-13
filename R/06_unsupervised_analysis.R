@@ -89,6 +89,6 @@ ggsave("results/06_kmeans-family.png", plot = family_pca + kmeans, device = "png
 
 
 # Save snake in cluster 2
-cluster2 <- data_pca_aug %>% 
+cluster2 <- data_kmeans_aug %>% 
   filter(Cluster == 2)
 save(cluster2, file = "results/06_kmeans_cluster2.Rdata")
