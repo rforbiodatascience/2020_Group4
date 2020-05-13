@@ -18,13 +18,13 @@ library(plotly)
 ```
 
 ## Introduction to the study
-- Raw data
+- Original data
 ```{r, message = FALSE}
 data_raw <- read_csv("../data/_raw/01_data_load_relative.csv")
 print(data_raw, width = 80, n = 4, n_extra = 1)
 ```
 
-- Newly found data
+- Additional data
 ```{r, messages = FALSE}
 new_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR1J2-JTgyqdK48fycrWrlC5bqWFHxVatiCLhvWuxnxTJYhuKoq-bMpEvxjL57LwePK819TJAHU-tkC/pub?gid=0&single=true&output=csv", col_types = "cnnn")
 print(new_data, width = 80, n = 4, n_extra = 1)
