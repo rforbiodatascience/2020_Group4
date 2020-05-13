@@ -230,13 +230,13 @@ include_graphics("../results/05_family_legend.png")
 ```
 
 
-## Comparing venom composition between species
+## Static plots for publication
 ```{r, out.width = "90%"}
 # includeHTML("../results/04_compareTwo.html")
 include_graphics("../results/05_compare_two.png")
 ```
 
-## Comparing venom composition within species
+## Static plots for publication
 ```{r, out.width = "90%"}
 # Bar chart comparing within snake species
 include_graphics("../results/05_intra_species.png")

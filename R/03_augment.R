@@ -11,10 +11,10 @@ data_new <- read_csv("data/02_data_new_clean.csv")
 # Join data ---------------------------------------------------------------
 data_aug <- data_clean %>% 
   full_join(data_new) %>% 
-  replace(is.na(.), 0)
+  replace(list = is.na(.), values = 0)
 
 # Rename colnames to only contain abbreviations
-colnames(data_aug) <- str_split(colnames(data_aug),
+colnames(data_aug) <- str_split(string = colnames(data_aug),
                                 pattern = " \\(",
                                 simplify = TRUE)[, 1] %>%
    str_replace(pattern = "-toxin", replacement = "toxin")
@@ -69,7 +69,7 @@ count_toxins <- data_aug %>%
   select_if(is.numeric) %>%
   select(-Unknown) %>%
   summarise_all(is_not_zero) %>% 
-  pivot_longer(everything(), values_to = 'toxin_occurrence', names_to = 'toxin') %>%
+  pivot_longer(cols = everything(), values_to = 'toxin_occurrence', names_to = 'toxin') %>%
   filter(toxin_occurrence > 5)
 
 data_aug <- data_aug %>% 
@@ -79,7 +79,7 @@ data_aug <- data_aug %>%
 
 # Separate snake names into genus and species ----------------------------------------------------
 data_aug <- data_aug %>% 
-  separate(Snake,
+  separate(col = Snake,
            into = c("Genus", "Species"),
            sep = " ",
            remove = FALSE,

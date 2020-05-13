@@ -16,7 +16,7 @@ toxin_names <- data_aug %>%
 
 # Compare venom composition of the two snake families ----------------------
 family_toxins <- data_aug %>% 
-  pivot_longer(all_of(toxin_names),
+  pivot_longer(cols = all_of(toxin_names),
                names_to = "Toxin",
                values_to = "Value") %>% 
   group_by(Family, Toxin) %>%
@@ -42,7 +42,7 @@ avg_toxin <- data_aug %>%
   select(Genus, Family, all_of(toxin_names)) %>% 
   group_by(Genus, Family) %>% 
   summarise_all(mean) %>% 
-  pivot_longer(-c(Genus, Family), names_to = "Toxin", values_to = "toxin_amount") %>% 
+  pivot_longer(cols = -c(Genus, Family), names_to = "Toxin", values_to = "toxin_amount") %>% 
   filter(toxin_amount == max(toxin_amount)) %>% 
   ggplot(aes(x = Genus, y = toxin_amount, fill = Toxin)) +
   geom_col(width = 0.7) +
@@ -64,10 +64,10 @@ ggsave("results/05_avg_toxin_genus.png", plot = avg_toxin, device = "png", width
 # Intra species comparison --------------------------------
 intra_species <- data_aug %>% 
   filter(Snake == "Naja kaouthia") %>%
-  mutate(Snake = paste0(Snake, " (",
+  mutate(Snake = str_c(Snake, " (",
                        row_number(), ")")
          ) %>%
-  pivot_longer(all_of(toxin_names),
+  pivot_longer(cols = all_of(toxin_names),
                names_to = "Toxin",
                values_to = "Toxin amount (%)") %>% 
   ggplot(aes(x = `Toxin amount (%)`, y = Snake, fill = Toxin)) +
@@ -85,7 +85,7 @@ save(intra_species_plotly, file = "results/05_intra_species.Rdata")
 # Compare snake genera ----------------------------------------------------
 compare_two <- data_aug %>% 
   filter(Snake %in% c("Naja kaouthia", "Daboia russelii russelii")) %>% 
-  pivot_longer(all_of(toxin_names),
+  pivot_longer(cols = all_of(toxin_names),
                names_to = "Toxin",
                values_to = "toxin_amount") %>% 
   group_by(Snake, Toxin) %>%
@@ -102,7 +102,7 @@ ggsave("results/05_compare_two.png", plot = compare_two,
        device = "png", scale = 1.5, width = 6.17, height = 3.1)
 # Save plot in Rdata file
 compare_two_plotly <- ggplotly(compare_two + theme(legend.position = "none")) %>% 
-  layout(title = list(text = paste0('Comparing venom composition',
+  layout(title = list(text = str_c('Comparing venom composition',
                                     '<br>',
                                     '<sup>',
                                     'Viperidae: "Daboia russelii russelii", Elapidae: "Naja kaouthia"',

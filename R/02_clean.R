@@ -23,17 +23,17 @@ data_clean <- data_raw %>%
   rename_if(is_double, rm_percent) %>% 
   rename(`SP (Serine Proteinase)` = `SP (Serine roteinase)`) %>% 
   filter(!(str_to_lower(Note) == "pooled"),
-         str_detect(Snake, '\\*', negate = TRUE)) %>% 
+         str_detect(string = Snake, pattern = '\\*', negate = TRUE)) %>% 
   mutate(Country = case_when(
-                            detect_in_list(Note, USA) ~ "USA",
+                            detect_in_list(string = Note, list = USA) ~ "USA",
                             str_to_lower(Note) %in% Unknown ~ "Unknown",
                             Note %in% Brazilian_cities ~ "Brazil",
-                            str_detect(Note, "Caribbean") ~ "Costa Rica",
-                            str_detect(Note, "Pacific") ~ "Costa Rica",
-                            str_detect(str_to_lower(Note), "costa rica") ~ "Costa Rica",
-                            str_detect(Note, "Venezuelan") ~ "Venezuela",
-                            str_detect(Note, "Mexican") ~ "Mexico",
-                            str_detect(Note, 'India') ~ "India",
+                            str_detect(string = Note, pattern = "Caribbean") ~ "Costa Rica",
+                            str_detect(string = Note, pattern = "Pacific") ~ "Costa Rica",
+                            str_detect(string = str_to_lower(Note), pattern = "costa rica") ~ "Costa Rica",
+                            str_detect(string = Note, pattern = "Venezuelan") ~ "Venezuela",
+                            str_detect(string = Note, pattern = "Mexican") ~ "Mexico",
+                            str_detect(string = Note, pattern = 'India') ~ "India",
                             Note == "Carribean" ~ "Costa Rica",
                             Note == "Columbia" ~ "Colombia",
                             Note == "Marocco" ~ "Morocco",
@@ -60,10 +60,10 @@ meta_new <- read_csv('data/_raw/01_meta_new.csv')
 
 # Make new data tidy
 data_new <- data_new %>% 
-  pivot_longer(-Toxin, names_to = "Snake", values_to = "value") %>% 
+  pivot_longer(cols = -Toxin, names_to = "Snake", values_to = "value") %>% 
   pivot_wider(names_from = Toxin, values_from = value) %>% 
   left_join(meta_new, by = "Snake") %>% 
-  replace(is.na(.), 0)
+  replace(list = is.na(.), values = 0)
 
 # Write output clean new file
 data_new %>% 
